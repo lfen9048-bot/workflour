@@ -363,8 +363,8 @@
     {
       "path": "agents/wf-shared/CAPABILITIES.md",
       "kind": "file",
-      "bytes": 2949,
-      "sha256": "f9c0fe1b95478f792b3feae85d7c02a7e1490250cfa78c9eea3efdc8f9026a3b"
+      "bytes": 3449,
+      "sha256": "af6b54aa442225fe7cbf7bb205264b2861261b8d886bed689a62bc8f61ba4d43"
     },
     {
       "path": "agents/wf-shared/skills/wf-differential-review/LICENSE",
@@ -873,8 +873,8 @@
     {
       "path": "docs/CURRENT-STATUS.zh-CN.md",
       "kind": "file",
-      "bytes": 10023,
-      "sha256": "c08e18075212cbe4e6d97aa3c3271945f775e1f81afd5a3987aba36c86594880"
+      "bytes": 10118,
+      "sha256": "cd5122ffd1fe6cc638015dab43d96a7e2a66cd8dc9fe04bbbf0ac5d22eb8e616"
     },
     {
       "path": "docs/PROJECT-OUTLINE.zh-CN.md",
@@ -891,8 +891,8 @@
     {
       "path": "docs/SKILLS-SPECIALIZATION.zh-CN.md",
       "kind": "file",
-      "bytes": 5668,
-      "sha256": "3dc971abedd1488a87806591a93337023c5bd19d009854622188d43b7425b47c"
+      "bytes": 6365,
+      "sha256": "d02d4ebb4de342ce7670ebcf0306c68b018e488449a7edcdac6ddda24d4dcba1"
     },
     {
       "path": "docs/evidence/2026-11-11/README.md",
@@ -1071,8 +1071,8 @@
     {
       "path": "docs/evidence/2026-11-11/skills-summary.json",
       "kind": "file",
-      "bytes": 10265,
-      "sha256": "85c3d6ae24568f2dcf68f735986f13697dd7accadbf8613390e5b031b05d75ff"
+      "bytes": 12157,
+      "sha256": "49dd4392659616aed9301a9e48ee5c2be180680ef4a46412e8eb1ca51da611c9"
     },
     {
       "path": "docs/evidence/2026-11-11/supplement-summary.json",

@@ -23,7 +23,8 @@
     "python_tests_passed": 164,
     "python_tests_skipped": 1,
     "node_tests": 73,
-    "node_passed": 73
+    "node_passed": 73,
+    "format_skill_entries": 7
   },
   "comparison_limit": "one sample per comparison, harness/file-access and narrowly corrected method revisions changed together; no general performance or quality advantage established",
   "cases": [
@@ -328,13 +329,66 @@
         "reasoning_effort": "high",
         "confirmation_received": false
       }
+    },
+    {
+      "case": "ux",
+      "variant": "candidate-assisted",
+      "record": "ux-agy-assisted.json",
+      "status": "timeout",
+      "elapsed_seconds": 180.051,
+      "tool_calls": 6,
+      "public_answer_chars": 0,
+      "usage_kind": "native_report_or_unavailable",
+      "usage": null,
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "gemini-3.8-flash",
+        "thought_level": "high"
+      },
+      "maintainer_prepared_browser": true,
+      "same_input_comparison": false,
+      "completed_image_reads": 0,
+      "runtime_route": null
+    },
+    {
+      "case": "ux",
+      "variant": "candidate-assisted",
+      "record": "ux-kimi-assisted.json",
+      "status": "completed",
+      "elapsed_seconds": 86.547,
+      "tool_calls": 12,
+      "public_answer_chars": 1478,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 21480,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"kimi-k3.1-pro\"]",
+        "reasoning_effort": "high"
+      },
+      "maintainer_prepared_browser": true,
+      "same_input_comparison": false,
+      "completed_image_reads": 4,
+      "runtime_route": {
+        "provider_family": "workbuddy",
+        "model": "kimi-k3.1-pro",
+        "reasoning_effort": "high",
+        "confirmation_received": false
+      }
     }
   ],
   "visual_status": {
     "independent_browser_and_image_review": "completed",
     "dsh_candidate": "functional observations completed; visual blocked because actual -sg model does not declare image input",
     "agy_skill_file_read": "completed",
-    "agy_full_ux": "timeout, not completed"
+    "agy_full_ux": "timeout, not completed",
+    "agy_assisted_ux": "timeout after browser script execution; no screenshot read or public assessment",
+    "kimi_assisted_ux": "completed browser execution, JSON read and four fresh image reads; correctly found fixture defects; not product acceptance or unattended execution",
+    "assisted_followups_are_ab_comparison": false
   },
   "corrections_after_forward_test": [
     "stop duplicate proofs and summarize once",
@@ -343,5 +397,7 @@
     "idempotence is a real property; absence of a PBT library does not forbid property checks",
     "stop extra diagnosis after confirmed missing image input"
   ],
-  "acceptance": "existing project states unchanged; WFWEB-001 remains acceptance/pending"
+  "acceptance": "existing project states unchanged; WFWEB-001 remains acceptance/pending",
+  "live_acp_attempts": 14,
+  "assisted_followups": 2
 }
