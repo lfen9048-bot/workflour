@@ -1,0 +1,347 @@
+{
+  "date": "2026-11-11",
+  "scope": "seven development roles only",
+  "new_methods": 4,
+  "total_shared_methods": 16,
+  "new_symlinks": 0,
+  "active": true,
+  "default_models_changed": false,
+  "routing_catalogs_verified": 7,
+  "four_account_pools": {
+    "cn": 2,
+    "global": 2,
+    "native_global_enabled": true,
+    "live_metadata_errors": 0,
+    "actual_free_deepseek_verified": false,
+    "order": "verified free, cross-region expiry, other WorkBuddy, authorized API",
+    "per_account_model_exhaustion_tested": false
+  },
+  "checks": {
+    "format_validation": true,
+    "pinned_sources_files": 17,
+    "python_tests_run": 165,
+    "python_tests_passed": 164,
+    "python_tests_skipped": 1,
+    "node_tests": 73,
+    "node_passed": 73
+  },
+  "comparison_limit": "one sample per comparison, harness/file-access and narrowly corrected method revisions changed together; no general performance or quality advantage established",
+  "cases": [
+    {
+      "case": "agy-load",
+      "variant": "candidate",
+      "record": "agy-load-candidate.json",
+      "status": "completed",
+      "elapsed_seconds": 50.256,
+      "tool_calls": 4,
+      "public_answer_chars": 961,
+      "usage_kind": "native_report_or_unavailable",
+      "usage": {
+        "inputTokens": 58183,
+        "outputTokens": 3342,
+        "cachedReadTokens": 0,
+        "cachedWriteTokens": 0,
+        "totalTokens": 61525
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "gemini-3.8-flash",
+        "thought_level": "high"
+      },
+      "runtime_route": null
+    },
+    {
+      "case": "property",
+      "variant": "candidate",
+      "record": "property-candidate.json",
+      "status": "completed",
+      "elapsed_seconds": 74.23,
+      "tool_calls": 17,
+      "public_answer_chars": 2605,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 20778,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"deepseek-v4.1-flash\"]",
+        "reasoning_effort": "high"
+      },
+      "runtime_route": {
+        "provider_family": "workbuddy-global",
+        "model": "deepseek-v4.1-flash-sg",
+        "reasoning_effort": "high",
+        "confirmation_received": true
+      }
+    },
+    {
+      "case": "research",
+      "variant": "baseline",
+      "record": "research-baseline.json",
+      "status": "completed",
+      "elapsed_seconds": 65.204,
+      "tool_calls": 8,
+      "public_answer_chars": 1162,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 13459,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"kimi-k3.1-pro\"]",
+        "reasoning_effort": "high"
+      },
+      "runtime_route": {
+        "provider_family": "workbuddy",
+        "model": "kimi-k3.1-pro",
+        "reasoning_effort": "high",
+        "confirmation_received": false
+      }
+    },
+    {
+      "case": "research",
+      "variant": "candidate",
+      "record": "research-candidate-v2.json",
+      "status": "completed",
+      "elapsed_seconds": 58.408,
+      "tool_calls": 8,
+      "public_answer_chars": 1158,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 14070,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"kimi-k3.1-pro\"]",
+        "reasoning_effort": "high"
+      },
+      "runtime_route": {
+        "provider_family": "workbuddy",
+        "model": "kimi-k3.1-pro",
+        "reasoning_effort": "high",
+        "confirmation_received": false
+      }
+    },
+    {
+      "case": "research",
+      "variant": "candidate",
+      "record": "research-candidate.json",
+      "status": "completed",
+      "elapsed_seconds": 83.008,
+      "tool_calls": 10,
+      "public_answer_chars": 1282,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 15935,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"kimi-k3.1-pro\"]",
+        "reasoning_effort": "high"
+      },
+      "runtime_route": {
+        "provider_family": "workbuddy",
+        "model": "kimi-k3.1-pro",
+        "reasoning_effort": "high",
+        "confirmation_received": false
+      }
+    },
+    {
+      "case": "review",
+      "variant": "baseline",
+      "record": "review-baseline.json",
+      "status": "completed",
+      "elapsed_seconds": 67.438,
+      "tool_calls": 7,
+      "public_answer_chars": 1430,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 15707,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"glm-5.3-flash\"]",
+        "reasoning_effort": "high"
+      },
+      "runtime_route": {
+        "provider_family": "workbuddy",
+        "model": "glm-5.3-flash",
+        "reasoning_effort": "high",
+        "confirmation_received": false
+      }
+    },
+    {
+      "case": "review",
+      "variant": "candidate",
+      "record": "review-candidate-v2.json",
+      "status": "completed",
+      "elapsed_seconds": 64.462,
+      "tool_calls": 10,
+      "public_answer_chars": 1748,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 16557,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"glm-5.3-flash\"]",
+        "reasoning_effort": "high"
+      },
+      "runtime_route": {
+        "provider_family": "workbuddy",
+        "model": "glm-5.3-flash",
+        "reasoning_effort": "high",
+        "confirmation_received": false
+      }
+    },
+    {
+      "case": "review",
+      "variant": "candidate",
+      "record": "review-candidate.json",
+      "status": "completed",
+      "elapsed_seconds": 123.765,
+      "tool_calls": 16,
+      "public_answer_chars": 3814,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 17298,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"glm-5.3-flash\"]",
+        "reasoning_effort": "high"
+      },
+      "runtime_route": {
+        "provider_family": "workbuddy",
+        "model": "glm-5.3-flash",
+        "reasoning_effort": "high",
+        "confirmation_received": false
+      }
+    },
+    {
+      "case": "ux",
+      "variant": "candidate",
+      "record": "ux-agy-candidate.json",
+      "status": "timeout",
+      "elapsed_seconds": 180.044,
+      "tool_calls": 11,
+      "public_answer_chars": 0,
+      "usage_kind": "native_report_or_unavailable",
+      "usage": null,
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "gemini-3.8-flash",
+        "thought_level": "high"
+      },
+      "runtime_route": null
+    },
+    {
+      "case": "ux",
+      "variant": "baseline",
+      "record": "ux-baseline.json",
+      "status": "timeout",
+      "elapsed_seconds": 180.108,
+      "tool_calls": 29,
+      "public_answer_chars": 142,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 33321,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"deepseek-v4.1-flash\"]",
+        "reasoning_effort": "high"
+      },
+      "runtime_route": {
+        "provider_family": "workbuddy-global",
+        "model": "deepseek-v4.1-flash-sg",
+        "reasoning_effort": "high",
+        "confirmation_received": false
+      }
+    },
+    {
+      "case": "ux",
+      "variant": "candidate",
+      "record": "ux-candidate-v2.json",
+      "status": "completed",
+      "elapsed_seconds": 158.697,
+      "tool_calls": 25,
+      "public_answer_chars": 2585,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 29740,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"deepseek-v4.1-flash\"]",
+        "reasoning_effort": "high"
+      },
+      "runtime_route": {
+        "provider_family": "workbuddy-global",
+        "model": "deepseek-v4.1-flash-sg",
+        "reasoning_effort": "high",
+        "confirmation_received": true
+      }
+    },
+    {
+      "case": "ux",
+      "variant": "candidate",
+      "record": "ux-candidate.json",
+      "status": "timeout",
+      "elapsed_seconds": 180.542,
+      "tool_calls": 20,
+      "public_answer_chars": 913,
+      "usage_kind": "context_window_occupancy",
+      "usage": {
+        "used": 27936,
+        "size": 1000000
+      },
+      "billable_tokens_known": false,
+      "source_files_unchanged": true,
+      "selected_model": {
+        "model": "[\"workbuddy\",\"deepseek-v4.1-flash\"]",
+        "reasoning_effort": "high"
+      },
+      "runtime_route": {
+        "provider_family": "workbuddy-global",
+        "model": "deepseek-v4.1-flash-sg",
+        "reasoning_effort": "high",
+        "confirmation_received": false
+      }
+    }
+  ],
+  "visual_status": {
+    "independent_browser_and_image_review": "completed",
+    "dsh_candidate": "functional observations completed; visual blocked because actual -sg model does not declare image input",
+    "agy_skill_file_read": "completed",
+    "agy_full_ux": "timeout, not completed"
+  },
+  "corrections_after_forward_test": [
+    "stop duplicate proofs and summarize once",
+    "honor task output directory",
+    "avoid attributing untested input coverage to a nearby existing test",
+    "idempotence is a real property; absence of a PBT library does not forbid property checks",
+    "stop extra diagnosis after confirmed missing image input"
+  ],
+  "acceptance": "existing project states unchanged; WFWEB-001 remains acceptance/pending"
+}

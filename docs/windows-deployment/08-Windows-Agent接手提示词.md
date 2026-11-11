@@ -43,3 +43,6 @@
 最后交付：可打开入口、七Bot模型和职责清单、Windows启停方式、完整演练证据、逐项验收结果、剩余问题、一页简单中文使用说明。区分“软件安装完成”“核心协作通过”“Windows全部验收通过”，不能让Mac证据代替Windows验证。
 
 ---
+
+
+当前七角色已补充研究综合、UX评审、测试覆盖/错误路径及属性与边界检查。请读 `integrations/openmausbot/team-v2/SKILLS.md` 和 `docs/SKILLS-SPECIALIZATION.zh-CN.md`：共享路径相对于角色SKILLS文件解析，使用文件工具读取，不为这四项方法新增软链接或安装整套Claude插件。按需加载，局部修复不重设设计。实际渠道无法读图就明确blocked，不能用截图存在/DOM检查冒充视觉验收。

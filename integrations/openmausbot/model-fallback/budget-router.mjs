@@ -36,7 +36,7 @@ export function createBudgetRouter(ctx,{clock=Date.now,bridgeFactory,moduleLoade
     if(pending)return pending;
     pending=(async()=>{
       const roster=await bridge.listAccounts();
-      const fingerprint=createHash('sha256').update(JSON.stringify({pools:preferences.pools,enabled:preferences.enabledRegions,models:preferences.enabledModelIds,accounts:roster})).digest('hex');
+      const fingerprint=createHash('sha256').update(JSON.stringify({pools:preferences.pools,enabled:preferences.enabledRegions,models:preferences.enabledModelIds,images:preferences.imageModelIds,accounts:roster})).digest('hex');
       const cached=await snapshotStorage.read(join(dir(),'snapshot.json'));
       if(!force&&cached?.fingerprint===fingerprint&&clock()-cached.fetchedAtMs<SNAPSHOT_TTL&&cached.fetchedAtMs<=clock()+5000){snapshot=cached;return snapshot}
       const now=clock(),result={version:1,fingerprint,fetchedAtMs:now,pools:preferences.pools,accounts:{cn:[],global:[]},errors:[]};
@@ -71,7 +71,7 @@ export function createBudgetRouter(ctx,{clock=Date.now,bridgeFactory,moduleLoade
     const account=data.accounts[candidate.region]?.find(a=>a.accountId===candidate.accountId);
     if(!account?.models?.some(m=>m.id===candidate.model))throw Error('实际账号目录中没有目标模型');
     const id=providerFor(candidate.region,candidate.accountId);
-    const fingerprint=JSON.stringify(account.models);
+    const fingerprint=JSON.stringify({models:account.models,images:preferences.imageModelIds?.[candidate.region]||[]});
     if(creating.has(id))await creating.get(id);
     if(adapters.has(id)){
       const old=adapters.get(id);
@@ -88,7 +88,10 @@ export function createBudgetRouter(ctx,{clock=Date.now,bridgeFactory,moduleLoade
     const catalog=new wb.WorkBuddyCatalog(candidate.region);
     catalog.setRegionUsable(true);catalog.setRegionEnabled(true);
     const setModels=rows=>{
-      const models=wb.deriveCatalog(rows,new Set(rows.map(m=>m.id))).map(m=>({...m,multimodal:wb.imageDefaultFor(m.id)}));
+      // Match the native runtime's saved per-region image checkboxes. Its
+      // imageDefaultFor helper only seeds defaults; it is not the user's choice.
+      const images=new Set(preferences.imageModelIds?.[candidate.region]||[]);
+      const models=wb.deriveCatalog(rows,new Set(rows.map(m=>m.id))).map(m=>({...m,multimodal:images.has(m.id)}));
       catalog.set(wb.withEffectiveOff(models,new Set()));
     };
     setModels(account.models);

@@ -13,7 +13,7 @@ ACP 没有即时 steer。向已有 worker 会话再次 coordinate_bots 可能新
 
 补充登记示例：`python3 /Users/a1/Documents/a/workflour/scripts/coordinator-workflow.py --actor plan-lead --project ABSOLUTE_ROOT supplement implement code-main ACTUAL_REQUEST_ID --reason "本次补充原因" --evidence records/plan-lead/supplement-task.md`。证据使用项目内非空 Markdown，写清补充来源、精确新增范围、主与补充真实回执、同一个 worker thread，以及为什么属于本轮追加；CLI 固化其哈希。补充消息可引用原 WF-DISPATCH 标记，原生新增回执仍须逐条登记。按当前 CLI 和 PLAN-CODE-WORKFLOW.md 核对原生状态，不能用自造 ID 或口头完成覆盖真实回执。
 
-普通小任务只有一个主编码，独立子任务确有必要才显式 enable-helper，注明不重叠范围。视觉任务在主编码派单中明确：首次关键页面可运行后，由主编码对 Plan 体验评审做一次原生 consult，带原始需求和预览证据；咨询返回后继续同一个 implement 任务。此方向咨询不改共享账本、不提前完成 implement，也不替代最终 experience。方案讨论最多两轮；技术和体验返工共用最多两轮预算。无法收敛把具体选项交用户。网页产品最终需要真实浏览器体验及截图读图证据；纯 CLI 产品明确设置 product_surface:cli 并按流程提交真实命令、输出和逐需求操作证据。能力受阻显示 blocked，不能用开发自测替代独立体验。
+普通小任务只有一个主编码，独立子任务确有必要才显式 enable-helper，注明不重叠范围。新页面或重要视觉/交互方向变更，在主编码派单中明确：首次关键页面可运行后，由主编码对 Plan 体验评审做一次原生 consult，带原始需求和预览证据；咨询返回后继续同一个 implement 任务。此方向咨询不改共享账本、不提前完成 implement，也不替代最终 experience。方案讨论最多两轮；技术和体验返工共用最多两轮预算。无法收敛把具体选项交用户。网页产品最终需要真实浏览器体验及截图读图证据；纯 CLI 产品明确设置 product_surface:cli 并按流程提交真实命令、输出和逐需求操作证据。能力受阻显示 blocked，不能用开发自测替代独立体验。
 
 职责与当前模型分开，手动换模型后职责不变。新项目/任务使用独立会话，先核对明确的绝对项目目录及其 AGENTS.md、HANDOFF.md，文件操作用绝对路径，执行命令使用工具 cwd 或 project-exec.py；新会话不是严格记忆或文件权限隔离。仅处理本次授权范围。不要把聊天长时间等待当失败；需要续跑时先核对原生回执，停止后须有新继续来源。额度和连接问题如实报告；AGY 无自动跨运行时备用，不能暗中切换。
 
@@ -24,3 +24,5 @@ ACP 没有即时 steer。向已有 worker 会话再次 coordinate_bots 可能新
 主编码回传首次实现后，先按其实际文件清单补齐共享 handoff 的 code_files、baseline 与 work_items，再导入 test_record 并记录 implement 结果。主编码可以用 test --files 重复指定实际实现/测试/依赖来生成 detached 证据，不要求其修改共享状态。
 
 用户要求模型/思考设置时，说明全部 Bot 都可调整，并指向大管家或通用助手的安全模型卡片；不要直接改 profile、数据库或默认值。原生顶部菜单会影响 Bot 默认，不能当作仅当前任务设置。
+
+已认可视觉/交互方向的局部修复沿用原结论，不新增方向咨询或重新设计，只核验本次影响路径。角色技能索引按文件位置解析并通过文件工具读取共享方法，不为新技能按名称查询另一套插件。

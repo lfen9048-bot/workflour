@@ -9,7 +9,7 @@
 3. **其余 WorkBuddy 积分**：国内版优先，再国际版；同区域继续遵循账号池顺序。
 4. **已有 DeepSeek API**：前面的已知通道遇到明确额度错误后，才使用用户已授权的 API 配置。价格、目录或余额读取失败属于信息不全，不能当成“额度用完”直接转付费 API。
 
-国内仅包含桌面插件池里已勾选的两个账号，遵循可用状态、临期情况、用户手动排序等原生规则，不做固定 A/B 轮流。国际账号池关闭，仅使用用户选中的账号；没有显式选择时，读取插件原生当前账号，不自动纳入其他账号。
+2026-11-11 后续用户确认四个账号都参与：国内2个、国际2个，均为桌面插件已勾选成员，两区账号池已启用。遵循可用状态、临期情况及手动排序，不做固定 A/B 轮流。若以后关闭国际池，仍只使用选中/当前账号；空池、关闭区域不自动扩大范围。
 
 积分按**账号**选择，实际扣除该账号中的哪个积分包由 WorkBuddy 决定。发现账号有临期积分，不等于能指定扣除某个赠送包，也不等于本次调用免费。
 
@@ -71,3 +71,12 @@ Antigravity 不加载此 DSH 插件。Gemini 的额度或连接异常由原生�
 复用已安装的 [dsh-connect-workbuddy](https://github.com/dingminhua/dsh-connect-workbuddy) 5.13.1（MIT，Copyright © 2026 LaoDing）的 Store、Client、Catalog、Adapter 和 Shim；跨区域成本顺序是 Workflour 的组合策略。账号池内部排序参考其原生实现，未升级或修改插件安装包。
 
 早期检索另看过 [dsh-llm-fallbacks](https://github.com/omdsh-dev/dsh-llm-fallbacks)、[dsh-model-rotator](https://github.com/chimneyQ/dsh-model-rotator) 与 [DSH 原生重试实现](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/llm/llm-retry/src/index.ts)；没有安装上述社区备用插件。早期 `tests/evidence/manager-naiwa-20261110/fallback-live.json` 使用合成 QUOTA 后实际调用已有 API，仅证明旧固定备用链，不能证明 WorkBuddy 当时真的用完或新成本排序已通过。
+
+
+## 四账号与图片能力补充（2026-11-11）
+
+已通过原生DSH设置启用国际池，实际白名单及实时目录/余额核验为国内2＋国际2、0读取错误，四号均进入候选；没有为了验证排序故意耗尽账号或发送逐号模型请求。当前两国际目录均未返回可核实免费的DeepSeek，先用较早到期的国际额度，再国内临期，再其它WorkBuddy，最后才为既有API。恢复与签到仍为北京时间13:00；执行中的回合不打断。
+
+图片能力必须尊重桌面插件各区域保存的精确 `imageModelIds`，不按模型名或家族猜测。已修复内部额度adapter错误传参导致图片标志丢失的问题，空列表保持关闭，区域之间不串用。当前国际 `deepseek-v4.1-flash-sg` 未勾选，实际 `read_image` 也明确拒绝；没有擅自打开或把该线路宣称可读图。当前任务若需要图片且该线路受阻，交接具体缺失能力，不把DOM/截图存在当视觉通过。
+
+本轮Node共73项通过；既有Python工具包165项（1跳过）通过。四账号只读摘要与技能验证见 [技能补强记录](../../../docs/SKILLS-SPECIALIZATION.zh-CN.md)。

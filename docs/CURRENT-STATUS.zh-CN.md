@@ -6,6 +6,8 @@
 
 ## 当前有效配置
 
+2026-11-11 技能与账号补强：七个开发角色的共享方法12→16，新增研究综合、UX评审、覆盖/错误路径审核及属性边界检查；12次真实ACP保留成功/超时/blocked。国际账号池已按用户选择开启，国内2＋国际2参与免费→临期→其它WorkBuddy→既有API顺序，13:00不变。Node现为73项通过，原Python工具包165项（1跳过）。国际DS `-sg`缺图片输入，AGY完整UX样例超时；不把方法实读当作完整视觉通过。详见[补强记录](SKILLS-SPECIALIZATION.zh-CN.md)与[脱敏摘要](evidence/2026-11-11/skills-summary.json)；下文旧验证数字保留为此前快照。
+
 | 范围 | 已核实状态 | 依据 |
 | --- | --- | --- |
 | 团队 | 七个业务角色：大管家、Plan 负责人、Plan 方案/体验评审、主编码、独立审核、按需协作编码、通用助手 | [角色声明](../integrations/openmausbot/team-v2/roles.json)、[已上线状态摘要](evidence/2026-11-11/final-summary.json) |

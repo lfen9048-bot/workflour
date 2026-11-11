@@ -7,7 +7,7 @@ import { spawnSync } from 'node:child_process';
 import { BridgeError, createBridge, loadPlugin, loadPreferences, normalizePreferences, safeErrorCode, summarizeCredits } from '../integrations/openmausbot/workbuddy/client.mjs';
 import { acquireLock, beijingDay, readStatus, runDailyCheckin } from '../integrations/openmausbot/workbuddy/checkin.mjs';
 
-const A = 'a'.repeat(24), B = 'b'.repeat(24), C = 'c'.repeat(24), G = 'd'.repeat(24);
+const A = 'a'.repeat(24), B = 'b'.repeat(24), C = 'c'.repeat(24), G = 'd'.repeat(24), H = 'e'.repeat(24), I = 'f'.repeat(24);
 const NOW = Date.parse('2026-11-11T02:00:00Z');
 const SECRET = 'never-output-this-token-or-email@example.invalid';
 const preferences = () => normalizePreferences({ accounts: { cn: A }, regions: {
@@ -20,7 +20,7 @@ async function sandbox(t) {
   return { dir, statePath: join(dir, 'state.json') };
 }
 function fakeRuntime(options = {}) {
-  const calls = [], credentials = { [A]: { id: A, token: SECRET, domain: 'cn' }, [B]: { id: B, token: SECRET, domain: 'cn' }, [C]: { id: C, token: SECRET, domain: 'cn' }, [G]: { id: G, token: SECRET, domain: 'global' } };
+  const calls = [], credentials = { [A]: { id: A, token: SECRET, domain: 'cn' }, [B]: { id: B, token: SECRET, domain: 'cn' }, [C]: { id: C, token: SECRET, domain: 'cn' }, [G]: { id: G, token: SECRET, domain: 'global' }, [H]: { id: H, token: SECRET, domain: 'global' }, [I]: { id: I, token: SECRET, domain: 'global' } };
   class Store {
     constructor({ region, refresh }) { this.region = region; this.refresh = refresh; calls.push(['store', region]); }
     selectAccount(id) { this.id = id; calls.push(['select', id, this.region]); }
@@ -65,7 +65,27 @@ test('preferences include only checked CN members and selected global; region of
   assert.deepEqual(normalizePreferences({ accounts: { global: G }, regions: { cn: { enabled: false, pool: { memberAccountIds: [A] } } } }).allowedAccounts, { cn: [], global: [G] });
   assert.throws(() => normalizePreferences({ regions: { cn: { pool: { memberAccountIds: ['not-an-id'] } } } }), /invalid_account_id/);
   assert.deepEqual(p.enabledModelIds, { cn: [], global: [] });
+  assert.deepEqual(p.imageModelIds, { cn: [], global: [] });
   assert.throws(() => normalizePreferences({ regions: { global: { enabledModelIds: [123] } } }), /invalid_model_preferences/);
+});
+
+test('image preferences preserve empty opt-out and exact regional IDs and reject malformed values', () => {
+  const p = normalizePreferences({ regions: { cn: { imageModelIds: [] }, global: { imageModelIds: ['deepseek-v4.1-flash', 'deepseek-v4.1-flash'] } } });
+  assert.deepEqual(p.imageModelIds, { cn: [], global: ['deepseek-v4.1-flash'] });
+  assert.equal(p.imageModelIds.global.includes('deepseek-v4.1-flash-sg'), false);
+  for (const invalid of [null, false, 'model', [123], [''], ['  '], ['x'.repeat(513)]]) {
+    assert.throws(() => normalizePreferences({ regions: { global: { imageModelIds: invalid } } }), /invalid_image_preferences/);
+  }
+});
+
+test('global pool enablement allows only checked members while disabled and region-off remain restricted', () => {
+  const raw = { accounts: { global: G }, regions: { global: { pool: { enabled: true, memberAccountIds: [H, I], orderAccountIds: [I, H] } } } };
+  const enabled = normalizePreferences(raw);
+  assert.deepEqual(enabled.allowedAccounts.global, [H, I]);assert.deepEqual(enabled.pools.global.orderAccountIds, [I, H]);
+  raw.regions.global.pool.enabled = false;
+  assert.deepEqual(normalizePreferences(raw).allowedAccounts.global, [G]);
+  raw.regions.global.pool.enabled = true;raw.regions.global.enabled = false;
+  assert.deepEqual(normalizePreferences(raw).allowedAccounts.global, []);
 });
 
 test('standalone loader rejects unsupported plugin before importing code', async t => {
@@ -88,11 +108,14 @@ test('YAML reader returns allowlisted preferences and no secret configuration', 
   const { dir } = await sandbox(t);
   await writeFile(join(dir, 'package.json'), JSON.stringify({ name: 'dsh-connect-workbuddy', version: '5.13.1' }));
   const path = join(dir, 'prefs.yml');
-  await writeFile(path, `plugins:\n  - id: dsh-connect-workbuddy\n    name: dsh-connect-workbuddy\n    config:\n      secretToken: ${SECRET}\n      accounts:\n        cn: ${A}\n      regions:\n        cn:\n          enabledModelIds: [cn-selected]\n          pool:\n            enabled: true\n            memberAccountIds: [${A}, ${B}]\n        global:\n          enabledModelIds: [global-selected, global-selected]\n`);
+  await writeFile(path, `plugins:\n  - id: dsh-connect-workbuddy\n    name: dsh-connect-workbuddy\n    config:\n      secretToken: ${SECRET}\n      accounts:\n        cn: ${A}\n      regions:\n        cn:\n          enabledModelIds: [cn-selected]\n          imageModelIds: []\n          pool:\n            enabled: true\n            memberAccountIds: [${A}, ${B}]\n        global:\n          enabledModelIds: [global-selected, global-selected]\n          imageModelIds: [deepseek-v4.1-flash, deepseek-v4.1-flash]\n`);
   const p = await loadPreferences({ desktopPatchPath: path, packageDir: dir });
   assert.deepEqual(p.allowedAccounts.cn, [A, B]);
   assert.deepEqual(p.enabledModelIds, { cn: ['cn-selected'], global: ['global-selected'] });
+  assert.deepEqual(p.imageModelIds, { cn: [], global: ['deepseek-v4.1-flash'] });
   assert.ok(!JSON.stringify(p).includes(SECRET));
+  await writeFile(path, 'plugins:\n  - id: dsh-connect-workbuddy\n    config:\n      regions:\n        global:\n          imageModelIds: [123]\n');
+  await assert.rejects(loadPreferences({ desktopPatchPath: path, packageDir: dir }), /invalid_image_preferences/);
   await writeFile(path, 'entries: []');
   await assert.rejects(loadPreferences({ desktopPatchPath: path, packageDir: dir }), /preferences_unreadable/);
 });
@@ -119,6 +142,68 @@ test('CN-only checkin bridge does not resolve/read a global credential', async (
   await bridge.listAccounts();
   assert.deepEqual(bridge.getPreferences().allowedAccounts.global, []);
   assert.equal(fake.calls.some(c => c[0] === 'store' && c[1] === 'global'), false);
+});
+
+test('enabled global pool survives implicit current-account lookup without adding an unchecked current account', async () => {
+  const p = normalizePreferences({ accounts: { cn: A }, regions: {
+    cn: { pool: { enabled: true, memberAccountIds: [A, B] } },
+    global: { pool: { enabled: true, memberAccountIds: [H, I] } },
+  } });
+  const fake = fakeRuntime(), bridge = await createBridge({ preferences: p, runtime: fake.runtime });
+  assert.equal(bridge.getPreferences().selectedAccounts.global, G);
+  assert.deepEqual(bridge.getPreferences().allowedAccounts, { cn: [A, B], global: [H, I] });
+  const roster = await bridge.listAccounts();assert.deepEqual(roster.global.map(a => a.accountId), [H, I]);
+  assert.equal(roster.cn.length + roster.global.length, 4);
+  await bridge.fetchModels('global', H);await bridge.fetchCredits('global', I);
+  await assert.rejects(bridge.fetchModels('global', G), /account_not_allowed/);
+  assert.equal(fake.calls.some(c => c[0] === 'select' && c[1] === G), false);
+  assert.deepEqual(p.allowedAccounts.global, [H, I]); // Caller configuration is not mutated.
+});
+
+test('disabled global pool keeps only the explicitly selected account even with other checked members', async () => {
+  const p = normalizePreferences({ accounts: { global: G }, regions: { global: { pool: { enabled: false, memberAccountIds: [H, I] } } } });
+  const fake = fakeRuntime(), bridge = await createBridge({ preferences: p, runtime: fake.runtime });
+  assert.deepEqual((await bridge.listAccounts()).global.map(a => a.accountId), [G]);
+  await assert.rejects(bridge.fetchModels('global', H), /account_not_allowed/);
+  assert.equal(fake.calls.some(c => c[0] === 'select' && [H, I].includes(c[1])), false);
+});
+
+test('global region off and includeGlobal false never read or use enabled global pool accounts', async () => {
+  for (const regionEnabled of [false, true]) {
+    const p = normalizePreferences({ regions: { global: { enabled: regionEnabled, pool: { enabled: true, memberAccountIds: [G, H] } } } });
+    const fake = fakeRuntime(), bridge = await createBridge({ preferences: p, runtime: fake.runtime, includeGlobal: regionEnabled ? false : true });
+    assert.deepEqual((await bridge.listAccounts()).global, []);
+    assert.deepEqual(bridge.getPreferences().allowedAccounts.global, []);
+    await assert.rejects(bridge.fetchModels('global', G), regionEnabled ? /account_not_allowed/ : /region_disabled/);
+    assert.equal(fake.calls.some(c => c[0] === 'store' && c[1] === 'global'), false);
+  }
+});
+
+test('enabled but empty global pool does not fall back to the native current account', async () => {
+  const p = normalizePreferences({ regions: { global: { pool: { enabled: true, memberAccountIds: [] } } } });
+  const fake = fakeRuntime(), bridge = await createBridge({ preferences: p, runtime: fake.runtime });
+  assert.equal(bridge.getPreferences().selectedAccounts.global, G);
+  assert.deepEqual(bridge.getPreferences().allowedAccounts.global, []);
+  assert.deepEqual((await bridge.listAccounts()).global, []);
+  await assert.rejects(bridge.fetchModels('global', G), /account_not_allowed/);
+});
+
+test('global pool member identity or region mismatch is rejected before metadata requests', async () => {
+  for (const kind of ['identity', 'region']) {
+    const p = normalizePreferences({ accounts: { global: G }, regions: { global: { pool: { enabled: true, memberAccountIds: [G, H] } } } });
+    const fake = fakeRuntime();
+    if (kind === 'identity') fake.credentials[H] = { ...fake.credentials[I] };
+    else fake.credentials[H].domain = 'cn';
+    const bridge = await createBridge({ preferences: p, runtime: fake.runtime });
+    await assert.rejects(bridge.fetchModels('global', H), kind === 'identity' ? /account_identity_mismatch/ : /account_region_mismatch/);
+    assert.equal(fake.calls.some(c => c[0] === 'models'), false);
+  }
+});
+
+test('implicit global current lookup rejects a credential from another region', async () => {
+  const fake = fakeRuntime();fake.credentials[G].domain = 'cn';
+  await assert.rejects(createBridge({ preferences: preferences(), runtime: fake.runtime }), /account_region_mismatch/);
+  assert.equal(fake.calls.some(c => ['models', 'credits', 'refresh'].includes(c[0])), false);
 });
 
 test('model fetch passes regional selected IDs to native live-roster filter without fabricating retired IDs', async () => {

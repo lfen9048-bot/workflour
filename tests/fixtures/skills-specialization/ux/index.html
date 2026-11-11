@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>草稿盒 · 隔离体验页</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:20px;background:#f3f3ee;color:#22332b;font:17px system-ui}
+main{width:580px;background:#fff;padding:28px;border-radius:18px}h1{margin:0 0 12px}p{color:#546258}
+input,button{font:inherit;padding:12px;border-radius:8px;border:1px solid #8a9b8d}
+button{background:#254f36;color:#fff;cursor:pointer}input{width:350px}button:focus,input:focus{outline:none}
+#status{min-height:28px}ul{padding-left:24px}
+</style><main><h1>草稿盒</h1><p>随手记下一件事，保存到这台电脑。</p>
+<label for="entry">事项</label><div><input id="entry" autocomplete="off"><button id="save">保存</button></div>
+<p id="status" role="status"></p><ul id="items"></ul></main>
+<script>
+const input=document.querySelector('#entry'),status=document.querySelector('#status'),items=document.querySelector('#items');
+document.querySelector('#save').addEventListener('click',()=>{
+ const value=input.value.trim();if(!value){status.textContent='请填写事项';return}
+ try{if(window.simulateWriteFailure)throw new Error('simulated write failure');localStorage.setItem('draft',value)}
+ catch(error){}
+ items.replaceChildren(Object.assign(document.createElement('li'),{textContent:value}));
+ status.textContent='已保存到这台电脑';
+});
+</script></html>

@@ -1,7 +1,7 @@
 {
   "date": "2026-11-11",
-  "scope": "initial curated upload; manifest itself excluded to avoid self-hash",
-  "file_count": 457,
+  "scope": "curated repository with seven-role skill specialization and four-account routing; index blobs only; manifest itself excluded to avoid self-hash",
+  "file_count": 516,
   "entries": [
     {
       "path": ".gitattributes",
@@ -30,8 +30,8 @@
     {
       "path": "THIRD_PARTY_NOTICES.md",
       "kind": "file",
-      "bytes": 1873,
-      "sha256": "18784b1c1a46e88bd6d92523aa70c818f3d88e3126ba7e336c58a80ef23b9fcc"
+      "bytes": 2393,
+      "sha256": "79ec87d97bb9ac297d54a78fe2cd66016193ae05c96ad7e248ce53fb6ec3148b"
     },
     {
       "path": "agents/agent-coder/skills/code-assistant/SKILL.md",
@@ -96,8 +96,8 @@
     {
       "path": "agents/wf-assistant/SKILLS.md",
       "kind": "file",
-      "bytes": 526,
-      "sha256": "a5481100195073106e94331a90cfe9b44a443d86af523c6403e64d8650a4a115"
+      "bytes": 981,
+      "sha256": "ccc69af448aaa16f7c459ea6096288e7e1ff448345704fc0e84b0594ac86bf8c"
     },
     {
       "path": "agents/wf-assistant/SOUL.md",
@@ -129,8 +129,8 @@
     {
       "path": "agents/wf-code-helper/SKILLS.md",
       "kind": "file",
-      "bytes": 891,
-      "sha256": "d58658db49bc5d55bd3fd262def02cf4a968aacc96f82d970746ac116cafbce9"
+      "bytes": 1361,
+      "sha256": "0a46d80bde4eea39d117b36c50d94b3bbd1024e3a8d67ebb9c89034fe668c677"
     },
     {
       "path": "agents/wf-code-helper/SOUL.md",
@@ -177,20 +177,20 @@
     {
       "path": "agents/wf-code-main/SKILLS.md",
       "kind": "file",
-      "bytes": 888,
-      "sha256": "97f88c64a16d4af6c8f34877db47839970af6d55ad59e5dd7b04a34f980afcec"
+      "bytes": 1288,
+      "sha256": "52083de5af7bff16629afa809fa312bdca0efa439f5c502156c82a66b17216b8"
     },
     {
       "path": "agents/wf-code-main/SOUL.md",
       "kind": "file",
-      "bytes": 3804,
-      "sha256": "496a9199c4d4e6203d04fffed4b21be0482add601339c891667d73c8231678c0"
+      "bytes": 4102,
+      "sha256": "c50c98ec57099cb5f2a38ec6bc62780fac418db5ba1430159dfc46feb3aad517"
     },
     {
       "path": "agents/wf-code-main/skills/wf-code-main-role/SKILL.md",
       "kind": "file",
-      "bytes": 4026,
-      "sha256": "aec2f91d4281d6f254f0fd5519603ce35e3b81225f0d6ffef15c0ad181e62c5f"
+      "bytes": 4324,
+      "sha256": "c45860363455127253cf40aca77310b88f77c169dadbdc9d50893d4a13864c59"
     },
     {
       "path": "agents/wf-code-main/skills/wf-frontend-design",
@@ -225,8 +225,8 @@
     {
       "path": "agents/wf-code-review/SKILLS.md",
       "kind": "file",
-      "bytes": 543,
-      "sha256": "d3c8823397b36928342a484d9129f795e092b436338f4aa7d9c3f3352de5048d"
+      "bytes": 1240,
+      "sha256": "da3c5cb27aa706e8a804817ab5dd3338854ed874956be7a0f040ff9836941551"
     },
     {
       "path": "agents/wf-code-review/SOUL.md",
@@ -258,8 +258,8 @@
     {
       "path": "agents/wf-manager/SKILLS.md",
       "kind": "file",
-      "bytes": 313,
-      "sha256": "8eac3f4c802a5a547c9e8abb61a579ef1f3ae4d6cf0fcbb790725ccffde21e63"
+      "bytes": 806,
+      "sha256": "72adf1c41a2d672f5615555dc564f48bcf793b2a8e3cad9fdb769ac352b368cf"
     },
     {
       "path": "agents/wf-manager/SOUL.md",
@@ -281,20 +281,20 @@
     {
       "path": "agents/wf-plan-lead/SKILLS.md",
       "kind": "file",
-      "bytes": 650,
-      "sha256": "ac8e20c9f1e02eae0936a65ca57ed3eb0f274c2fdad559dafe2345428eec7932"
+      "bytes": 1179,
+      "sha256": "3b490b8c14ef0ad20a8b910edb62d88a8a6eaf4155ab7e4719529b151dee7244"
     },
     {
       "path": "agents/wf-plan-lead/SOUL.md",
       "kind": "file",
-      "bytes": 4202,
-      "sha256": "9c72fa483f0bc25b740bf34b1f5ddd80fc95addbbcb1651af0f9864fac52e057"
+      "bytes": 4497,
+      "sha256": "e295c4ce004d1a3190bc04ccb19a1abd5096180f1131cd0ac365743746d7f9e5"
     },
     {
       "path": "agents/wf-plan-lead/skills/wf-plan-lead-role/SKILL.md",
       "kind": "file",
-      "bytes": 5085,
-      "sha256": "8ab2b9c707b521de486052bb3ae766dc40a1e1a195082425dc6b6fadb56fe4d1"
+      "bytes": 5380,
+      "sha256": "8c1089e1e9093898cec1eb3fab21fb647d4dfb49d97ee08bedce0e5f588e34f9"
     },
     {
       "path": "agents/wf-plan-lead/skills/wf-requirements-interview",
@@ -319,8 +319,8 @@
     {
       "path": "agents/wf-plan-review/SKILLS.md",
       "kind": "file",
-      "bytes": 938,
-      "sha256": "9b26a74ca6ea7363338c6691e81b35a357464954c74df67ae33c8402fac388a1"
+      "bytes": 1132,
+      "sha256": "4db8133c3c7da2240411a0bf447234dcbaa534fd655dae7329fe052f2071f9b5"
     },
     {
       "path": "agents/wf-plan-review/SOUL.md",
@@ -363,8 +363,8 @@
     {
       "path": "agents/wf-shared/CAPABILITIES.md",
       "kind": "file",
-      "bytes": 1937,
-      "sha256": "031fbeca0074b9446efebd984f33d779e12bd106c1bd0728a8fa91c1ba04dccc"
+      "bytes": 2949,
+      "sha256": "f9c0fe1b95478f792b3feae85d7c02a7e1490250cfa78c9eea3efdc8f9026a3b"
     },
     {
       "path": "agents/wf-shared/skills/wf-differential-review/LICENSE",
@@ -403,16 +403,28 @@
       "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
     },
     {
+      "path": "agents/wf-shared/skills/wf-frontend-design/LICENSE-IMPECCABLE",
+      "kind": "file",
+      "bytes": 10766,
+      "sha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812"
+    },
+    {
       "path": "agents/wf-shared/skills/wf-frontend-design/SKILL.md",
       "kind": "file",
-      "bytes": 1082,
-      "sha256": "4ec942b7c62f4f73087568b90a1567004e314308728f5dbec880f35913589e73"
+      "bytes": 1388,
+      "sha256": "1304cf0d1a25ef6f0f3bdbbd4d4a263eea69969ed2f599f97b5eb2c7b7587e48"
     },
     {
       "path": "agents/wf-shared/skills/wf-frontend-design/SOURCE.md",
       "kind": "file",
-      "bytes": 882,
-      "sha256": "799e415ef98411103392a03da9e9766dc78a5e3abeaf5edfc450c6ed98aae021"
+      "bytes": 1709,
+      "sha256": "03e5c46f83c4e0ad1c6988538c4dd22b2bb760183c67fa1169a3d8ced63c4362"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-frontend-design/references/visual-finish.md",
+      "kind": "file",
+      "bytes": 1722,
+      "sha256": "ae9b510d1439598c614a019c68017fd15445af383c774609efd6f318f826e22d"
     },
     {
       "path": "agents/wf-shared/skills/wf-obsidian-markdown/LICENSE",
@@ -451,6 +463,36 @@
       "sha256": "392953b5838c3ab3df135b5a914f100ae7b95e4501b6a2e5c8dc63da3ac7558b"
     },
     {
+      "path": "agents/wf-shared/skills/wf-property-based-testing/LICENSE",
+      "kind": "file",
+      "bytes": 20131,
+      "sha256": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-property-based-testing/SKILL.md",
+      "kind": "file",
+      "bytes": 3321,
+      "sha256": "3595aaacffcfc238da8a79704a7e0cded7d1498d56d78b26c203f145a0625c7c"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-property-based-testing/SOURCE.md",
+      "kind": "file",
+      "bytes": 2581,
+      "sha256": "1c030d6b3513574358581becf6a93655540f03549f4974f086368579f4fc2dd5"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-property-based-testing/references/reviewing-and-failures.md",
+      "kind": "file",
+      "bytes": 2331,
+      "sha256": "c5a7805f90e7268de34853276403c87bdf2fd09ccf33a6fe8836858b94c15681"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-property-based-testing/references/writing.md",
+      "kind": "file",
+      "bytes": 2703,
+      "sha256": "80627244e1c051a47889c1e4e5512a3057e2393591f9dfdb6f981fa401cea870"
+    },
+    {
       "path": "agents/wf-shared/skills/wf-receiving-code-review/LICENSE",
       "kind": "file",
       "bytes": 1070,
@@ -479,6 +521,24 @@
       "kind": "file",
       "bytes": 814,
       "sha256": "b22a984ff2daecab76105adba73129082dba6ad0ea08a5606aa7165257cc5148"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-research-synthesis/LICENSE",
+      "kind": "file",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-research-synthesis/SKILL.md",
+      "kind": "file",
+      "bytes": 2046,
+      "sha256": "db083bb52a72376c237bbaaa524558393ba34b095c2f316527c692b06fd5db90"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-research-synthesis/SOURCE.md",
+      "kind": "file",
+      "bytes": 1711,
+      "sha256": "34863730ee7da88bc09b6312d6313e9e0ce8aaa316ff20b53e49f41c27c2ddf3"
     },
     {
       "path": "agents/wf-shared/skills/wf-search-first/LICENSE",
@@ -655,6 +715,30 @@
       "sha256": "1c742ae4220a73b939840a1e2e926866d2bf450527c1a8bb1505b4736c88f403"
     },
     {
+      "path": "agents/wf-shared/skills/wf-test-coverage-review/LICENSE",
+      "kind": "file",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-test-coverage-review/SKILL.md",
+      "kind": "file",
+      "bytes": 3236,
+      "sha256": "75ae55a12d2ca04731ebd39fd558195c52f6e0eabeeea7a4cd4dfc32b28a836c"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-test-coverage-review/SOURCE.md",
+      "kind": "file",
+      "bytes": 2348,
+      "sha256": "a6045d8421df4b8c6432cc91f65c1f50da33b62e534ebc24bfe2f5812831bae8"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-test-coverage-review/references/error-paths.md",
+      "kind": "file",
+      "bytes": 2827,
+      "sha256": "3931e65e63d4dc53ed1d48f9992e1f4f9508c51a25048e348b956791f3368a38"
+    },
+    {
       "path": "agents/wf-shared/skills/wf-test-driven-development/LICENSE",
       "kind": "file",
       "bytes": 1070,
@@ -677,6 +761,54 @@
       "kind": "file",
       "bytes": 8250,
       "sha256": "9e13270c25a123f4b407e9ec496df7057d13f4c861af9b0ac5c697d74002dcb3"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-ux-critique/LICENSE",
+      "kind": "file",
+      "bytes": 10766,
+      "sha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-ux-critique/LICENSE-MIT",
+      "kind": "file",
+      "bytes": 1068,
+      "sha256": "6cd1609c9c12233507cdd2ce0d32e9a721e3c27494951be06b90090deeeb7af2"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-ux-critique/SKILL.md",
+      "kind": "file",
+      "bytes": 1303,
+      "sha256": "447f533b20ddc22755c42b9170b4fed1c906adf3248a134ee9b65cd93acd0aac"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-ux-critique/SOURCE.md",
+      "kind": "file",
+      "bytes": 1861,
+      "sha256": "be1e2737cdcc1edcf51eb91e80e4f883ae655a6d79bf7791fa3cef9aa9788126"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-ux-critique/references/experience.md",
+      "kind": "file",
+      "bytes": 1610,
+      "sha256": "de6399b63e6a9e1b48d9eeb56dab7fc54d082c37242a41e3af860e1579d7d803"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-ux-critique/references/plan.md",
+      "kind": "file",
+      "bytes": 974,
+      "sha256": "f848d02caafa1052a71d1aa9495065c567cb090546cfdf6adedf4b0dfec1bc34"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-ux-critique/references/preview.md",
+      "kind": "file",
+      "bytes": 981,
+      "sha256": "0a260ab1af61f1b8e48b187876019153c49b89716632548b1a047fff7c42be9d"
+    },
+    {
+      "path": "agents/wf-shared/skills/wf-ux-critique/references/recheck.md",
+      "kind": "file",
+      "bytes": 752,
+      "sha256": "48d2707e3c54978e3340829f6df3110edbcf0bd69c863de6fd1acdcec26ffe75"
     },
     {
       "path": "agents/wf-shared/skills/wf-verification-before-completion/LICENSE",
@@ -705,14 +837,14 @@
     {
       "path": "agents/wf-shared/skills/wf-webapp-testing/SKILL.md",
       "kind": "file",
-      "bytes": 2627,
-      "sha256": "419b8c6c861abd48f3b604cb6cc64abc95d3590d2b990a6a0005b32c1ae85cec"
+      "bytes": 2945,
+      "sha256": "5af7b4e70c8f50482b092f90f3cc9ecbe90c33da4ab2b372d1bf2a2697d83d9c"
     },
     {
       "path": "agents/wf-shared/skills/wf-webapp-testing/SOURCE.md",
       "kind": "file",
-      "bytes": 1079,
-      "sha256": "001914261521bcc58006673ac2870c0fae1d9a069bd478e0b7e390b7babea259"
+      "bytes": 1237,
+      "sha256": "824f32fc6a8d43b04a52613367adad75f318a4122b208d0cfdf26e31e48313fb"
     },
     {
       "path": "agents/wf-shared/skills/wf-writing-plans/LICENSE",
@@ -721,22 +853,28 @@
       "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400"
     },
     {
+      "path": "agents/wf-shared/skills/wf-writing-plans/LICENSE-APACHE-2.0",
+      "kind": "file",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
       "path": "agents/wf-shared/skills/wf-writing-plans/SKILL.md",
       "kind": "file",
-      "bytes": 1215,
-      "sha256": "c78e6ed7dc3057c50588f018e1950ebc1cfc957f7dfb94f0cc4a41931a361803"
+      "bytes": 2252,
+      "sha256": "1d9da0dd2a04b31ebb1fc7ebd044d0a4a4ae9225ce082406e478821d6625c3f5"
     },
     {
       "path": "agents/wf-shared/skills/wf-writing-plans/SOURCE.md",
       "kind": "file",
-      "bytes": 872,
-      "sha256": "166aefc8636198b56582bf34b1ce32ca945294d29341641562130e3b20ffb3cf"
+      "bytes": 2364,
+      "sha256": "e2516bfcd09422c4608eeff507ad9632333175aba93f138314a5ffc20b79a7b8"
     },
     {
       "path": "docs/CURRENT-STATUS.zh-CN.md",
       "kind": "file",
-      "bytes": 9360,
-      "sha256": "a139edb0d21a6915dccf1b277ae1edcfa064cf80cd7385e45b06fb1f1a8f1733"
+      "bytes": 10023,
+      "sha256": "c08e18075212cbe4e6d97aa3c3271945f775e1f81afd5a3987aba36c86594880"
     },
     {
       "path": "docs/PROJECT-OUTLINE.zh-CN.md",
@@ -749,6 +887,12 @@
       "kind": "file",
       "bytes": 3720,
       "sha256": "4bc27b91476e2bed108278e468ea49062affc28fc76a913865741a2d9e374bad"
+    },
+    {
+      "path": "docs/SKILLS-SPECIALIZATION.zh-CN.md",
+      "kind": "file",
+      "bytes": 5668,
+      "sha256": "3dc971abedd1488a87806591a93337023c5bd19d009854622188d43b7425b47c"
     },
     {
       "path": "docs/evidence/2026-11-11/README.md",
@@ -923,6 +1067,12 @@
       "kind": "file",
       "bytes": 361,
       "sha256": "624977b02160aa6487896eea7cc22ea466ecb0afc07d3077b9b27c54b53508ba"
+    },
+    {
+      "path": "docs/evidence/2026-11-11/skills-summary.json",
+      "kind": "file",
+      "bytes": 10265,
+      "sha256": "85c3d6ae24568f2dcf68f735986f13697dd7accadbf8613390e5b031b05d75ff"
     },
     {
       "path": "docs/evidence/2026-11-11/supplement-summary.json",
@@ -1389,8 +1539,8 @@
     {
       "path": "docs/windows-deployment/04-Windows适配任务清单.md",
       "kind": "file",
-      "bytes": 7934,
-      "sha256": "d4f1e575bd05c4b20a3d472e9bb46811b5d50719abfdb8168758a771b0d53bee"
+      "bytes": 8764,
+      "sha256": "61b5f09812cb546ae3bc9ec8d8ff6eebd6636474dd2126fcea038d3992379366"
     },
     {
       "path": "docs/windows-deployment/05-日常使用与本地记录.md",
@@ -1407,14 +1557,14 @@
     {
       "path": "docs/windows-deployment/07-项目Markdown完整目录.md",
       "kind": "file",
-      "bytes": 39983,
-      "sha256": "1b6486c50860a90306a9ba54211b2f2970c0b4f3fe5902457ab652f52473f9a5"
+      "bytes": 45950,
+      "sha256": "7d5c70c60875184f464d9c39d2864f345d6d70650d33d2372ae400241c1effd9"
     },
     {
       "path": "docs/windows-deployment/08-Windows-Agent接手提示词.md",
       "kind": "file",
-      "bytes": 7591,
-      "sha256": "b21038e0e689ab6180bc5d97527dfae2fd48bd8f787c63923f21b30c6b87e954"
+      "bytes": 8073,
+      "sha256": "d4c6438df97c4f7aebe88569bc0111ec576ffd8728086b9df3592a9c10782fc0"
     },
     {
       "path": "docs/windows-deployment/09-来源版本与交付边界.md",
@@ -1545,8 +1695,8 @@
     {
       "path": "integrations/openmausbot/model-fallback/README.md",
       "kind": "file",
-      "bytes": 8168,
-      "sha256": "081066230baeb6cc9ec909d3ca65615572c0f9e7b99a508ac4a02ced9a906e63"
+      "bytes": 9376,
+      "sha256": "5f59bc7e305d5a7417d6c3203f8cc1f612ea8d7b35654c53b7ba66278e7b8d70"
     },
     {
       "path": "integrations/openmausbot/model-fallback/budget-policy.mjs",
@@ -1557,8 +1707,8 @@
     {
       "path": "integrations/openmausbot/model-fallback/budget-router.mjs",
       "kind": "file",
-      "bytes": 7943,
-      "sha256": "74981d7043ab461cdf276e600fb64f3388fc75c27ecba7afd3821e5ce64f3e73"
+      "bytes": 8270,
+      "sha256": "1b30b843bc6a3efd9071b502f41691524ec58f423c45e8018ada2f87741bd10e"
     },
     {
       "path": "integrations/openmausbot/model-fallback/cordis.patch.yml",
@@ -1713,14 +1863,56 @@
     {
       "path": "integrations/openmausbot/team-v2/README.md",
       "kind": "file",
-      "bytes": 1694,
-      "sha256": "dbdf763e92656a50eb01a969a88ecef96ffb7ed0fdd5998419c195f7c0d7ceb1"
+      "bytes": 2019,
+      "sha256": "b915b019942321572adfa64f0148a2a96d266df6ed13e979e5646493b44d76b0"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/SKILLS.md",
+      "kind": "file",
+      "bytes": 4524,
+      "sha256": "d0cd3df0a8b23176a009ab9efe25b5fab75137a4c8cdf0a27969d5d749cde47b"
     },
     {
       "path": "integrations/openmausbot/team-v2/roles.json",
       "kind": "file",
       "bytes": 3456,
       "sha256": "7a9e9f075b78bffb7cbb4d42b00e265d0848916e4ce9823432757ccf3a7482b1"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/anthropic-knowledge/LICENSE",
+      "kind": "file",
+      "bytes": 11607,
+      "sha256": "a6946284993aeec75c7d75906064b66210c46051e562077efb30eb6dcfe72e26"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/anthropic-knowledge/knowledge-synthesis/SKILL.md",
+      "kind": "file",
+      "bytes": 8526,
+      "sha256": "8dc66c66ef0004010bbf2d569251163e90a6675b982e0cb99ef26b4dd1c5a0f6"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/anthropic-knowledge/write-spec/SKILL.md",
+      "kind": "file",
+      "bytes": 12326,
+      "sha256": "ca6670913878b4ac4582727562bfced5271492a5a800d934f68c9e7bc1cd4dcc"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/anthropic-pr-review/LICENSE",
+      "kind": "file",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/anthropic-pr-review/pr-test-analyzer.md",
+      "kind": "file",
+      "bytes": 4560,
+      "sha256": "fcb1cde9ba7b21694b508766a8d6a79bc91bed9982f828f816210059934f46b4"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/anthropic-pr-review/silent-failure-hunter.md",
+      "kind": "file",
+      "bytes": 7807,
+      "sha256": "fa9b0daec5a267e7e66435cc48b3328301fc9f70c3af259fe248881327a1babc"
     },
     {
       "path": "integrations/openmausbot/team-v2/sources/anthropic/frontend-design/LICENSE.txt",
@@ -1771,6 +1963,24 @@
       "sha256": "b0dcf4918935b795f4eda9821579b9902119235ff4447f687a30286e7d0925fd"
     },
     {
+      "path": "integrations/openmausbot/team-v2/sources/impeccable/LICENSE",
+      "kind": "file",
+      "bytes": 10766,
+      "sha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/impeccable/critique.md",
+      "kind": "file",
+      "bytes": 45657,
+      "sha256": "2ce5de79ab31016f1f0b34dea2eac6149e0df4a9e65edfaac2e1712bb9b7d19f"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/impeccable/polish.md",
+      "kind": "file",
+      "bytes": 6644,
+      "sha256": "b5f4fbb4a044c3f5ec14adc847222488f00fccabbf79ecd0b21084c8d319d616"
+    },
+    {
       "path": "integrations/openmausbot/team-v2/sources/local/requirements-interview/SKILL.md",
       "kind": "file",
       "bytes": 6890,
@@ -1797,8 +2007,8 @@
     {
       "path": "integrations/openmausbot/team-v2/sources/manifest.json",
       "kind": "file",
-      "bytes": 4833,
-      "sha256": "bc879e6b3bdf30c46373676d7d5684c76e55aaf4022ae07b9a967b39b99e6514"
+      "bytes": 14751,
+      "sha256": "f178d28a1d9e80a975c1e5492e85912f116a0016bdaa5a26a974405bc67404ab"
     },
     {
       "path": "integrations/openmausbot/team-v2/sources/obsidian/LICENSE",
@@ -1939,6 +2149,42 @@
       "sha256": "0016876dc6f158e926448bff1b6f634796757c7afe09dff177cfe30250724fc4"
     },
     {
+      "path": "integrations/openmausbot/team-v2/sources/trailofbits/property-based-testing/SKILL.md",
+      "kind": "file",
+      "bytes": 4306,
+      "sha256": "9448cacb65c6237a7c22dc59602667177ecae405524079ae9ff92240590b995a"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/trailofbits/property-based-testing/references/generating.md",
+      "kind": "file",
+      "bytes": 2634,
+      "sha256": "c0e72dfc89babe3c32de718b81b94044362c85e776d7475e950dfeaab78bb58e"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/trailofbits/property-based-testing/references/interpreting-failures.md",
+      "kind": "file",
+      "bytes": 3426,
+      "sha256": "dbae7db8773712ba03268a3d56ea5aa6720af0650a5189580bfd88aa2edc3f9a"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/trailofbits/property-based-testing/references/libraries.md",
+      "kind": "file",
+      "bytes": 2952,
+      "sha256": "f7218acf8e668130ef3048983472579d04e12030c5401926f666363e5f69c686"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/trailofbits/property-based-testing/references/refactoring.md",
+      "kind": "file",
+      "bytes": 4854,
+      "sha256": "6eb5c206f575704791f089608bb06e41d6eed91b9d3c7fb27912f969aed07a18"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/trailofbits/property-based-testing/references/reviewing.md",
+      "kind": "file",
+      "bytes": 2859,
+      "sha256": "110b08118a1e7b1a2566def6e9d2a0bf43fc2deefce857d2ce3b4382b07bc774"
+    },
+    {
       "path": "integrations/openmausbot/team-v2/sources/trailofbits/sharp-edges/SKILL.md",
       "kind": "file",
       "bytes": 11814,
@@ -2041,6 +2287,18 @@
       "sha256": "4522b4a37cfd7d3aa689209dfd4569f3b39074bd1f5987a36a6e819f501141b6"
     },
     {
+      "path": "integrations/openmausbot/team-v2/sources/vercel-guidelines/LICENSE",
+      "kind": "file",
+      "bytes": 1068,
+      "sha256": "6cd1609c9c12233507cdd2ce0d32e9a721e3c27494951be06b90090deeeb7af2"
+    },
+    {
+      "path": "integrations/openmausbot/team-v2/sources/vercel-guidelines/command.md",
+      "kind": "file",
+      "bytes": 8055,
+      "sha256": "d246b026f4f29b5823a9cc857f9edf3d2507002e055e32040cadeaf3b38e0234"
+    },
+    {
       "path": "integrations/openmausbot/workbench/README.md",
       "kind": "file",
       "bytes": 5876,
@@ -2067,8 +2325,8 @@
     {
       "path": "integrations/openmausbot/workbuddy/README.md",
       "kind": "file",
-      "bytes": 5587,
-      "sha256": "29e38b82a48985d7031bf6ecf12962371ae8bf132c1501ca022bbd17f539aed9"
+      "bytes": 5678,
+      "sha256": "704a80f789f5d16d6d9f72932c0b997dd02661d337042fcfdfc14857baff3365"
     },
     {
       "path": "integrations/openmausbot/workbuddy/checkin.mjs",
@@ -2079,8 +2337,8 @@
     {
       "path": "integrations/openmausbot/workbuddy/client.mjs",
       "kind": "file",
-      "bytes": 14178,
-      "sha256": "8dd95599b67abbf2ae33364f1d2f1ddc2c00895036d1a383ec6ed70e4a48b1eb"
+      "bytes": 14817,
+      "sha256": "168547dcc66c0690902eebef1a927ffa7393bfbcd7fa7c5a5b54aa7206242630"
     },
     {
       "path": "run-acp-agent.sh",
@@ -2527,6 +2785,96 @@
       "sha256": "50b63ed994a55287d8ee7ccd130d2ab6d9b7cc45a70f2e63c3493eb47c4ccee6"
     },
     {
+      "path": "tests/fixtures/skills-specialization/agy-load/TASK.md",
+      "kind": "file",
+      "bytes": 513,
+      "sha256": "11649ddee83810a380a4a5aa00c5d48bd97b91ea3cf474dab39efe8acbc5f6c4"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/agy-load/brief.md",
+      "kind": "file",
+      "bytes": 338,
+      "sha256": "a67bbd4d16ad6f2e0c92454647aa1437c8cd9c26536007c6da133d6ee8004bb5"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/property/TASK.md",
+      "kind": "file",
+      "bytes": 743,
+      "sha256": "299622173554e5290a1cb3c37ae3de019888c932535e04f633ad32d38a5c0780"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/property/ordering.py",
+      "kind": "file",
+      "bytes": 50,
+      "sha256": "1bfb37a34170de3d3a3034717be4e53e4b5ed1143430eda218d29b57f61cdec9"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/property/test_ordering.py",
+      "kind": "file",
+      "bytes": 345,
+      "sha256": "16862273419724af1346960cd6a928a399551f047f9ba8aed53496cd1bdc60d8"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/research/TASK.md",
+      "kind": "file",
+      "bytes": 793,
+      "sha256": "b6c2e94408e03685e382b5912758390275cc4dfa5a5e0fa25737ea5efd1c20db"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/research/manual-1.md",
+      "kind": "file",
+      "bytes": 232,
+      "sha256": "8848a726ed38417a2f9f60b76bdeda0c197b484fff657bc47702e4f863929dbf"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/research/marketing.md",
+      "kind": "file",
+      "bytes": 224,
+      "sha256": "531f8bdd16157fabf9bc1d9365077770f8cb34aa92856e4af0d677180eff8323"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/research/release-2.md",
+      "kind": "file",
+      "bytes": 347,
+      "sha256": "89fcf439890e888d9652f8276ed37b90257dcd53d675d281bfac3b06df7625cb"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/research/reprint.md",
+      "kind": "file",
+      "bytes": 278,
+      "sha256": "1f3508eb6bc1d0cfeeb7647396995f09b3995993992b48fe1994de9afd06f24c"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/review/TASK.md",
+      "kind": "file",
+      "bytes": 809,
+      "sha256": "47fa0493c4c461124dd68f45e9701914ac9cae86a6dc22ff0414e4bb60cc64f2"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/review/store.py",
+      "kind": "file",
+      "bytes": 621,
+      "sha256": "cde99d8968565f243a5f1f3bf381bc594939e80fc683e804a3cc9f9dd0499631"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/review/test_store.py",
+      "kind": "file",
+      "bytes": 973,
+      "sha256": "e5a0fd10bb41ba4a0aed1516197fef376b22cf6914b2dfb6e229a985b0aa61b7"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/ux/TASK.md",
+      "kind": "file",
+      "bytes": 1128,
+      "sha256": "d07ef7027563082c53373578c355aea09613d3c11daf97fef9ecd5f94cb9f530"
+    },
+    {
+      "path": "tests/fixtures/skills-specialization/ux/index.html",
+      "kind": "file",
+      "bytes": 1461,
+      "sha256": "8f0e21cc59900adeb2c78c9968f2822a821ac133a46780f04444a216beae004b"
+    },
+    {
       "path": "tests/model-fallback-live.py",
       "kind": "file",
       "bytes": 2076,
@@ -2557,6 +2905,12 @@
       "sha256": "0d88b3aa1f5662a10accb0c09d49815829b3502867404834408ba88e69e88cdb"
     },
     {
+      "path": "tests/skills-specialization-live.py",
+      "kind": "file",
+      "bytes": 23488,
+      "sha256": "d95e1a967abbe8c28a4cb001e43af41b6734848e6761b7989f68fbd6259d39b9"
+    },
+    {
       "path": "tests/test_acp_resume_bridge.py",
       "kind": "file",
       "bytes": 16278,
@@ -2583,8 +2937,8 @@
     {
       "path": "tests/test_budget_router.mjs",
       "kind": "file",
-      "bytes": 2945,
-      "sha256": "2be954ab75a5a6e08140a8863e8f15a3cd02eb74827de8d7b3f919524484cfe5"
+      "bytes": 6209,
+      "sha256": "47edf0cfb04c28c699530de61d1b2a4b8b36ab5c07e6eb9c74b531c5da7e016b"
     },
     {
       "path": "tests/test_budget_snapshot.mjs",
@@ -2685,8 +3039,8 @@
     {
       "path": "tests/test_workbuddy_checkin.mjs",
       "kind": "file",
-      "bytes": 19304,
-      "sha256": "84421294608c1047582b9ebf6a910b3be6019c19518335c474e3f96e2cd90166"
+      "bytes": 25538,
+      "sha256": "4c7012c75aad7d7120e1dc664e7403188edd8eff7b607a2a6de0c19d5529b7e9"
     },
     {
       "path": "tests/test_workbuddy_pool_sync.py",

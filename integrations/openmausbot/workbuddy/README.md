@@ -34,7 +34,7 @@ node integrations/openmausbot/workbuddy/checkin.mjs --status
 
 ## 账号范围与读取接口
 
-`client.mjs` 读取可信桌面配置 `~/.dsh/profiles/desktop/cordis.patch.yml` 中的非秘密字段：地区是否启用、选中账号、账号池勾选及排序、各地区已勾选模型。国内限定两个已勾选账号；国际池关闭，仅取用户选中／插件当前的一个账号。不会把其他已登录但未勾选的国内账号加入范围。
+`client.mjs` 读取可信桌面配置 `~/.dsh/profiles/desktop/cordis.patch.yml` 中的非秘密字段：地区是否启用、选中账号、账号池勾选及排序、各地区已勾选模型及图片输入ID。当前按用户后续确认，两区账号池均开启，国内2＋国际2个已勾选账号参与。关闭国际池时仍只取选中／原生当前账号；已启用但空的池不会回退扩大范围，也不会自动纳入未勾选账号。
 
 每次使用账号前，通过原生 `WorkBuddyCredentialStore.selectAccount()` 和 `resolve()` 处理所需刷新，并核对返回的账号标识及区域。刷新可能更新插件自有凭据副本，不修改桌面登录文件。凭据留在闭包内，不由桥接输出或写入本项目日志。
 

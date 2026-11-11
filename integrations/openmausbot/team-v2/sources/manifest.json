@@ -100,5 +100,175 @@
     "source": "/Users/a1/.dsh/skills/requirements-interview",
     "license": "local-user-skill",
     "upstream_skill_sha256": "09fe38d67608e058149ae6aab6563e620c784354620a80bf8c837770e5e74c0c"
+  },
+  {
+    "name": "anthropic-knowledge/knowledge-synthesis/SKILL.md",
+    "repository": "anthropics/knowledge-work-plugins",
+    "revision": "877a617b435ee2edfb002d9a3703c0a1a03aa1ba",
+    "path": "enterprise-search/skills/knowledge-synthesis/SKILL.md",
+    "license": "Apache-2.0",
+    "url": "https://github.com/anthropics/knowledge-work-plugins/blob/877a617b435ee2edfb002d9a3703c0a1a03aa1ba/enterprise-search/skills/knowledge-synthesis/SKILL.md",
+    "local_path": "anthropic-knowledge/knowledge-synthesis/SKILL.md",
+    "upstream_file_sha256": "8dc66c66ef0004010bbf2d569251163e90a6675b982e0cb99ef26b4dd1c5a0f6"
+  },
+  {
+    "name": "anthropic-knowledge/write-spec/SKILL.md",
+    "repository": "anthropics/knowledge-work-plugins",
+    "revision": "877a617b435ee2edfb002d9a3703c0a1a03aa1ba",
+    "path": "product-management/skills/write-spec/SKILL.md",
+    "license": "Apache-2.0",
+    "url": "https://github.com/anthropics/knowledge-work-plugins/blob/877a617b435ee2edfb002d9a3703c0a1a03aa1ba/product-management/skills/write-spec/SKILL.md",
+    "local_path": "anthropic-knowledge/write-spec/SKILL.md",
+    "upstream_file_sha256": "ca6670913878b4ac4582727562bfced5271492a5a800d934f68c9e7bc1cd4dcc"
+  },
+  {
+    "name": "anthropic-knowledge/LICENSE",
+    "repository": "anthropics/knowledge-work-plugins",
+    "revision": "877a617b435ee2edfb002d9a3703c0a1a03aa1ba",
+    "path": "LICENSE",
+    "license": "Apache-2.0",
+    "url": "https://github.com/anthropics/knowledge-work-plugins/blob/877a617b435ee2edfb002d9a3703c0a1a03aa1ba/LICENSE",
+    "local_path": "anthropic-knowledge/LICENSE",
+    "upstream_file_sha256": "a6946284993aeec75c7d75906064b66210c46051e562077efb30eb6dcfe72e26"
+  },
+  {
+    "name": "anthropic-pr-review/pr-test-analyzer.md",
+    "repository": "anthropics/claude-plugins-official",
+    "revision": "43fd1f9db0941b2b83cb62268e35970d4a67c202",
+    "path": "plugins/pr-review-toolkit/agents/pr-test-analyzer.md",
+    "license": "Apache-2.0",
+    "url": "https://github.com/anthropics/claude-plugins-official/blob/43fd1f9db0941b2b83cb62268e35970d4a67c202/plugins/pr-review-toolkit/agents/pr-test-analyzer.md",
+    "local_path": "anthropic-pr-review/pr-test-analyzer.md",
+    "upstream_file_sha256": "fcb1cde9ba7b21694b508766a8d6a79bc91bed9982f828f816210059934f46b4"
+  },
+  {
+    "name": "anthropic-pr-review/silent-failure-hunter.md",
+    "repository": "anthropics/claude-plugins-official",
+    "revision": "43fd1f9db0941b2b83cb62268e35970d4a67c202",
+    "path": "plugins/pr-review-toolkit/agents/silent-failure-hunter.md",
+    "license": "Apache-2.0",
+    "url": "https://github.com/anthropics/claude-plugins-official/blob/43fd1f9db0941b2b83cb62268e35970d4a67c202/plugins/pr-review-toolkit/agents/silent-failure-hunter.md",
+    "local_path": "anthropic-pr-review/silent-failure-hunter.md",
+    "upstream_file_sha256": "fa9b0daec5a267e7e66435cc48b3328301fc9f70c3af259fe248881327a1babc"
+  },
+  {
+    "name": "anthropic-pr-review/LICENSE",
+    "repository": "anthropics/claude-plugins-official",
+    "revision": "43fd1f9db0941b2b83cb62268e35970d4a67c202",
+    "path": "plugins/pr-review-toolkit/LICENSE",
+    "license": "Apache-2.0",
+    "url": "https://github.com/anthropics/claude-plugins-official/blob/43fd1f9db0941b2b83cb62268e35970d4a67c202/plugins/pr-review-toolkit/LICENSE",
+    "local_path": "anthropic-pr-review/LICENSE",
+    "upstream_file_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "name": "impeccable/critique.md",
+    "repository": "pbakaus/impeccable",
+    "revision": "c1e0e5492fbb524f5df84d635ecfae7dc438ec45",
+    "path": ".agent/skills/impeccable/reference/critique.md",
+    "license": "Apache-2.0",
+    "url": "https://github.com/pbakaus/impeccable/blob/c1e0e5492fbb524f5df84d635ecfae7dc438ec45/.agent/skills/impeccable/reference/critique.md",
+    "local_path": "impeccable/critique.md",
+    "upstream_file_sha256": "2ce5de79ab31016f1f0b34dea2eac6149e0df4a9e65edfaac2e1712bb9b7d19f"
+  },
+  {
+    "name": "impeccable/polish.md",
+    "repository": "pbakaus/impeccable",
+    "revision": "c1e0e5492fbb524f5df84d635ecfae7dc438ec45",
+    "path": ".agent/skills/impeccable/reference/polish.md",
+    "license": "Apache-2.0",
+    "url": "https://github.com/pbakaus/impeccable/blob/c1e0e5492fbb524f5df84d635ecfae7dc438ec45/.agent/skills/impeccable/reference/polish.md",
+    "local_path": "impeccable/polish.md",
+    "upstream_file_sha256": "b5f4fbb4a044c3f5ec14adc847222488f00fccabbf79ecd0b21084c8d319d616"
+  },
+  {
+    "name": "impeccable/LICENSE",
+    "repository": "pbakaus/impeccable",
+    "revision": "c1e0e5492fbb524f5df84d635ecfae7dc438ec45",
+    "path": "LICENSE",
+    "license": "Apache-2.0",
+    "url": "https://github.com/pbakaus/impeccable/blob/c1e0e5492fbb524f5df84d635ecfae7dc438ec45/LICENSE",
+    "local_path": "impeccable/LICENSE",
+    "upstream_file_sha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812"
+  },
+  {
+    "name": "vercel-guidelines/command.md",
+    "repository": "vercel-labs/web-interface-guidelines",
+    "revision": "434b7f91364665f2f733b310ec54809bf8f37937",
+    "path": "command.md",
+    "license": "MIT",
+    "url": "https://github.com/vercel-labs/web-interface-guidelines/blob/434b7f91364665f2f733b310ec54809bf8f37937/command.md",
+    "local_path": "vercel-guidelines/command.md",
+    "upstream_file_sha256": "d246b026f4f29b5823a9cc857f9edf3d2507002e055e32040cadeaf3b38e0234"
+  },
+  {
+    "name": "vercel-guidelines/LICENSE",
+    "repository": "vercel-labs/web-interface-guidelines",
+    "revision": "434b7f91364665f2f733b310ec54809bf8f37937",
+    "path": "LICENSE",
+    "license": "MIT",
+    "url": "https://github.com/vercel-labs/web-interface-guidelines/blob/434b7f91364665f2f733b310ec54809bf8f37937/LICENSE",
+    "local_path": "vercel-guidelines/LICENSE",
+    "upstream_file_sha256": "6cd1609c9c12233507cdd2ce0d32e9a721e3c27494951be06b90090deeeb7af2"
+  },
+  {
+    "name": "trailofbits/property-based-testing/SKILL.md",
+    "repository": "trailofbits/skills",
+    "revision": "e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff",
+    "path": "plugins/property-based-testing/skills/property-based-testing/SKILL.md",
+    "license": "CC-BY-SA-4.0",
+    "url": "https://github.com/trailofbits/skills/blob/e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff/plugins/property-based-testing/skills/property-based-testing/SKILL.md",
+    "local_path": "trailofbits/property-based-testing/SKILL.md",
+    "upstream_file_sha256": "9448cacb65c6237a7c22dc59602667177ecae405524079ae9ff92240590b995a"
+  },
+  {
+    "name": "trailofbits/property-based-testing/references/generating.md",
+    "repository": "trailofbits/skills",
+    "revision": "e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff",
+    "path": "plugins/property-based-testing/skills/property-based-testing/references/generating.md",
+    "license": "CC-BY-SA-4.0",
+    "url": "https://github.com/trailofbits/skills/blob/e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff/plugins/property-based-testing/skills/property-based-testing/references/generating.md",
+    "local_path": "trailofbits/property-based-testing/references/generating.md",
+    "upstream_file_sha256": "c0e72dfc89babe3c32de718b81b94044362c85e776d7475e950dfeaab78bb58e"
+  },
+  {
+    "name": "trailofbits/property-based-testing/references/reviewing.md",
+    "repository": "trailofbits/skills",
+    "revision": "e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff",
+    "path": "plugins/property-based-testing/skills/property-based-testing/references/reviewing.md",
+    "license": "CC-BY-SA-4.0",
+    "url": "https://github.com/trailofbits/skills/blob/e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff/plugins/property-based-testing/skills/property-based-testing/references/reviewing.md",
+    "local_path": "trailofbits/property-based-testing/references/reviewing.md",
+    "upstream_file_sha256": "110b08118a1e7b1a2566def6e9d2a0bf43fc2deefce857d2ce3b4382b07bc774"
+  },
+  {
+    "name": "trailofbits/property-based-testing/references/interpreting-failures.md",
+    "repository": "trailofbits/skills",
+    "revision": "e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff",
+    "path": "plugins/property-based-testing/skills/property-based-testing/references/interpreting-failures.md",
+    "license": "CC-BY-SA-4.0",
+    "url": "https://github.com/trailofbits/skills/blob/e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff/plugins/property-based-testing/skills/property-based-testing/references/interpreting-failures.md",
+    "local_path": "trailofbits/property-based-testing/references/interpreting-failures.md",
+    "upstream_file_sha256": "dbae7db8773712ba03268a3d56ea5aa6720af0650a5189580bfd88aa2edc3f9a"
+  },
+  {
+    "name": "trailofbits/property-based-testing/references/refactoring.md",
+    "repository": "trailofbits/skills",
+    "revision": "e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff",
+    "path": "plugins/property-based-testing/skills/property-based-testing/references/refactoring.md",
+    "license": "CC-BY-SA-4.0",
+    "url": "https://github.com/trailofbits/skills/blob/e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff/plugins/property-based-testing/skills/property-based-testing/references/refactoring.md",
+    "local_path": "trailofbits/property-based-testing/references/refactoring.md",
+    "upstream_file_sha256": "6eb5c206f575704791f089608bb06e41d6eed91b9d3c7fb27912f969aed07a18"
+  },
+  {
+    "name": "trailofbits/property-based-testing/references/libraries.md",
+    "repository": "trailofbits/skills",
+    "revision": "e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff",
+    "path": "plugins/property-based-testing/skills/property-based-testing/references/libraries.md",
+    "license": "CC-BY-SA-4.0",
+    "url": "https://github.com/trailofbits/skills/blob/e4dd0bb5b15535f7c5a0834187dffba6ac37e4ff/plugins/property-based-testing/skills/property-based-testing/references/libraries.md",
+    "local_path": "trailofbits/property-based-testing/references/libraries.md",
+    "upstream_file_sha256": "f7218acf8e668130ef3048983472579d04e12030c5401926f666363e5f69c686"
   }
 ]

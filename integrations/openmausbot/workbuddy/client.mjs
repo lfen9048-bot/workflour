@@ -102,7 +102,8 @@ out = {'accounts'=>{}, 'regions'=>{}}
   out['accounts'][r] = (c['accounts'] || {})[r]
   v = (c['regions'] || {})[r] || {}
   p = v['pool'] || {}
-  out['regions'][r] = {'enabled'=>v.fetch('enabled', true), 'enabledModelIds'=>v.fetch('enabledModelIds', []), 'pool'=>{
+  out['regions'][r] = {'enabled'=>v.fetch('enabled', true), 'enabledModelIds'=>v.fetch('enabledModelIds', []),
+    'imageModelIds'=>v.fetch('imageModelIds', []), 'pool'=>{
     'enabled'=>p.fetch('enabled', false), 'memberAccountIds'=>p.fetch('memberAccountIds', []),
     'orderAccountIds'=>p.fetch('orderAccountIds', [])}}
 end
@@ -110,7 +111,7 @@ STDOUT.write(JSON.generate(out))
 `;
 
 export function normalizePreferences(raw, pluginVersion = SUPPORTED_PLUGIN_VERSION) {
-  const pools = {}, selectedAccounts = {}, enabledRegions = {}, enabledModelIds = {};
+  const pools = {}, selectedAccounts = {}, enabledRegions = {}, enabledModelIds = {}, imageModelIds = {};
   for (const region of REGIONS) {
     const r = raw.regions?.[region] || {}, p = r.pool || {};
     if (r.enabled !== undefined && typeof r.enabled !== 'boolean') throw new BridgeError('invalid_region_preferences');
@@ -118,13 +119,17 @@ export function normalizePreferences(raw, pluginVersion = SUPPORTED_PLUGIN_VERSI
     const models = r.enabledModelIds ?? [];
     if (!Array.isArray(models) || models.some(id => typeof id !== 'string' || !id.trim() || id.length > 512)) throw new BridgeError('invalid_model_preferences');
     enabledModelIds[region] = [...new Set(models)];
+    const images = r.imageModelIds === undefined ? [] : r.imageModelIds;
+    if (!Array.isArray(images) || images.some(id => typeof id !== 'string' || !id.trim() || id.length > 512)) throw new BridgeError('invalid_image_preferences');
+    imageModelIds[region] = [...new Set(images)];
     enabledRegions[region] = r.enabled !== false;
     selectedAccounts[region] = accountId(raw.accounts?.[region], true);
     pools[region] = { enabled: p.enabled === true, memberAccountIds: ids(p.memberAccountIds), orderAccountIds: ids(p.orderAccountIds) };
   }
-  return { pluginVersion, pools, selectedAccounts, enabledRegions, enabledModelIds,
+  return { pluginVersion, pools, selectedAccounts, enabledRegions, enabledModelIds, imageModelIds,
     allowedAccounts: { cn: enabledRegions.cn ? [...pools.cn.memberAccountIds] : [],
-      global: enabledRegions.global && selectedAccounts.global ? [selectedAccounts.global] : [] } };
+      global: !enabledRegions.global ? [] : pools.global.enabled ? [...pools.global.memberAccountIds]
+        : selectedAccounts.global ? [selectedAccounts.global] : [] } };
 }
 
 export async function loadPreferences({ desktopPatchPath = DEFAULT_PATCH_PATH, packageDir = DEFAULT_PACKAGE_DIR } = {}) {
@@ -165,16 +170,18 @@ export async function createBridge({ preferences, packageDir = DEFAULT_PACKAGE_D
   const client = new api.WorkBuddyUpstreamClient();
   const stores = new Map();
   const newStore = region => new api.WorkBuddyCredentialStore({ region, refresh: c => client.refreshToken(c) });
-  // When the desktop has no explicit global selection, use its native current
-  // account only. This is a read, not a refresh, account switch, or pool scan.
+  // Resolve an implicit native current account without changing selection.
+  // An enabled global pool keeps exactly its checked members; with the pool
+  // disabled only the selected/current account is allowed.
   if (!includeGlobal) prefs.allowedAccounts.global = [];
   if (includeGlobal && prefs.enabledRegions.global && !prefs.selectedAccounts.global) {
     await guarded(async () => {
       const credential = await newStore('global').current();
       if (credential) {
         const id = accountId(api.workbuddyAccountId(credential));
+        if (api.regionOf(credential.domain) !== 'global') throw new BridgeError('account_region_mismatch');
         prefs.selectedAccounts.global = id;
-        prefs.allowedAccounts.global = [id];
+        if (!prefs.pools.global.enabled) prefs.allowedAccounts.global = [id];
       }
     }, 'global_account_unreadable');
   }
