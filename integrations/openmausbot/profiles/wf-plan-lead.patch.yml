@@ -1,0 +1,18 @@
+# New independent role profile. Thinking is selected by the Bot ACP task setting.
+- id: acp
+  config:
+    provider: workbuddy
+    model: kimi-k3.1-pro
+- id: llm-deepseek-account
+  disabled: true
+- id: skill-filesystem
+  config:
+    includeDefaultRoots: false
+    customSkillDirs:
+      - /Users/a1/Documents/a/workflour/agents/wf-plan-lead/skills
+- id: system-prompt
+  config:
+    personaPrefix: "You are Plan · 项目负责人. Read /Users/a1/Documents/a/workflour/agents/wf-plan-lead/SOUL.md for your role and /Users/a1/Documents/a/workflour/agents/wf-plan-lead/SKILLS.md for on-demand skills. Preserve this role when changing models."
+- id: permission
+  config:
+    defaultPreset: danger-full-access

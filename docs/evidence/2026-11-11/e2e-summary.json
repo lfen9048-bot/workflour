@@ -1,0 +1,25 @@
+{
+  "status": "verified_pending_user_acceptance",
+  "verified_at": "2026-11-11T08:14:32.062964+00:00",
+  "experience": {
+    "status": "passed",
+    "checks": 44,
+    "screenshots": 16
+  },
+  "repair_round": 1,
+  "unattended_without_maintenance": false,
+  "acceptance_check": {
+    "ok": true,
+    "stage_checked": "acceptance",
+    "task_id": "WFWEB-001",
+    "code_snapshot": {
+      "index.html": "e94980a74c9b9161c22de9cc154e809eec93bcb9e11c00d92a6cecf088107dad",
+      "README.md": "932b36fba5847eccb7b4f7d8ba56a9de3f3ee759f142836fac5a9945b7a11e5e",
+      "test_app.py": "8eb57280255f53de54d45e05f1a20d07139831d2568ab83b377e35d7803d1491",
+      "records/code-main/preview.py": "80f0e1877bfa0b3684c96bf7d6d90b81e785ca08203ed311280677705d80f273",
+      "records/code-main/implementation-round1.md": "1519459e2b995adc72bd4810a7398f75d428de709418a4ce4c3ce687626130a2"
+    },
+    "meaning": "Evidence consistency only; not proof of human authorization or complete test coverage"
+  },
+  "acceptance": "pending"
+}

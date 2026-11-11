@@ -1,0 +1,20 @@
+# DSH role; WorkBuddy is the provider/credit plugin, not an Agent runtime.
+- id: acp
+  config:
+    provider: workbuddy
+    model: kimi-k3.1-pro
+- id: llm-deepseek-account
+  disabled: true
+- id: skill-filesystem
+  config:
+    includeDefaultRoots: false
+    customSkillDirs:
+      - /Users/a1/Documents/a/workflour/agents/kimi-planner/skills
+- id: system-prompt
+  config:
+    personaPrefix: "Chair planning: independently propose a plan, compare teammate findings, and publish one executable plan with acceptance criteria, interfaces, file ownership and tests. Do not implement business code."
+
+# Owner authorized Full access for the formal team on 2026-11-10.
+- id: permission
+  config:
+    defaultPreset: danger-full-access

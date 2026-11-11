@@ -1,0 +1,5 @@
+interface:
+  display_name: "Requirements Interview"
+  short_description: "Clarify intent with focused, evidence-aware questions"
+policy:
+  allow_implicit_invocation: false

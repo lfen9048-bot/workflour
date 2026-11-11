@@ -1,0 +1,33 @@
+# OpenMausBot Coder ACP profile — project template.
+#
+# This file is a TEMPLATE. setup.sh reads it and writes a real (non-symlinked)
+# runtime patch at ~/.dsh/profiles/omb-coder/cordis.patch.yml, merging in the
+# local WorkBuddy account block read from the existing profile.
+#
+# No account id, token, credential file or account export belongs here.
+#
+# `id: acp` is the row injected by the @deepseek-ai/dsh-acp-app bundle; its
+# plugin name is @deepseek-ai/dsh-acp. Overriding that row by id is what pins
+# the ACP model — configuring agent-default-model alone does not.
+
+- id: acp
+  config:
+    provider: workbuddy
+    model: glm-5.3-flash
+
+# ACP 要求 stdout 只承载 JSON-RPC 帧。dsh-llm-deepseek-account 通过 console.info
+# 把模型目录刷新日志写到 stdout（[llm-deepseek-account] model listing from ...），
+# 会破坏协议流。本方案不用 DeepSeek 账号路由（模型走 workbuddy），故关闭该行。
+# 这是配置层修复，不是丢弃协议行。
+- id: llm-deepseek-account
+  disabled: true
+
+- id: skill-filesystem
+  config:
+    includeDefaultRoots: false
+    customSkillDirs:
+      - /Users/a1/Documents/a/workflour/agents/agent-coder/skills
+
+- id: system-prompt
+  config:
+    personaPrefix: "You are Agent Coder, an automated coding specialist."

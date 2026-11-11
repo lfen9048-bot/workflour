@@ -1,0 +1,19 @@
+{
+  "platform": "macOS",
+  "scope": "clean staged checkout, no original private configs or runtime data",
+  "results": {
+    "python": {
+      "exit_code": 0,
+      "total": 165,
+      "passed": 164,
+      "skipped": 1
+    },
+    "node": {
+      "exit_code": 0,
+      "total": 62,
+      "passed": 62,
+      "skipped": 0
+    }
+  },
+  "windows_verified": false
+}

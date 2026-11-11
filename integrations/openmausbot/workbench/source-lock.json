@@ -1,0 +1,16 @@
+{
+  "package": "openmausbot",
+  "version": "0.1.143",
+  "upstream": "https://github.com/milind-soni/OpenMausBot",
+  "license": "Apache-2.0",
+  "sha256": {
+    "package.json": "43363663bd2ec1237474e7a65169a28eb344551f2d864be74ee785837da6a718",
+    "cli.js": "1873fee9198a8102e0118c2aba19aa7903eb084b249c9105968b458e671bb9a8",
+    "dist-server/openmausbot.js": "e7860eeeaf4487fae398464e89aaac47974d8fd60db6c14caa33694544dd491e",
+    "dist-server/index.js": "fba5606956a2de22b3a2b22a3b83988a3d6e3f30d071ef784d8e298d664e26a8",
+    "dist/index.html": "4b2d4e4377c525e9f84322127b3dceed1c69559d3cd514a4b711c66bc9c51cb6",
+    "dist/assets/index-CbqySWLd.js": "b63a1f5eef5fb85d440a17a4f3a5589221300c03fd2aa7d2296ea71ee74f66ae",
+    "dist/assets/SettingsModal-BBy73dwz.js": "390ac96c06e6dcf305494ea318f7895d392366218d884d2ec64336052bf1f1ca",
+    "dist/assets/styles-BugXEPjM.css": "5b53d1ab3b1d774679873a765581a51c3343e54ec0e5308b3767244706b0b087"
+  }
+}

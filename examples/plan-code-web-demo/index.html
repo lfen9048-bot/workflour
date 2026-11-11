@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今日三件事</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-focus: rgba(37, 99, 235, 0.25);
+      --danger: #dc2626;
+      --danger-hover: #b91c1c;
+      --danger-focus: rgba(220, 38, 38, 0.2);
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+      --warning-text: #92400e;
+      --error-bg: #fef2f2;
+      --error-border: #fecaca;
+      --error-text: #991b1b;
+      --success-badge-bg: #ecfdf5;
+      --success-badge-text: #065f46;
+      --radius: 12px;
+      --transition: all 0.2s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 32px 16px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 28px 24px;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .counter-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      background-color: #f1f5f9;
+      color: var(--text-main);
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    .counter-badge.all-completed {
+      background-color: var(--success-badge-bg);
+      color: var(--success-badge-text);
+      border-color: #a7f3d0;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .status-banner {
+      display: none;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      line-height: 1.4;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .status-banner.visible {
+      display: block;
+    }
+
+    .status-banner.warning {
+      background-color: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      color: var(--warning-text);
+    }
+
+    .status-banner.error {
+      background-color: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: var(--error-text);
+    }
+
+    .todo-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .input-wrapper {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .todo-input {
+      width: 100%;
+      height: 44px;
+      padding: 0 14px;
+      font-size: 15px;
+      color: var(--text-main);
+      background-color: #ffffff;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .todo-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-focus);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      padding: 0 18px;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+      min-width: 64px;
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .todo-list-section {
+      min-height: 160px;
+    }
+
+    .todo-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      transition: var(--transition);
+      min-width: 0;
+    }
+
+    .todo-item:hover {
+      border-color: #cbd5e1;
+      background-color: #f8fafc;
+    }
+
+    .todo-item.completed {
+      background-color: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    .item-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+    }
+
+    /* 原生 checkbox 尺寸与触控面积 */
+    .todo-checkbox {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      min-height: 20px;
+      cursor: pointer;
+      accent-color: var(--primary);
+      margin-top: 2px;
+    }
+
+    .todo-checkbox:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .item-text {
+      font-size: 15px;
+      color: var(--text-main);
+      min-width: 0;
+      flex: 1;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      line-height: 1.5;
+    }
+
+    .todo-item.completed .item-text {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .btn-delete {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: -2px;
+    }
+
+    .btn-delete:hover {
+      color: var(--danger);
+      background-color: #fef2f2;
+      border-color: #fee2e2;
+    }
+
+    .btn-delete:focus-visible {
+      outline: 3px solid var(--danger);
+      outline-offset: 2px;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+      text-align: center;
+      color: var(--text-muted);
+      border: 1.5px dashed var(--border-color);
+      border-radius: 8px;
+      background-color: #fafafa;
+    }
+
+    .empty-state-title {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: #475569;
+    }
+
+    .empty-state-desc {
+      font-size: 13px;
+    }
+
+    footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* 375px 窄屏适配 */
+    @media (max-width: 420px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .container {
+        padding: 20px 16px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .header-top {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .counter-badge {
+        font-size: 12px;
+        padding: 3px 10px;
+      }
+
+      .todo-item {
+        padding: 10px 12px;
+        gap: 10px;
+      }
+
+      .btn-delete {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <div class="header-top">
+        <h1>今日三件事</h1>
+        <div id="counter-badge" class="counter-badge" aria-live="polite">已完成 0 件 / 共 0 件</div>
+      </div>
+      <p class="subtitle">聚焦关键，要事优先 · 当天最多 3 件事</p>
+    </header>
+
+    <!-- 状态与提示通知区 (用于空输入、满3件提示、存储异常反馈等) -->
+    <div id="status-banner" class="status-banner" role="status" aria-live="polite"></div>
+
+    <!-- 添加事项表单 -->
+    <form id="todo-form" class="todo-form" novalidate>
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="todo-input"
+          class="todo-input"
+          placeholder="写下今天要做的一件事..."
+          maxlength="120"
+          autocomplete="off"
+          aria-label="待办事项内容"
+        >
+      </div>
+      <button type="submit" id="add-btn" class="btn btn-primary" aria-label="添加事项">添加</button>
+    </form>
+
+    <!-- 事项列表区 -->
+    <section class="todo-list-section" aria-label="事项列表">
+      <ul id="todo-list" class="todo-list"></ul>
+      <div id="empty-state" class="empty-state">
+        <div class="empty-state-title">今天还没有安排事项</div>
+        <div class="empty-state-desc">在上方输入框写下一件事，点击“添加”开始</div>
+      </div>
+    </section>
+
+    <footer>
+      <span>本地自动保存</span>
+      <span>支持键盘 Tab / Space / Enter</span>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'wfweb001.todo.v1';
+      const MAX_ITEMS = 3;
+
+      const form = document.getElementById('todo-form');
+      const input = document.getElementById('todo-input');
+      const addBtn = document.getElementById('add-btn');
+      const listEl = document.getElementById('todo-list');
+      const emptyStateEl = document.getElementById('empty-state');
+      const counterBadge = document.getElementById('counter-badge');
+      const statusBanner = document.getElementById('status-banner');
+
+      let todos = [];
+
+      // 防御性读取 localStorage
+      function loadTodos() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return [];
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            return parsed
+              .filter(item => (
+                item &&
+                typeof item.id === 'string' &&
+                typeof item.text === 'string' &&
+                item.text.trim() !== '' &&
+                typeof item.completed === 'boolean'
+              ))
+              .slice(0, MAX_ITEMS);
+          }
+          return [];
+        } catch (err) {
+          console.warn('读取本地存储失败:', err);
+          showStatus('读取本地存储失败（数据可能已损坏），已恢复为空白列表。', 'warning');
+          return [];
+        }
+      }
+
+      // 防御性写入 localStorage
+      function saveTodos() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+          return true;
+        } catch (err) {
+          console.error('写入本地存储失败:', err);
+          showStatus('本地存储写入失败（可能空间超限或浏览器设置禁止），更改仅在当前页面有效。', 'error');
+          return false;
+        }
+      }
+
+      function showStatus(message, type = 'warning') {
+        statusBanner.textContent = message;
+        statusBanner.className = `status-banner visible ${type}`;
+      }
+
+      function clearStatus() {
+        statusBanner.textContent = '';
+        statusBanner.className = 'status-banner';
+      }
+
+      function updateCounter() {
+        const total = todos.length;
+        const completed = todos.filter(t => t.completed).length;
+        counterBadge.textContent = `已完成 ${completed} 件 / 共 ${total} 件`;
+        if (total > 0 && completed === total) {
+          counterBadge.classList.add('all-completed');
+        } else {
+          counterBadge.classList.remove('all-completed');
+        }
+      }
+
+      function render() {
+        listEl.innerHTML = '';
+
+        if (todos.length === 0) {
+          emptyStateEl.style.display = 'flex';
+          listEl.style.display = 'none';
+        } else {
+          emptyStateEl.style.display = 'none';
+          listEl.style.display = 'flex';
+
+          todos.forEach((todo, index) => {
+            const li = document.createElement('li');
+            li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+            li.setAttribute('data-id', todo.id);
+
+            const contentLabel = document.createElement('label');
+            contentLabel.className = 'item-content';
+            contentLabel.setAttribute('for', `checkbox-${todo.id}`);
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = `checkbox-${todo.id}`;
+            checkbox.className = 'todo-checkbox';
+            checkbox.checked = todo.completed;
+            checkbox.setAttribute('aria-label', `标记为${todo.completed ? '未完成' : '已完成'}: ${todo.text}`);
+            checkbox.addEventListener('change', () => {
+              toggleTodo(todo.id);
+            });
+
+            const textSpan = document.createElement('span');
+            textSpan.className = 'item-text';
+            textSpan.textContent = todo.text;
+
+            contentLabel.appendChild(checkbox);
+            contentLabel.appendChild(textSpan);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.type = 'button';
+            deleteBtn.className = 'btn-delete';
+            deleteBtn.textContent = '删除';
+            deleteBtn.setAttribute('data-index', index);
+            deleteBtn.setAttribute('aria-label', `删除事项: ${todo.text}`);
+            deleteBtn.addEventListener('click', () => {
+              deleteTodo(todo.id);
+            });
+
+            li.appendChild(contentLabel);
+            li.appendChild(deleteBtn);
+            listEl.appendChild(li);
+          });
+        }
+
+        updateCounter();
+      }
+
+      function addTodo(text) {
+        const trimmed = text.trim();
+
+        if (!trimmed) {
+          showStatus('事项内容不能为空，请输入具体要做的事。', 'warning');
+          input.focus();
+          return false;
+        }
+
+        if (todos.length >= MAX_ITEMS) {
+          showStatus(`今日最多保留 ${MAX_ITEMS} 件事（包含已完成），请先删除一件不需要的事项后再添加。`, 'warning');
+          input.focus();
+          return false;
+        }
+
+        const newTodo = {
+          id: 'todo_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+          text: trimmed,
+          completed: false,
+          createdAt: Date.now()
+        };
+
+        todos.push(newTodo);
+        const saved = saveTodos();
+        render();
+        input.value = '';
+        if (saved) {
+          clearStatus();
+        }
+        input.focus();
+        return true;
+      }
+
+      function toggleTodo(id) {
+        const todo = todos.find(t => t.id === id);
+        if (!todo) return;
+        todo.completed = !todo.completed;
+        const saved = saveTodos();
+        render();
+        if (saved) {
+          clearStatus();
+        }
+
+        // 保持焦点在刚刚操作的复选框上，防止 DOM 重建后焦点掉回 body
+        requestAnimationFrame(() => {
+          const cb = document.getElementById(`checkbox-${id}`);
+          if (cb) {
+            cb.focus();
+          }
+        });
+      }
+
+      function deleteTodo(id) {
+        const targetIndex = todos.findIndex(t => t.id === id);
+        if (targetIndex === -1) return;
+
+        todos.splice(targetIndex, 1);
+        const saved = saveTodos();
+        render();
+        if (saved) {
+          clearStatus();
+        }
+
+        // M-4 键盘焦点去向管理：
+        // 优先下一个任务的删除按钮，没有下一个就移到上一个，列表空了就移到输入框。
+        requestAnimationFrame(() => {
+          const deleteButtons = listEl.querySelectorAll('.btn-delete');
+          if (deleteButtons.length > 0) {
+            if (targetIndex < deleteButtons.length) {
+              deleteButtons[targetIndex].focus();
+            } else {
+              deleteButtons[deleteButtons.length - 1].focus();
+            }
+          } else {
+            input.focus();
+          }
+        });
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        addTodo(input.value);
+      });
+
+      input.addEventListener('input', function () {
+        if (statusBanner.classList.contains('visible')) {
+          clearStatus();
+        }
+      });
+
+      // 页面初始化
+      todos = loadTodos();
+      render();
+    })();
+  </script>
+</body>
+</html>

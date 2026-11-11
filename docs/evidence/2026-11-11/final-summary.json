@@ -1,0 +1,30 @@
+{
+  "status": "verified_pending_user_acceptance",
+  "team_roles": 7,
+  "legacy_business_bots_deleted": 12,
+  "legacy_groups_preserved": 2,
+  "legacy_projects_preserved": 8,
+  "workbench": "v4 live verified",
+  "workflow_e2e": "verified_pending_user_acceptance",
+  "manager_status_query": "passed",
+  "observer_ok": true,
+  "billing_live": true,
+  "schedule": "daily 13:00 Asia/Shanghai",
+  "python": {
+    "run": 165,
+    "passed": 164,
+    "skipped": 1
+  },
+  "node": {
+    "run": 62,
+    "passed": 62
+  },
+  "limits": [
+    "User acceptance remains pending",
+    "E2E required maintenance interventions",
+    "No single-agent comparison yet",
+    "No AGY automatic cross-runtime fallback",
+    "Current international free DeepSeek not present in fresh catalog",
+    "Tomorrow 13:00 natural scheduler execution not yet observed"
+  ]
+}

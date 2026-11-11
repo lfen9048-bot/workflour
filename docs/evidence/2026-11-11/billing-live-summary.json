@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "role": "wf-assistant",
+  "tool_calls": 0,
+  "protocol_error_count": 0,
+  "confirmed_effort_setting": "low",
+  "runtime_provider_region": "global",
+  "model": "deepseek-v4.1-flash-sg",
+  "effort": "low",
+  "tier": "expiring",
+  "confirmed_at": "2026-11-11T11:15:29.363Z",
+  "menu_has_internal_provider": false,
+  "response": "BILLING-READY",
+  "api_fallback_called": false,
+  "account_identifiers_and_balances_removed": true
+}

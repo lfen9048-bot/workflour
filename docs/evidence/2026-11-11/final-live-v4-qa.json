@@ -1,0 +1,191 @@
+{
+  "startedAt": "2026-11-11T11:15:14.353Z",
+  "kind": "live v4 final acceptance",
+  "checks": {
+    "initialTheme": [
+      {
+        "checked": "true",
+        "name": "跟随系统"
+      },
+      {
+        "checked": "false",
+        "name": "浅色"
+      },
+      {
+        "checked": "false",
+        "name": "深"
+      }
+    ],
+    "advanced": {
+      "enginesVisible": true,
+      "guideVisible": false,
+      "pressed": "true"
+    },
+    "modelCard": [
+      {
+        "label": "思考程度",
+        "options": [
+          {
+            "label": "选择",
+            "value": ""
+          },
+          {
+            "label": "Low",
+            "value": "low"
+          },
+          {
+            "label": "High",
+            "value": "high"
+          },
+          {
+            "label": "Max",
+            "value": "max"
+          }
+        ],
+        "value": "high"
+      },
+      {
+        "label": "作用范围",
+        "options": [
+          {
+            "label": "选择",
+            "value": ""
+          },
+          {
+            "label": "仅当前任务",
+            "value": "task"
+          },
+          {
+            "label": "设为 Bot 默认，旧任务保持原模型",
+            "value": "default"
+          }
+        ],
+        "value": "task"
+      }
+    ],
+    "sevenBusinessEntrances": [
+      {
+        "name": "大管家",
+        "visible": true
+      },
+      {
+        "name": "通用助手",
+        "visible": true
+      },
+      {
+        "name": "计划 · 项目负责人",
+        "visible": true
+      },
+      {
+        "name": "计划·方案与体验评价",
+        "visible": true
+      },
+      {
+        "name": "代码·主编码",
+        "visible": true
+      },
+      {
+        "name": "守则 · 独立审核",
+        "visible": true
+      },
+      {
+        "name": "代码 · 协作编码",
+        "visible": true
+      }
+    ],
+    "devicePairing": {
+      "visible": true,
+      "activated": false,
+      "textProbeMatched": false,
+      "verification": "Manually inspected saved live screenshot; Chrome automatic translation changed native labels, so the original-Chinese text probe did not match.",
+      "screenshot": "final-live-v4-device-after-ai-desktop.jpg"
+    },
+    "usage": {
+      "visible": true,
+      "quotaAmountsAsserted": false,
+      "textProbeMatched": false,
+      "verification": "Manually inspected saved live screenshot; Chrome automatic translation changed native labels, so the original-Chinese text probe did not match.",
+      "screenshot": "final-live-v4-usage-after-ai-desktop.jpg"
+    },
+    "guideCleanup": true
+  },
+  "screens": [
+    {
+      "name": "ai-desktop",
+      "guideCount": 1,
+      "guideVisible": true,
+      "scrollWidth": 1440,
+      "sections": [
+        "模型与思考程度"
+      ],
+      "skin": "midnight",
+      "view": "simple",
+      "width": 1440
+    },
+    {
+      "name": "general-after-ai-desktop",
+      "guideCount": 0,
+      "guideVisible": false,
+      "scrollWidth": 1440,
+      "sections": [
+        "外观",
+        "通知"
+      ],
+      "skin": "midnight",
+      "view": "simple",
+      "width": 1440
+    },
+    {
+      "name": "device-after-ai-desktop",
+      "guideCount": 0,
+      "guideVisible": false,
+      "scrollWidth": 1440,
+      "sections": [
+        "你的设备"
+      ],
+      "skin": "midnight",
+      "view": "simple",
+      "width": 1440
+    },
+    {
+      "name": "usage-after-ai-desktop",
+      "guideCount": 0,
+      "guideVisible": false,
+      "scrollWidth": 1440,
+      "sections": [
+        "花在哪里"
+      ],
+      "skin": "midnight",
+      "view": "simple",
+      "width": 1440
+    }
+  ],
+  "assets": {
+    "scripts": [
+      "/workflour-workbench.js?v=bc4d218b988f62f2"
+    ],
+    "skin": "midnight",
+    "styles": [
+      "/workflour-workbench.css?v=50bf45d63aa1c0dd"
+    ],
+    "view": "simple"
+  },
+  "restored": {
+    "height": 717,
+    "managerPendingText": true,
+    "skin": "midnight",
+    "view": "simple",
+    "width": 1200,
+    "themePreference": "follow-system",
+    "viewportOverride": false,
+    "page": "manager"
+  },
+  "result": "passed targeted live v4 regression",
+  "finishedAt": "2026-11-11T11:16:55.743Z",
+  "limitations": [
+    "No model selections, defaults or task mutations submitted; no messages sent.",
+    "Stop action was not exercised because no task was launched for UI testing.",
+    "Chrome automatic translation changes some original role names in the screenshots; app role configuration was not changed.",
+    "Viewport override was reset; actual current browser default is 1200x717, differing from the earlier 1200x661 window."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "day": "2026-11-11",
+  "timezone": "Asia/Shanghai",
+  "ok": true,
+  "accounts": [
+    {
+      "label": "CN-selected-1",
+      "status": "already_verified",
+      "verified": true,
+      "claimAttempted": false
+    },
+    {
+      "label": "CN-selected-2",
+      "status": "already_verified",
+      "verified": true,
+      "claimAttempted": false
+    }
+  ]
+}

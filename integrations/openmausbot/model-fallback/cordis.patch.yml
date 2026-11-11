@@ -1,0 +1,3 @@
+- insert:
+    - id: workflour-model-fallback
+      name: /Users/a1/Documents/a/workflour/integrations/openmausbot/model-fallback/plugin.mjs

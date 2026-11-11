@@ -1,0 +1,153 @@
+{
+  "status": "example_only_not_runtime_config",
+  "target_os": "Windows 11 x64",
+  "workflow_root": "C:/workflour",
+  "projects_root": "C:/workflour-projects",
+  "obsidian_vault": "C:/workflour-notes/多Agent协作开发工作流",
+  "paths": {
+    "python_exe": null,
+    "node_exe": null,
+    "dsh_command": null,
+    "agy_command": null,
+    "omb_command": null,
+    "dsh_home": null,
+    "omb_data_dir": null
+  },
+  "versions": {
+    "openmausbot_baseline": "0.1.143",
+    "dsh_mac_baseline": "0.2.1-rc.2",
+    "workbuddy_plugin_baseline": "5.13.1",
+    "installed": {}
+  },
+  "policy": {
+    "approval": "full",
+    "workflow": "plan-code",
+    "shared_state_owner": "plan-lead",
+    "planning_round_limit": 2,
+    "preview_consult_limit": 1,
+    "repair_review_round_limit": 2,
+    "repair_budget_shared_between": [
+      "technical-review",
+      "experience"
+    ],
+    "recovery_retry_per_phase_role": 1,
+    "user_acceptance_required": true,
+    "quota_policy": [
+      "verified-free-workbuddy-global-then-cn",
+      "expiring-credits-cross-region-heads-by-expiry",
+      "ordinary-workbuddy-cn-then-global",
+      "existing-deepseek-api-after-explicit-quota"
+    ],
+    "cn_accounts": "only-desktop-checked-pool-members",
+    "global_accounts": "selected-account-only-pool-disabled",
+    "default_deepseek_equivalent_routes_only": true,
+    "kimi_glm_keep_default_until_quota": true,
+    "claim_specific_credit_package": false,
+    "reset_timezone": "Asia/Shanghai",
+    "reset_time": "13:00",
+    "reset_boundary": "next_turn",
+    "daily_cn_checkin_time": "13:00",
+    "api_secret_reference": "DEEPSEEK_API_KEY",
+    "antigravity_cross_runtime_fallback": false
+  },
+  "bots": [
+    {
+      "role": "wf-manager",
+      "name": "大管家",
+      "instance_id": "omb-wf-manager",
+      "runtime": "dsh",
+      "bot_id": null,
+      "desired_provider": "workbuddy",
+      "desired_model": "deepseek-v4.1-flash",
+      "desired_thinking": "low",
+      "catalog_model_id": null,
+      "confirmed_variants": [],
+      "selected_variant": null,
+      "actual_call_verified": false
+    },
+    {
+      "role": "wf-plan-lead",
+      "name": "Plan · 项目负责人",
+      "instance_id": "omb-wf-plan-lead",
+      "runtime": "dsh",
+      "bot_id": null,
+      "desired_provider": "workbuddy",
+      "desired_model": "kimi-k3.1-pro",
+      "desired_thinking": "high",
+      "catalog_model_id": null,
+      "confirmed_variants": [],
+      "selected_variant": null,
+      "actual_call_verified": false
+    },
+    {
+      "role": "wf-plan-review",
+      "name": "Plan · 方案与体验评审",
+      "instance_id": "omb-wf-plan-review",
+      "runtime": "dsh",
+      "bot_id": null,
+      "desired_provider": "workbuddy",
+      "desired_model": "deepseek-v4.1-flash",
+      "desired_thinking": "high",
+      "catalog_model_id": null,
+      "confirmed_variants": [],
+      "selected_variant": null,
+      "actual_call_verified": false
+    },
+    {
+      "role": "wf-code-main",
+      "name": "Code · 主编码",
+      "instance_id": "agy-gemini",
+      "runtime": "antigravity",
+      "bot_id": null,
+      "desired_provider": "antigravity",
+      "desired_model": "gemini-3.8-flash",
+      "desired_thinking": "high",
+      "catalog_model_id": null,
+      "confirmed_variants": [],
+      "selected_variant": null,
+      "actual_call_verified": false
+    },
+    {
+      "role": "wf-code-review",
+      "name": "Code · 独立审核",
+      "instance_id": "omb-wf-code-review",
+      "runtime": "dsh",
+      "bot_id": null,
+      "desired_provider": "workbuddy",
+      "desired_model": "glm-5.3-flash",
+      "desired_thinking": "high",
+      "catalog_model_id": null,
+      "confirmed_variants": [],
+      "selected_variant": null,
+      "actual_call_verified": false
+    },
+    {
+      "role": "wf-code-helper",
+      "name": "Code · 协作编码",
+      "instance_id": "omb-wf-code-helper",
+      "runtime": "dsh",
+      "bot_id": null,
+      "desired_provider": "workbuddy",
+      "desired_model": "deepseek-v4.1-flash",
+      "desired_thinking": "high",
+      "catalog_model_id": null,
+      "confirmed_variants": [],
+      "selected_variant": null,
+      "actual_call_verified": false
+    },
+    {
+      "role": "wf-assistant",
+      "name": "通用助手",
+      "instance_id": "omb-wf-assistant",
+      "runtime": "dsh",
+      "bot_id": null,
+      "desired_provider": "workbuddy",
+      "desired_model": "deepseek-v4.1-flash",
+      "desired_thinking": "low",
+      "catalog_model_id": null,
+      "confirmed_variants": [],
+      "selected_variant": null,
+      "actual_call_verified": false
+    }
+  ]
+}

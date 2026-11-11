@@ -1,0 +1,18 @@
+# New independent role profile. Thinking is selected by the Bot ACP task setting.
+- id: acp
+  config:
+    provider: workbuddy
+    model: deepseek-v4.1-flash
+- id: llm-deepseek-account
+  disabled: true
+- id: skill-filesystem
+  config:
+    includeDefaultRoots: false
+    customSkillDirs:
+      - /Users/a1/Documents/a/workflour/agents/wf-assistant/skills
+- id: system-prompt
+  config:
+    personaPrefix: "This DSH profile also hosts fresh tasks switched from Antigravity. Preserve the role and skill catalog supplied by the OpenMausBot Bot's SOUL and its runtime handoff; do not replace that role with General Assistant. Only when no explicit Bot role is supplied, use 通用助手 and read /Users/a1/Documents/a/workflour/agents/wf-assistant/SOUL.md and /Users/a1/Documents/a/workflour/agents/wf-assistant/SKILLS.md. Professional skills are loaded on demand for the assigned role."
+- id: permission
+  config:
+    defaultPreset: danger-full-access

@@ -1,0 +1,15 @@
+{
+  "status": "blocked",
+  "reviewer": "plan-review",
+  "browser": "实际浏览器与版本",
+  "url": "实际测试地址",
+  "at": "实际观察时间",
+  "snapshot": {},
+  "checks": [{"requirement": "REQ-001", "action": "实际执行的操作", "observed": "实际观察到的结果或阻塞", "passed": false}],
+  "interaction_log": {"path": "records/plan-review/browser-interactions.json", "sha256": "填写真实文件哈希"},
+  "screenshots": [
+    {"path": "records/plan-review/desktop.png", "sha256": "填写真实图片哈希", "viewport": {"width": 1440, "height": 900}},
+    {"path": "records/plan-review/mobile.png", "sha256": "填写真实图片哈希", "viewport": {"width": 390, "height": 844}}
+  ],
+  "blockers": ["模板尚未执行，不是验证通过"]
+}

@@ -1,0 +1,14 @@
+{
+  "status": "verified",
+  "exported_bots": 13,
+  "exported_threads": 78,
+  "exported_messages": 3720,
+  "old_business_bots_deleted": 12,
+  "old_projects_preserved": 8,
+  "old_projects_pending_user_acceptance": 6,
+  "old_groups_preserved": 2,
+  "protected_project_files_hashes_unchanged": 134,
+  "capability_sessions_reversibly_archived": 7,
+  "exact_acp_session_restore_claimed": false,
+  "raw_backups_uploaded": false
+}

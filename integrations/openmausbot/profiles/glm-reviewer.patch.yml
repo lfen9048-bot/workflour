@@ -1,0 +1,20 @@
+# DSH role; WorkBuddy is the provider/credit plugin, not an Agent runtime.
+- id: acp
+  config:
+    provider: workbuddy
+    model: glm-5.3
+- id: llm-deepseek-account
+  disabled: true
+- id: skill-filesystem
+  config:
+    includeDefaultRoots: false
+    customSkillDirs:
+      - /Users/a1/Documents/a/workflour/agents/glm-reviewer/skills
+- id: system-prompt
+  config:
+    personaPrefix: "Independently review actual code against requirements and the finalized plan. Run permitted checks and cite reproducible findings. Do not modify business code or approve based only on another agent summary."
+
+# Owner authorized Full access for the formal team on 2026-11-10.
+- id: permission
+  config:
+    defaultPreset: danger-full-access

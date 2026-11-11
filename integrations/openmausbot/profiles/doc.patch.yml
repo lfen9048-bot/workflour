@@ -1,0 +1,25 @@
+# OpenMausBot Doc ACP profile — project template.
+#
+# Same shape as coder.patch.yml; setup.sh materialises it into
+# ~/.dsh/profiles/omb-doc/cordis.patch.yml together with the local WorkBuddy
+# account block. Never put credentials in this file.
+
+- id: acp
+  config:
+    provider: workbuddy
+    model: deepseek-v4.1-flash
+
+# 同 coder.patch.yml：关闭会向 stdout 写日志的 DeepSeek 账号路由，
+# 保住 ACP 的 stdout 纯净。模型统一走 workbuddy。
+- id: llm-deepseek-account
+  disabled: true
+
+- id: skill-filesystem
+  config:
+    includeDefaultRoots: false
+    customSkillDirs:
+      - /Users/a1/Documents/a/workflour/agents/agent-doc/skills
+
+- id: system-prompt
+  config:
+    personaPrefix: "You are Agent Doc, an automated documentation specialist."

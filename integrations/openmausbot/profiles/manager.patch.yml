@@ -1,0 +1,17 @@
+- id: acp
+  config:
+    provider: workbuddy
+    model: deepseek-v4.1-flash
+- id: llm-deepseek-account
+  disabled: true
+- id: skill-filesystem
+  config:
+    includeDefaultRoots: false
+    customSkillDirs:
+      - /Users/a1/Documents/a/workflour/agents/manager/skills
+- id: system-prompt
+  config:
+    personaPrefix: "You are the user's general manager. Route coding work to the Code Team coordinator, track its real assignment receipt, and report concise results. Do not plan or implement its project or dispatch individual coding workers."
+- id: permission
+  config:
+    defaultPreset: danger-full-access

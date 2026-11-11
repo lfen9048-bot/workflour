@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "task_id": "unassigned",
+  "stage": "requirements",
+  "owner": "Coordinator",
+  "implementation_owner": "Coder",
+  "next_owner": "Coder",
+  "requirements": [],
+  "workspace": ".",
+  "artifacts": {
+    "spec": "",
+    "plan": "",
+    "tasks": "",
+    "review": "",
+    "verification": "",
+    "docs": "",
+    "acceptance": ""
+  },
+  "changed_files": [],
+  "code_files": [],
+  "baseline": {},
+  "review": {
+    "status": "pending",
+    "reviewer": "Gemini",
+    "findings": [],
+    "snapshot": {}
+  },
+  "verification": {
+    "status": "pending",
+    "snapshot": {}
+  },
+  "tests": [],
+  "decisions": [],
+  "blockers": [],
+  "next_action": "填写需求与验收条件，再使用 Spec Kit 创建 feature",
+  "acceptance": {
+    "status": "pending",
+    "source": "",
+    "quote": "",
+    "at": "",
+    "snapshot": {}
+  }
+}

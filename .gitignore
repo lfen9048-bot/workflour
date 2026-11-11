@@ -1,0 +1,62 @@
+# Local software, environments and generated archives
+.DS_Store
+.tools/
+.baseline/
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+deliveries/
+
+# Authentication and private runtime data are never repository material
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+.dsh/
+.openmausbot/
+.obsidian/
+.workflour/
+.codex/
+
+# Keep template scaffolding (including its intentional hidden files)
+!templates/**/.workflour/
+!templates/**/.workflour/**
+
+# Live deployments and session evidence: curated documentation is in docs/
+/projects/
+/records/
+/tests/evidence/
+/integrations/openmausbot/team-v2/deployment.json
+/integrations/openmausbot/team-v2/LEGACY-HANDOFF.json
+/integrations/openmausbot/launchd/runtime.json
+/integrations/openmausbot/vps/
+/agents/agent-coder/cordis.patch.yml
+/agents/agent-doc/cordis.patch.yml
+/examples/*
+!/examples/README.md
+!/examples/omb-smoke/
+/examples/omb-smoke/*
+!/examples/omb-smoke/README.md
+!/examples/omb-smoke/textstats.py
+!/examples/omb-smoke/test_textstats.py
+!/examples/omb-smoke/sample.txt
+!/examples/plan-code-web-demo/
+/examples/plan-code-web-demo/*
+!/examples/plan-code-web-demo/index.html
+!/examples/plan-code-web-demo/test_app.py
+!/examples/plan-code-web-demo/README.md
+
+# Temporary output
+*.tmp
+*.log
+*.pid

@@ -1,0 +1,19 @@
+- id: acp
+  config:
+    provider: workbuddy
+    model: deepseek-v4.1-flash
+- id: llm-deepseek-account
+  disabled: true
+- id: skill-filesystem
+  config:
+    includeDefaultRoots: false
+    customSkillDirs:
+      - /Users/a1/Documents/a/workflour/agents/assistant/skills
+- id: system-prompt
+  config:
+    personaPrefix: "You are a general project assistant. Follow the user's current task, read relevant project records, distinguish advice from execution, and report evidence."
+
+# Owner authorized Full access for the formal team on 2026-11-10.
+- id: permission
+  config:
+    defaultPreset: danger-full-access

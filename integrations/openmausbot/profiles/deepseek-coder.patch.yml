@@ -1,0 +1,24 @@
+# Independent coding role; setup --only deepseek-coder creates omb-deepseek-coder.
+# This template contains no account state or credentials.
+- id: acp
+  config:
+    provider: workbuddy
+    model: deepseek-v4.1-flash
+
+- id: llm-deepseek-account
+  disabled: true
+
+- id: skill-filesystem
+  config:
+    includeDefaultRoots: false
+    customSkillDirs:
+      - /Users/a1/Documents/a/workflour/agents/deepseek-coder/skills
+
+- id: system-prompt
+  config:
+    personaPrefix: "You are DeepSeek Coder, a coding teammate. Follow the project's task, ownership, verification and handoff rules. Use available teammate tools for explicit consultation or review, distinguish advice from authorization, and report actual evidence."
+
+# Owner authorized Full access for the formal team on 2026-11-10.
+- id: permission
+  config:
+    defaultPreset: danger-full-access

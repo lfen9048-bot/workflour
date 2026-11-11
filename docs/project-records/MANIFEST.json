@@ -1,0 +1,363 @@
+{
+  "exported_at": "2026-11-11",
+  "kind": "handwritten-notes-portable-snapshot",
+  "files": [
+    {
+      "file": "docs/project-records/01-需求/目标与待定事项.md",
+      "source_sha256": "94cb6882a465d0a6d14043371a4158faa8cfb20085caec5db1e672aa0e02a946",
+      "export_sha256": "37b35e9fb43c29ede3b43c28945c7ab64751e0c2cce189e84d6a124a778d9dbe"
+    },
+    {
+      "file": "docs/project-records/02-调研/2026-11-05-知识库记录方式.md",
+      "source_sha256": "a703bc3d97ee8949c4ca7f476bdf5c8d99ab8ec2a7be7cfcc13f0e3f68334ca7",
+      "export_sha256": "6972a48244703e864d2bd7dfcd9de63ae081cfc32cd6fa7ffbe81a80b746b664"
+    },
+    {
+      "file": "docs/project-records/02-调研/2026-11-05-现有工具与Harness多实例隔离.md",
+      "source_sha256": "5e1351d030ecd1fd69202e228a233a5dc6bad3a0f3561722ce5ceefea5fd23d4",
+      "export_sha256": "97a569b0386917de0cc42fb927a5b23688c0874cef3e5c5c92fcb9c11ef824f1"
+    },
+    {
+      "file": "docs/project-records/02-调研/2026-11-06-Harness社区分支和扩展候选.md",
+      "source_sha256": "c2e20a9542d5b27ccd45e46d1025c6a30a4f3ae8cbb5b2f763e774f082bb857d",
+      "export_sha256": "da6b09cfa3147cd18a39d451ffdd34868eb84aedc653cadcdfb9f6d147660b05"
+    },
+    {
+      "file": "docs/project-records/02-调研/2026-11-09-GrokBot讨论与OpenMausBot现成协作能力.md",
+      "source_sha256": "178b02e0989f0c488f58f3c818d1a5a77ecd8890fa241902bd89e119267eee6d",
+      "export_sha256": "def7c42a57cca3ee6122729cdf12ee56a5211e740560ebf89b9ea7bfe648aa9b"
+    },
+    {
+      "file": "docs/project-records/02-调研/2026-11-09-Kiro接入可行性.md",
+      "source_sha256": "3d93752b191b8bd0e231981c8db504b7f374392237be51dea97a58be30bbe85e",
+      "export_sha256": "9fa3e19ee9d02604b5425b6bdc7d31aca85d104522e31ebb88d6ca3e61b6e792"
+    },
+    {
+      "file": "docs/project-records/02-调研/2026-11-06-DSHL同名项目与适配.md",
+      "source_sha256": "e6ba9e62b8b6c77a39cdee2c1d372d20aa7b9aee654f6097c3b9b91137db60c7",
+      "export_sha256": "ee76da733cf4d364878757cb02859762a6062f10502239cb96909d52455604c0"
+    },
+    {
+      "file": "docs/project-records/02-调研/2026-11-09-后台托管原生恢复与项目流程选型.md",
+      "source_sha256": "cf75300b1039f0547b30fcf500ef951f51d048b5c7a38cedafc0e08614511008",
+      "export_sha256": "233572a9b31b553c4e67098dfe829a19bec7ff54cb03f4b23037876005a12e87"
+    },
+    {
+      "file": "docs/project-records/02-调研/2026-11-06-OpenMausBot调研.md",
+      "source_sha256": "db5346f24ee092c261bbdd2314488e4f501c818708f66ae9ce6fc422d517cfd6",
+      "export_sha256": "c6c792161bd2ee76b1c657623c6769581f08b30cb68d60c632fb86855edb1d9e"
+    },
+    {
+      "file": "docs/project-records/03-设计/2026-11-09-Code工作流Bot讨论设计.md",
+      "source_sha256": "f4541f5dc7cd0e36d0559c0e952703c611e37fa0d736c75ac0c2eb24923341a7",
+      "export_sha256": "646b9d985087a59daca96dea0547f55b2c8981e02b65d9581ae9c6c3ed2ed184"
+    },
+    {
+      "file": "docs/project-records/03-设计/2026-11-09-Bot配置与任务上下文边界.md",
+      "source_sha256": "bbb884c0450d41d2331164371b3388ac82e73d9d3858165d6c1c6856a4fd38cd",
+      "export_sha256": "dc2bf171c10789c30b88db0c06aaf6f3490db42f5f6d065453affbecdb60769e"
+    },
+    {
+      "file": "docs/project-records/03-设计/2026-11-09-Code工作流模型分工草案.md",
+      "source_sha256": "c856ba249e05f588a14b461835cf353b41b449b9be663eb5c07270c2fbef8187",
+      "export_sha256": "97a3c359d12c521f5dd5a8d00e3ed58861cc118587494475651431ffe84958cc"
+    },
+    {
+      "file": "docs/project-records/03-设计/2026-11-06-OpenMausBot双Agent与手机接入实施计划.md",
+      "source_sha256": "5eb0707c1c9ec9e26fd5d9c4779d2c4201564cb32b3f786fe14483310d8c721f",
+      "export_sha256": "d87eeacd1a08778b1a7a9a761a1c9da2f2a42ff6a05a9809b6b762a8e1c8cf1e"
+    },
+    {
+      "file": "docs/project-records/03-设计/2026-11-09-手动多Agent完整项目流程.md",
+      "source_sha256": "4697f20d72a0ae63c93403f3410c2e3e064e6b0c1f24c785caa18210cb8d6a9a",
+      "export_sha256": "8630eb121a4a3fd8e2c1a09ee0296511c6d0d47aa30e72b36d2e2bec1ae8adea"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-10-安全续跑与自动记录实施.md",
+      "source_sha256": "6ae291eb26a8daea623dcca5f97d1a1290a2d1b690d3eb39795f27533210a97f",
+      "export_sha256": "978ddc4d7ff98dd891a09c27d112d10b0ae6944db67f71130bc8b226e018af6c"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-10-Windows部署资料与源码交接.md",
+      "source_sha256": "813984429d994540494ad3fe3ac0017484aae074f06f30660bf50ce1d66f4d0a",
+      "export_sha256": "d37750b5538c4dfa75391eb51d6e50ae64a6711ee13115c50733a3be6e694ce1"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-10-大管家与CodeTeam两层管理.md",
+      "source_sha256": "bb09e072e566eeaa46ef03e2f107264b08a5d138de664e27fbaede5dbfb4f6e3",
+      "export_sha256": "85ba0b5b0078c0cdca8349f263e892a3949244d005db8a19e5c6dc639be84511"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-05-明确现有资源与隔离需求.md",
+      "source_sha256": "59270b49281db349af44ef21d83d71ba0768602c44048c9df43d6da729ecf147",
+      "export_sha256": "16598921aa110c257c0f1c098e3dadec0ecc8d3d392443d96736ad3e9bad0bf4"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-09-部署VPS公网HTTPS入口.md",
+      "source_sha256": "b7cd85cd4de893714d3fe130c5acf57bb960b5df3647126a61b69bc6fc62d135",
+      "export_sha256": "dda6a6aa5fd74d7b8864f99802d3eaca70e06ec6d8e5360934cd0ba76fdf72d3"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-11-新PlanCode团队与工作台精简.md",
+      "source_sha256": "d99904ce83da197c43755b9f4b15688157980ef9d27cba88594f23d1030c4ba0",
+      "export_sha256": "96aa7ee191efd47bcab30b4853a2d557bf42272f82225521d87d18b5d24d00f5"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-10-机器人管理图文说明.md",
+      "source_sha256": "140af7dbdb43a470fbb74bf3c6a35b04fadb6414af4e5ce08c4f9e2cfb2d4c58",
+      "export_sha256": "84f4e3cd2fdc4bd8121c72774b48695fec7984376c2e23041bff9548f9ba6233"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-06-调研DSHL.md",
+      "source_sha256": "8b0ca918fcf081c67cdb43358ccae8d0a905b719fbf601023c5d9fa8842b2558",
+      "export_sha256": "06cf2ccf0b9af8c3174c5da06cfa0732f15d8e6f90caa0e44f7ef81a7ae377db"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-08-OpenMausBot本机入口与UI复核.md",
+      "source_sha256": "086434a1686ffa4e539f47210422f1d6981310b02117b975383bac27d9bf6f86",
+      "export_sha256": "69eb1aa5480d6a32546897842fa3a7d88a3ab2e725f88324f12d761c5ba8132f"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-05-初始化知识库.md",
+      "source_sha256": "79e6bcd1ea768b61ad13e450921203190538ccb5838d1f94797f9a9eb88a5f58",
+      "export_sha256": "d6a5cf34784384c432bfe64380e35eb5c5e9d6435cf5f6f6e37907c36cd134db"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-06-复核双Agent最小系统.md",
+      "source_sha256": "a2c2794fbdb6385f55e0229147b37696cbb7e7d100486ccd15c9c1e5ffb93ccb",
+      "export_sha256": "35ede93ad03feaa5b2c2eb7d5eea26a2f7916e9bba96a71c9eeea3f985155d48"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-09-Code工作流分工盘点.md",
+      "source_sha256": "127cc1183fe65be53eb3713434aafab2753a68d224558f12502367aa8c5512f3",
+      "export_sha256": "e2c9b9b59026887dff7fae344faeac27e5f84a124db1ad6cc4c63ae3d7adf0e5"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-10-工作台总控模型控制与会话整理.md",
+      "source_sha256": "a53f7cb33cbaa81eda088391f887227542aa905cb708f96932c01f8623de3ae0",
+      "export_sha256": "9614ef486ed75e228cb3d3483d594b41a9096198426bab76291cd967d6435954"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-08-VPS自建入口前置核验.md",
+      "source_sha256": "0b5b4309071d6c580084dbe384b6f3e6d26c37a7e09e03481b6266d17baee54e",
+      "export_sha256": "93d8cd9132f7b077bfa193e62f69c23b7adce83af8ca0e44c2e8cc33f7adb716"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-10-全权限与总控派单调整.md",
+      "source_sha256": "7d846d279606ae85607aeeda406fcd26d45e7a67eedfe3fda34c97a89cdeadc9",
+      "export_sha256": "63dbab4091cee804a292163cbd1771f97595e59fa7c6c10ef1894490fffce2cf"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-06-检索Harness社区版本.md",
+      "source_sha256": "acfbec87c1720f859715ee390080037c68813a097c5706f48a3e9ce3e1fe5d64",
+      "export_sha256": "a76e45df666a1487da5516e5ac957f9e61efe7f3ac9797247075b87986b82cac"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-06-实施OpenMausBot双Agent接入.md",
+      "source_sha256": "a81278998e5b04d214ff879ea29befb08893e949485da3c08941c984d04dd743",
+      "export_sha256": "61916a49f093c545061485bc3d54b8319d689f71f8b0196fffdeeb87e49b2483"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-09-实测DeepSeek与Gemini讨论协作.md",
+      "source_sha256": "aa471b8ad2fa7fe84d53370bf4a08fd005d33484acb698e1021c26107c52caed",
+      "export_sha256": "c290704b04a4965a0bb8a171de6326900e3dd71b102b81fd4d694ae22fb95a73"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-11-免费临期额度优先与13点签到恢复.md",
+      "source_sha256": "8f5d3620f6f087a3f5612183db1d82cb855bd5a6f84587158ec5a26300230990",
+      "export_sha256": "b8961b7020107a9b042dfdb27b521a785f45ce713de17c33afeb08893a504092"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-09-接入Antigravity.md",
+      "source_sha256": "895ba92036280e7ef7cd83f0894705f4c40a8e1c9973b00762969505de3ad813",
+      "export_sha256": "0148d759a06eaa5d705e3255b2a32d3b4087927d950cbf3b522107a32bf74295"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-06-形成OpenMausBot实施交接.md",
+      "source_sha256": "f90ea65ebbd4567b4f621549b279c709277f1a73094c007cf452c4e38f7fbea4",
+      "export_sha256": "18a246987eca84131bc039ffa2ca92ca523c370e60db83b762d71796df838942"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-10-额度备用与连接提示.md",
+      "source_sha256": "e36e1f7ef0a7d16fdca70251971068a6e410298eb9d87331837ec768f74b8a11",
+      "export_sha256": "7187b33d78a6fe9e6d2de834f277ac80254a6994bb317077efaf669919d1b454"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-06-调研OpenMausBot.md",
+      "source_sha256": "a30f0c628fa5f06891923c2005bd610176987841b873fc5873da88cd2dce9cea",
+      "export_sha256": "a32912ea17fbb49b81c7781bdb56a382107d42474662904cb1d13215af5f6099"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-09-调研Kiro接入.md",
+      "source_sha256": "3935a1a43c6d34271540a6623dc441981549a8b3b72d9e7a94a8bf9dc1fd3d90",
+      "export_sha256": "b563d7cec19ac2b22af92028f6c17aeab55fe23fe7bb89de533332419f1198c9"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-05-建立项目接手入口.md",
+      "source_sha256": "bc195154c4c59db714892e4ead1bd482040bb18102aeb431023cfa69f1de7e78",
+      "export_sha256": "757b15d2df4c576c12d5279c48e323d66e30e9fa1647b53f740a350bc4f0eaf6"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-10-三方交叉回应与轻量管理.md",
+      "source_sha256": "5829ba418a6c3fd2131df68b368393d69ee17be2ef947e5f92d42e3b95a3dfc4",
+      "export_sha256": "45f1f78938181f5d7e86d245baaed71a64960352984f14559f0055c040eb98cd"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-10-CodeTeam正式团队整理.md",
+      "source_sha256": "7ba6a81d3f078b1296e55ec300c7719caa8c30538236966189924dc1d3d1bad8",
+      "export_sha256": "9e335ce947c8351a3b28309e017983147317eb159d4cad24adb17861a6f7e1f4"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-09-实施DSH多模型Code工作流.md",
+      "source_sha256": "81a2fbeaf230d9100eeaa3435e456d93a4a7adf2a6c9043924aeca21425d9733",
+      "export_sha256": "18de80cc672c4075a82ad9f7801e9c76b46dff55e07c9aa0ccea47090547393c"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-09-复查现有链路与分离边界.md",
+      "source_sha256": "5d89ee412949094a0962236d6ad44deaef48dc4c3298369168882213ea5c7122",
+      "export_sha256": "ebd36632e1e89b546d590d61929629be10096e2911b420b4db1fadbca08a3b41"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-05-明确独立能力与统一历史需求.md",
+      "source_sha256": "c63892e1036933c57652bd176cb9d0ca8ed42fa452e08de2f10d48aac3ac2e8d",
+      "export_sha256": "02fbdc76643e9bd200c5571a4cea0df72b4be1a0e2d10ad293bbbdd65b71a5c7"
+    },
+    {
+      "file": "docs/project-records/04-搭建/2026-11-09-修复后台与恢复并搭协作流程.md",
+      "source_sha256": "8a5e057601260c975eaba3e6b4bf763983bb93c657f3e6021b6ae773a1e839f6",
+      "export_sha256": "38b8cafb4fca05815345b154a5675034cca0ed1d91c5e1062b13dfc268de2eb3"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-09-DSH多模型Code工作流实测.md",
+      "source_sha256": "afcf24981782bddf5fca6ebb6fb08c34fa2ef12454147e9cb7a4e3f1e0030af4",
+      "export_sha256": "5bd1b8030f41860804f621ff31d482dbf09b0e90733a408ea3faf97da0110209"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-11-新团队基础验证与完整网页演练.md",
+      "source_sha256": "e6d97b56396a664aba73208453ecef46b4dd2b59b4ac6d69d9d7a2fd2b8f4908",
+      "export_sha256": "9c7e950b65c18dfadac51a5ae71ec41d693b334eef795e6c88b1ac5ea80de8f6"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-09-可靠性修复与完整流程验收.md",
+      "source_sha256": "519525236576e36e9650e5e5032ba0c556a62ebd8afe630189c4d8acf48b3f50",
+      "export_sha256": "565234e8ee86d5e3c23c80408c1cdae0b67604a928f4c52a9f530ea270aba4f0"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-06-OpenMausBot双Agent本地阶段验证.md",
+      "source_sha256": "3448be248a25008311bcb632eb64d6c7ee934ec13024809c49ba2d69872d6247",
+      "export_sha256": "67d5faaaa694eb609b23a54210bc9924590924ea276bdd35922ceb6e06350f41"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-10-三方交叉回应实跑.md",
+      "source_sha256": "862b59c53aab35986219ebbe4064cb566223bb34257b12d30a911f42971ed9b5",
+      "export_sha256": "bfb07e7dd0d0a62b14e66b44b8bd373b81be016e073158480472dcef3213f9ac"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-10-当前工作流只读复核-2223.md",
+      "source_sha256": "f7dbb3ccd572b5ccb3b07da047bc2ef22c9bee55607974d316a9aa55a8ef9e5b",
+      "export_sha256": "f7dbb3ccd572b5ccb3b07da047bc2ef22c9bee55607974d316a9aa55a8ef9e5b"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-08-VPS自建入口前置核验.md",
+      "source_sha256": "57cb0a61b849ff2b70c4734c2fb78b77849ff416fcecf67d76e04d55e7aa6cb4",
+      "export_sha256": "a0c6fda4803c09bb3cfbb1f16c557affff3e9978aa1a6956db082b519aa463d0"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-10-工作台总控模型控制与DSH整理验证.md",
+      "source_sha256": "d10a65e66c561f7356a0e8156b4ab7f9034297f269980d8c10a15b701018068d",
+      "export_sha256": "c48811309043f5e5a286955992e06f2a9dfd45521d26f014c57b32fb4cba37ef"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-10-安全续跑与自动记录完整流程验证.md",
+      "source_sha256": "bee7c51254a68f046959484928f87beb98adcd172f819a86ee600c1bc5c3821e",
+      "export_sha256": "4cb4d4780b270e8d30b638b694d0e1b18d0c6ac378dc714af714e2b2ff82a573"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-09-已跑通能力逐项复查.md",
+      "source_sha256": "6ba98168019af01625e0c65fe7005ba00bcbca6e5351e5668d4e970fd4751c48",
+      "export_sha256": "5cd22d43b31e093c9cd00ad80f5dda07b2eefd311462b43e1b7aa9fd62a081c6"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-09-Antigravity接入验证.md",
+      "source_sha256": "f3d4e8a26a5d89ceb4f54f9449609462e2102e9f0e0e46deb5bfb54d5e29b7c3",
+      "export_sha256": "feb21876432d1c300413fc17ba0e45392729db9c328cf29eaaac0c2771701f13"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-06-双Agent最小系统复核.md",
+      "source_sha256": "73b69c4f7983ba41b780b54dc303c39aecbe421225932ae49a6fa243a4fbfc5c",
+      "export_sha256": "55ed9904d6522cd7f422d53b2edd8a31fa8778815da96692f5b7cbc17aadbc21"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-10-功能盘点与剩余缺口.md",
+      "source_sha256": "fa0a5857ee89fb54d149ea80eddf9b9159a90daffbfe6b16f674949b0850af07",
+      "export_sha256": "f5574aa1b93f5b5a3a4e1cbb7d029a4d305639e9814c7becab4ada777d3f04e5"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-09-VPS公网HTTPS入口验证.md",
+      "source_sha256": "11027fc7e7783053591bcd9bb288307632772f1c91766afbc92ae0f592fb1c83",
+      "export_sha256": "938412254e4f182cd1bf62b6562d85ae8d6550bef0cd8bd1c90f9e686eda18f4"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-09-Bot讨论与交叉审核实测.md",
+      "source_sha256": "a3159bd0fc6e356168fb3fddc8baa0471bd1196cc3c909f581af6a760cf160cb",
+      "export_sha256": "4d0d32a7191be5982e614d67e05e75815056f0d54063b68cabe7009ab8d5e358"
+    },
+    {
+      "file": "docs/project-records/05-验证/2026-11-10-大管家续办奶娃网页实测.md",
+      "source_sha256": "ff9919512a8322d72f4183cf896ce351ab199e83ef036a602bfc21cbdb2da257",
+      "export_sha256": "09874f0307b8b7aeea7a8e16f78ed988325d6d07f1460d4bdaf8088a2d5cee4d"
+    },
+    {
+      "file": "docs/project-records/06-决策/0001-项目入口与上下文记录约定.md",
+      "source_sha256": "acf96176c2a72bbd4e12b58451578436b82cf448eee5de05b7d77078e38f4397",
+      "export_sha256": "2726279b58f8750fb0bc85828d9c7618ab01c88f01ddee275a3b352d30893ddd"
+    },
+    {
+      "file": "docs/project-records/06-决策/0002-OpenMausBot首轮范围与主入口.md",
+      "source_sha256": "5c37079823d5a0c299983bf508f8ccebabb8eaa2e9acedc5a3589212752198ce",
+      "export_sha256": "7d538f4873149cd5a46ccfda211b1ed23641511c6c0345ee0ed7b982a3f023ae"
+    },
+    {
+      "file": "docs/project-records/90-模板/方案调研模板.md",
+      "source_sha256": "eb0961ae6b9aa1b20aec45d1026ec409bf48c1ba5995951e863e543740f9df6f",
+      "export_sha256": "ca565b2d7c251fdf4898bbc083b575729af4b043fe3cab6d551fc3175a9f244c"
+    },
+    {
+      "file": "docs/project-records/90-模板/验证记录模板.md",
+      "source_sha256": "d8af29e8003307e45f6101ded1cb6823b5426fea76c1521ee51766988d0760f5",
+      "export_sha256": "2651287daee5c970145de301a93ef5a86c10b3c5b34348802adde8badcb28d71"
+    },
+    {
+      "file": "docs/project-records/90-模板/搭建记录模板.md",
+      "source_sha256": "f0acfca4cef706c5a3010e63af1f9992f9562497ce13ccf465ad3944ee10e8ce",
+      "export_sha256": "a0f3beeac2f5093917354ec5fff84d94727b73d572e33d63d2e1694f5f99227a"
+    },
+    {
+      "file": "docs/project-records/90-模板/决策记录模板.md",
+      "source_sha256": "4ded70fa81c70a367249a39388c2b8e9f7b0091668e2f0aa2ad6752c6408a01c",
+      "export_sha256": "91e55ee827eabb751e112d53d476a5cfef2e1e64ac0d18a67db0b5dfb3094e12"
+    },
+    {
+      "file": "docs/project-records/首页.md",
+      "source_sha256": "c1a3668f704d4389d269d938edc1d34bd406d662c5d3aca87b717c75cf6f354a",
+      "export_sha256": "a22d1b7a0f65c53356169ebfb0050bb32023da6434a955b8fa29f4e9d05f2312"
+    },
+    {
+      "file": "docs/project-records/记录约定.md",
+      "source_sha256": "d35c023390e814fcd8609d707c1371ebf59018a4db10d9f7c638c11b61f535d1",
+      "export_sha256": "a94fd9ddc1e5858e3b5e69f7a0de153491ca0491f1fd13910ed2f3fe58468556"
+    },
+    {
+      "file": "docs/project-records/机器人管理说明.md",
+      "source_sha256": "db4cacb978333e8e62222376c301e267e69c7865fec0d238e19b292aff8a5125",
+      "export_sha256": "e2c03841551ec08e8bfbf75ba691f16edbf989a01bfbb67715440473e8a0a7f6"
+    }
+  ],
+  "excluded": [
+    "07-自动记录",
+    "99-附件原始附件",
+    "隐藏工作区配置"
+  ],
+  "private_link_replacements": 43,
+  "local_identifiers_replaced": 34
+}

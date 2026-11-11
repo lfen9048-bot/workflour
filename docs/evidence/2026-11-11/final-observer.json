@@ -1,0 +1,49 @@
+{
+  "checked_at": "2026-11-11T11:17:30.156290+00:00",
+  "ok": true,
+  "dsh_issue_count": 0,
+  "projects": [
+    {
+      "name": "recovery-flow-demo",
+      "ok": true,
+      "suspended": true,
+      "exported_threads": null,
+      "error_count": 0
+    },
+    {
+      "name": "my-first-app",
+      "ok": true,
+      "suspended": true,
+      "exported_threads": null,
+      "error_count": 0
+    },
+    {
+      "name": "naiwa-page",
+      "ok": true,
+      "suspended": true,
+      "exported_threads": null,
+      "error_count": 0
+    },
+    {
+      "name": "nailong-frog",
+      "ok": true,
+      "suspended": true,
+      "exported_threads": null,
+      "error_count": 0
+    },
+    {
+      "name": "planning-dialogue-demo",
+      "ok": true,
+      "suspended": true,
+      "exported_threads": null,
+      "error_count": 0
+    },
+    {
+      "name": "plan-code-web-demo",
+      "ok": true,
+      "suspended": false,
+      "exported_threads": 7,
+      "error_count": 0
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+import { strict as assert } from 'node:assert';
+import { apply, deriveTitle } from '../integrations/openmausbot/session-title/plugin.mjs';
+const base = { session: { id: '12345678-abcd', header: { cwd: '/project/subtask' } }, messages: [{ seq: 4, text: 'You are Code Team kimi, a personal bot.\n工作流会话标题：[Kimi规划] T001 · 接口讨论' }] };
+assert.equal(deriveTitle(base, '/project').title, '[Kimi规划] T001 · 接口讨论');
+assert.equal(deriveTitle({ ...base, messages: [{ seq: 4, text: 'You are DeepSeek Coder, a personal bot.' }] }, '/project').title, '[DeepSeek Coder] 工作任务 · 12345678');
+assert.equal(deriveTitle({ ...base, currentTitle: { title: 'Existing' }, session: { id: 'id', header: { cwd: '/project-other' } } }, '/project').title, 'Existing');
+let provider;
+apply({ sessionTitle: { register(value) { provider = value; } } });
+assert.equal(provider.automatic, 'first-prompt');
+assert.equal(typeof provider.generate, 'function');
+console.log('Session title provider: explicit title, role fallback, scope boundary and native hook passed.');
