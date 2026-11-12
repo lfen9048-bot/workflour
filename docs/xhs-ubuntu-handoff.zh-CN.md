@@ -44,7 +44,7 @@ bash /tmp/workflour-agy-install.sh
 ./scripts/xhs-ubuntu.sh connect
 ```
 
-`configure` 生成本机角色配置和新的 Bot ID 清单；`up` 创建并启动两个用户级 systemd 服务；`connect` 从当前实际模型目录核对并创建三个 Bot，不发送试稿请求。若服务尚未启动完成，稍等后重跑 `connect`，不会重复创建已存在的 Bot。已有模型的手动选择保留。
+`configure` 生成本机角色配置和新的 Bot ID 清单；`up` 创建并启动两个用户级 systemd 服务；`connect` 从当前实际模型目录核对并创建三个 Bot，不发送试稿请求。采集服务首次启动还会下载并解压自己的内置浏览器，可能需要几分钟；用 `doctor` 确认采集服务就绪后再派稿。若工作台尚未启动完成，稍等后重跑 `connect`，不会重复创建已存在的 Bot。已有模型的手动选择保留。
 
 在 Ubuntu 浏览器打开 **http://127.0.0.1:8799**。这里的 127.0.0.1 是虚拟机自身，不是 Windows 主机。若已有工作台在运行，`configure` 会先要求空闲停机，不会强行重启。
 

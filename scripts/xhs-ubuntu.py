@@ -266,6 +266,12 @@ def doctor(offline=False):
         checks['workbuddy_saved_configuration'] = False
     if not offline:
         checks['workbench_running'] = workbench() is not None
+        try:
+            opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+            with opener.open('http://127.0.0.1:18060/health', timeout=3) as response:
+                checks['xhs_collector_running'] = response.status == 200
+        except OSError:
+            checks['xhs_collector_running'] = False
     print(json.dumps({'checks': checks, 'ready_for_target_login_verification': all(checks.values()),
                       'model_prompts_sent': False, 'account_authentication': 'not_probed',
                       'note': 'Missing agy: use the official Linux installer, then auth-gemini. Login/model/image acceptance is separate.'}, ensure_ascii=False, indent=2))

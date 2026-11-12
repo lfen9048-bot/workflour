@@ -21,7 +21,8 @@ def check_server(command, url, env):
         process = subprocess.Popen(command, env=env, cwd=ROOT, stdout=log, stderr=log, start_new_session=True)
         try:
             opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
-            for _ in range(120):
+            deadline = time.monotonic() + 300
+            while time.monotonic() < deadline:
                 if process.poll() is not None:
                     log.seek(0)
                     raise RuntimeError('Runtime exited: ' + log.read().decode(errors='replace')[-3000:])
