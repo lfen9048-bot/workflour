@@ -107,8 +107,18 @@ def install(args):
     private_json(BASE / 'settings.json', settings)
     env = environment()
     if not args.tools_only:
+        # Recent npm versions skip unapproved native builds. Keep the policy
+        # local to this runtime and permit the known dependency versions only.
+        package = BASE / 'runtime/package.json'
+        manifest = json.loads(package.read_text()) if package.exists() else {'private': True}
+        manifest.setdefault('allowScripts', {}).update({
+            '@deepseek-ai/dsh-subprocess-local@0.2.1-rc.2': True,
+            'koffi@3.1.1': True, 'node-pty@1.2.0-beta.15': True, 'protobufjs@7.6.6': True,
+        })
+        private_json(package, manifest)
         run(['npm', 'install', '--prefix', BASE / 'runtime', '--no-audit', '--no-fund',
-             '@deepseek-ai/dsh@' + LOCK['dsh'], 'openmausbot@' + LOCK['openmausbot']], env=env)
+             '@deepseek-ai/dsh@' + LOCK['dsh'], 'pnpm@' + LOCK['pnpm'],
+             'openmausbot@' + LOCK['openmausbot']], env=env)
         ensure_workbuddy(env)
     for folder in ('xhs-sources', 'xhs-crawler'):
         venv = Path.home() / '.workflour' / folder / 'venv'

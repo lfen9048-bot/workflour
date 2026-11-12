@@ -2,6 +2,7 @@
   "node": "24.22.3",
   "node_linux_x64_sha256": "4f2b175a6d53a5c617a80dba2676238a0688cef28c6da4eba35c7d844e66fcfb",
   "dsh": "0.2.1-rc.2",
+  "pnpm": "10.34.9",
   "workbuddy": "5.13.1",
   "openmausbot": "0.1.143",
   "target": "Ubuntu 24.04 x86_64 desktop",
