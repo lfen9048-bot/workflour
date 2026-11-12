@@ -106,7 +106,54 @@
     "Ubuntu_VM_accounts_and_native_tools": "not_tested"
   },
   "ci": {
-    "status": "pending"
+    "status": "passed",
+    "commit": "f993b33853c7aa8eb52244035961267e3c75616e",
+    "runtime_commit_note": "this commit contains the delivered code; the evidence file itself was updated in the follow-up commit that records these runs",
+    "runs": [
+      {
+        "workflow": "XHS Ubuntu quickstart",
+        "run_id": 43231841102,
+        "url": "https://github.com/lfen9048-bot/workflour/actions/runs/43231841102",
+        "conclusion": "success",
+        "duration": "4m27s",
+        "observed": {
+          "xhs_tests": 166,
+          "collector_service_tests": 13,
+          "workbench_http": 200,
+          "collector_http": 200,
+          "render": {
+            "images": 2,
+            "width": 1080,
+            "height": 1440,
+            "overflow": false
+          },
+          "systemd_units": "syntax_verified"
+        }
+      },
+      {
+        "workflow": "Workflour seven-role Ubuntu",
+        "run_id": 43231841095,
+        "url": "https://github.com/lfen9048-bot/workflour/actions/runs/43231841095",
+        "conclusion": "success",
+        "duration": "2m29s",
+        "observed": {
+          "offline_python_groups": "all passed",
+          "native_dsh_hook": {
+            "tests": 3,
+            "pass": 3,
+            "fail": 0,
+            "skipped": 0
+          },
+          "note": "the native hook really ran on this runner instead of being skipped"
+        }
+      }
+    ],
+    "not_covered": [
+      "account login",
+      "model prompts",
+      "target Ubuntu VM user services",
+      "fresh paid AI image generation"
+    ]
   },
   "source_sha256": {
     "scripts/xhs_delivery.py": "721e90453b88e8d1a696bee15d3e1d3032b1fe24402b008906889b322b47c267",
