@@ -1,0 +1,163 @@
+{
+  "date": "2026-11-12",
+  "status": "failed_end_to_end",
+  "focus": "Workflow completion; basic content compliance, no stylistic revisions requested",
+  "project": "examples/xhs-retest-20261112/native-three-bot",
+  "configured_models": {
+    "collector": "DeepSeek V4.1 Flash Low / WorkBuddy",
+    "planner": "MiMo V2.6 Pro High / WorkBuddy",
+    "writer": "Gemini 3.8 Flash Low / Antigravity"
+  },
+  "checks": {
+    "real_workbench_thread_binding": "passed",
+    "collector_limits": "passed",
+    "collector_native_reply_and_planner_resume": "passed",
+    "single_writer_dispatch": "passed",
+    "async_writer_completion": "failed",
+    "complete_draft_delivery": "failed",
+    "real_finish_and_evidence_lock": "not_reached"
+  },
+  "collection": {
+    "limits": {
+      "all": {
+        "candidates": 1,
+        "details": 2,
+        "comments": 0
+      },
+      "x": {
+        "candidates": 1,
+        "details": 1,
+        "comments": 0
+      },
+      "youtube": {
+        "candidates": 0,
+        "details": 1,
+        "comments": 0
+      }
+    },
+    "requests": [
+      {
+        "source": "youtube",
+        "candidates": 0,
+        "details": 1,
+        "comments": 0,
+        "output": "sources.youtube.json"
+      },
+      {
+        "source": "x",
+        "candidates": 1,
+        "details": 0,
+        "comments": 0,
+        "output": "sources.x-search.json"
+      },
+      {
+        "source": "x",
+        "candidates": 0,
+        "details": 1,
+        "comments": 0,
+        "output": "sources.x.json"
+      }
+    ],
+    "samples": 2,
+    "youtube_caption_segments": 158,
+    "comments": 0,
+    "automatic_retries": 0,
+    "limit_rejection": {
+      "status": "passed",
+      "scope": "actual active project policy, deliberately oversized request",
+      "requested_candidates": 3,
+      "configured_candidates": 1,
+      "exit_code": 3,
+      "response": {
+        "status": "blocked",
+        "reason": "Social collection limit exceeded: all.candidates requested 3, remaining 1; no request sent"
+      },
+      "output_created": false,
+      "reservation_created": false,
+      "platform_request_sent": false
+    }
+  },
+  "assignments": {
+    "root": "failed/provider_error",
+    "collector": "completed",
+    "writer": "completed",
+    "root_count": 1,
+    "collector_count": 1,
+    "writer_count": 1,
+    "maintenance_redispatches": 0
+  },
+  "failures": [
+    {
+      "component": "planner",
+      "kind": "provider_quota_or_rate_limit",
+      "observed": "Two native turns returned HTTP 402 wrapping 429; upstream reported one account exhausted and one rate-limited.",
+      "effect": "Writer dispatch happened; receipt binding and final planner completion did not finish.",
+      "no_model_switch": true
+    },
+    {
+      "component": "writer_async_completion",
+      "kind": "premature_workbench_completion",
+      "writer_terminal_at_utc": "2026-11-12T06:52:39.026000+00:00",
+      "image_evidence_finished_at": "2026-11-12T06:53:33Z",
+      "terminal_before_result_seconds": 53.974,
+      "followup_runtime_event": "SYSTEM notification and directory-listing tool request after result; no resulting executed output or complete delivery observed.",
+      "interpretation": "Runtime async continuation and workbench turn completion are out of sync; precise adapter/model cause not yet established."
+    }
+  ],
+  "image_generation": {
+    "wrapper_invocations": 1,
+    "native_status": "SUCCESS",
+    "exit_code": 0,
+    "status": "blocked",
+    "reason": "no_valid_new_native_image",
+    "returned_images": 0,
+    "billing_override": {
+      "useG1Credits": false
+    },
+    "reported_provider_error": "429 RESOURCE_EXHAUSTED for native image generation",
+    "image_backend_model": "unverified",
+    "exact_cost": "unverified",
+    "extra_requests_after_failure": 0
+  },
+  "final": {
+    "native_bots_idle": true,
+    "ledger_status": "active",
+    "ledger_stage": "draft",
+    "artifacts_locked": [
+      "collect",
+      "brief"
+    ],
+    "original_locked_artifacts_verified": true,
+    "draft_exists": true,
+    "cards_exists": false,
+    "writing_report_exists": false,
+    "final_images": 0,
+    "published": false,
+    "accepted": false,
+    "finish_guard_on_copy": {
+      "status": "passed",
+      "guard": "missing real writing-report prevents finish",
+      "actual_writer_receipt": "completed",
+      "probe_mode": "in-memory copy, no ledger write",
+      "state_file_unchanged": true
+    }
+  },
+  "review": {
+    "independent_agent": "reused readonly_main_review",
+    "result": "partial flow passed, end-to-end failed",
+    "content_scope": "Basic compliance only; no style revision requested or performed"
+  },
+  "evidence_sha256": {
+    "sources.json": "d4ebe263758a59a07b4e9b57ba6456e9f8cee64a04825487deadd8890686efa6",
+    "BRIEF.md": "39d961047d3c1d1ec8855ddcb838eedc54f805d9c7c09bcbb098bdb45901e278",
+    "draft.md": "2f4bc7cc503469974fdda8f3f2060e80db05b04ad6c9467058d3900e41715599",
+    "generated-images/prompt.txt": "5cc776fbc8c04d71a914f183492f8d7838e00465516a526f43fa5d723ee4faa8",
+    "generated-images/run1/image-evidence.json": "dd84554e9b3ff45b2222498a885373a3436fca432359904b4914d205315e568b"
+  },
+  "limits": [
+    "macOS live test only; target Ubuntu desktop VM not accessed.",
+    "Raw native sessions, Bot IDs and account data remain local and are excluded from this record.",
+    "No new credentials, new paid API, manual draft completion or repeated generation.",
+    "No actual successful finish in this run; in-memory guard probe did not modify the live ledger."
+  ]
+}
