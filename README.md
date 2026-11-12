@@ -13,7 +13,7 @@
 5. [重要工作记录](docs/project-records/README.md)：需求、调研、设计、搭建日志、失败原因和有效决策。
 6. [日常工作台使用说明](integrations/openmausbot/USER-GUIDE.zh-CN.md)：使用者不需要自己跑初始化终端。
 
-## 当前七个角色
+## 编程工作流的七个角色
 
 | Bot | 默认模型 / 思考 | 职责 |
 | --- | --- | --- |
@@ -42,6 +42,18 @@ flowchart LR
 ```
 
 普通小任务只有一位主编码。技术与体验返工共享最多两轮；共享状态由 Plan 负责人更新；测试与审核绑定实际代码快照。用户停止、失败、等待审批须先核对原生回执，不能重复派单。完成技术检查后保持 `acceptance/pending`，Bot 不能代用户确认。
+
+## 小红书图文工作流
+
+**Windows 上的 Ubuntu 桌面虚拟机：[快速接入教程](docs/xhs-ubuntu-handoff.zh-CN.md)**。克隆后运行 `./scripts/xhs-ubuntu.sh install --system-deps`，按教程登录并启动；无需复制Mac环境。
+
+第二套只有采集、思考、写作三个 Agent。向工作台「小红书 · 思考」发主题，它安排一次采集、写短简报，再交 Gemini 成稿和制作图文卡片，最后由用户查看。
+
+新任务默认：DeepSeek V4.1 Flash / Low 采集、MiMo-V2.6-Pro / High 思考、Antigravity Gemini 3.8 Flash / Low 写作。GLM、MiniMax为可选；同一写作Bot另有DSH正文入口，可选GLM，图片仍走Gemini。已在Mac实跑两篇图文与一次局部返工，过程有维护补交和内容瑕疵，不能称稳定无人值守。当前只交付草稿，由用户确认。
+
+Mac 已通过 AGY 1.5.5 原生 print 和已有登录为 Claude 试稿生成两张 896×1200 JPEG，另存为四页1080×1440图文版本并逐张读图。生图默认 print、单次一张、不自动重试、每篇最多两次，使用 `useG1Credits:false` 禁止自动使用额外 credits；精确扣额与图像后台型号未认证。原写作 Bot 已实际调用，但取回图片曾需维护修复，不能称为无人干预；旧稿/旧图/账本保留，成品待用户查看，Ubuntu 未测试。
+
+配置及操作见 [三 Agent 说明](integrations/openmausbot/team-xhs/README.md)、[采集服务](integrations/xiaohongshu/README.md)、[生图集成说明](integrations/xiaohongshu-images/README.md)、[Ubuntu 迁移入口](docs/xhs-ubuntu-handoff.zh-CN.md)；CLI 行为见官方 [headless](https://antigravity.google/docs/cli/headless/) 和 [credits](https://antigravity.google/docs/cli/credits/) 文档。渲染支持独立版本目录和 `image-cover` 排版，保留旧产物；模板信息卡与真实 AI 插图分别记录。
 
 ## 额度和每日任务
 
@@ -84,7 +96,7 @@ python3 -m unittest discover -s tests -p 'test_*.py'
 node --test tests/test_*.mjs
 ```
 
-Mac 基线最近为 Python 165 项（164 通过、1 跳过）、Node 62 通过；完整网页演练包括独立技术审核、44 项真实浏览器检查与 16 张截图，当前待用户验收。过程有维护介入，尚未通过同题对照证明优于单 Agent。
+编程团队发布时基线为 Python 165 项（164 通过、1 跳过）、Node 62 通过；完整网页演练包括独立技术审核、44 项真实浏览器检查与 16 张截图，当前待用户验收。过程有维护介入，尚未通过同题对照证明优于单 Agent。小红书首次部署的 Python 回归为196项（1跳过），采集/服务另13项通过；后续生图与版本排版调整有52项针对性测试通过。本套未修改JS，也未重复Node测试。
 
 ## 来源与许可
 

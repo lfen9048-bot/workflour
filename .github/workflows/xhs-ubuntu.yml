@@ -1,0 +1,44 @@
+name: XHS Ubuntu quickstart
+on:
+  push:
+    paths:
+      - '.github/workflows/xhs-ubuntu.yml'
+      - 'agents/xhs-*/**'
+      - 'integrations/ubuntu/**'
+      - 'integrations/xhs-*/**'
+      - 'integrations/xiaohongshu*/**'
+      - 'integrations/openmausbot/team-xhs/**'
+      - 'integrations/openmausbot/profiles/xhs-*.yml'
+      - 'integrations/openmausbot/setup.sh'
+      - 'scripts/*xhs*'
+      - 'scripts/workbuddy-pool-sync.rb'
+      - 'tests/*xhs*'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ubuntu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.3'
+      - name: Install pinned tools without account login
+        run: ./scripts/xhs-ubuntu.sh install --system-deps
+      - name: Unit and native fixture checks
+        run: |
+          ~/.workflour/xhs-crawler/venv/bin/python -m unittest discover -s tests -p 'test_xhs*.py'
+          python3 -m unittest discover -s integrations/xiaohongshu -p 'test_*.py'
+          bash -n integrations/openmausbot/setup.sh run-acp-agent.sh scripts/xhs-ubuntu.sh
+          ruby -c scripts/workbuddy-pool-sync.rb
+      - name: Real local services and Chinese cards
+        run: python3 tests/xhs-linux-smoke.py --output "$RUNNER_TEMP/xhs-ubuntu-smoke"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xhs-ubuntu-smoke
+          path: |
+            ${{ runner.temp }}/xhs-ubuntu-smoke/verification.json
+            ${{ runner.temp }}/xhs-ubuntu-smoke/sample/output/*.png
+          if-no-files-found: error

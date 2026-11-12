@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-11",
+  "status": "configured_not_inference_tested",
+  "defaults": {
+    "collector": "GLM-5.3-Flash / Low",
+    "planner": "MiMo-V2.6-Pro / High",
+    "writer": "Antigravity Gemini 3.8 Flash / Low"
+  },
+  "writer_dsh_alternative": "omb-xhs-writer-dsh / GLM-5.3-Flash / Low",
+  "permanent_bots": 3,
+  "catalogs": [
+    {
+      "instance": "omb-xhs-collector",
+      "models_registered": [
+        "deepseek-v4.1-flash",
+        "glm-5.3-flash",
+        "mimo-v2.6-pro",
+        "minimax-m3.1-flash"
+      ],
+      "all_four_registered": true,
+      "unconfirmed": false
+    },
+    {
+      "instance": "omb-xhs-planner",
+      "models_registered": [
+        "deepseek-v4.1-flash",
+        "glm-5.3-flash",
+        "mimo-v2.6-pro",
+        "minimax-m3.1-flash"
+      ],
+      "all_four_registered": true,
+      "unconfirmed": false
+    },
+    {
+      "instance": "omb-xhs-writer-dsh",
+      "models_registered": [
+        "deepseek-v4.1-flash",
+        "glm-5.3-flash",
+        "mimo-v2.6-pro",
+        "minimax-m3.1-flash"
+      ],
+      "all_four_registered": true,
+      "unconfirmed": false
+    }
+  ],
+  "other_bots_configuration_unchanged": true,
+  "desktop_and_code_profiles_unchanged": true,
+  "existing_xhs_tasks_preserved": true,
+  "tests_run": false,
+  "model_prompts_sent": false,
+  "new_trial_drafts": 0,
+  "new_api_keys_or_subscriptions": false,
+  "quota_fallback_policy_expanded": false,
+  "ubuntu_tested": false
+}

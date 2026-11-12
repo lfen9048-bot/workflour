@@ -1,0 +1,5 @@
+# Independent source adapters; no additional model/API provider.
+yt-dlp[default]==2026.10.26
+twscrape==0.21.0
+# Only for user login in a dedicated installed Chrome profile; no browser download.
+playwright==1.65.1

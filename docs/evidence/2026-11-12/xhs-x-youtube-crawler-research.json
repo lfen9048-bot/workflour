@@ -1,0 +1,403 @@
+{
+  "checked_on": "2026-11-12",
+  "timezone": "Asia/Shanghai",
+  "scope": "Read-only research for Xiaohongshu, X and YouTube collection; user relaxed strict token minimization. No new installs, login-state access, platform live scraping, model calls, or Bot changes in this research.",
+  "provenance": "GitHub connector repository metadata and actual documents/implementation; web search for discovery and official project documentation.",
+  "counting_note": "Stars refer to whole repositories. pushed_at is last repository push, not proof of scraper success. Shortlist recommendations are assistant proposals, not user decisions.",
+  "repositories": [
+    {
+      "repo": "NanmiCoder/MediaCrawler",
+      "canonical": "NanmiCoder/MediaCrawler",
+      "stars": 70925,
+      "pushed_at": "2026-11-09T02:56:57Z",
+      "archived": false,
+      "license": "NOASSERTION",
+      "branch": "main",
+      "description": "小红书笔记 | 评论爬虫、抖音视频 | 评论爬虫、快手视频 | 评论爬虫、B 站视频 ｜ 评论爬虫、微博帖子 ｜ 评论爬虫、百度贴吧帖子 ｜ 百度贴吧评论回复爬虫  | 知乎问答文章｜评论爬虫"
+    },
+    {
+      "repo": "JoeanAmier/XHS-Downloader",
+      "canonical": "JoeanAmier/XHS-Downloader",
+      "stars": 13273,
+      "pushed_at": "2026-11-07T11:18:47Z",
+      "archived": false,
+      "license": "GPL-3.0",
+      "branch": "master",
+      "description": "小红书（XiaoHongShu、RedNote）链接提取/作品采集工具"
+    },
+    {
+      "repo": "g1879/DrissionPage",
+      "canonical": "g1879/DrissionPage",
+      "stars": 12572,
+      "pushed_at": "2026-10-27T13:10:35Z",
+      "archived": false,
+      "license": "NOASSERTION",
+      "branch": "master",
+      "description": "Python based web automation tool. Powerful and elegant."
+    },
+    {
+      "repo": "apify/crawlee",
+      "canonical": "apify/crawlee",
+      "stars": 26425,
+      "pushed_at": "2026-11-11T23:26:31Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "branch": "master",
+      "description": "Crawlee—A web scraping and browser automation library for Node.js to build reliable crawlers. In JavaScript and TypeScript. Extract data for AI, LLMs, RAG, or GPTs. Download HTML, PDF, JPG, PNG, and other files from websites. Works with Puppeteer, Playwright, Cheerio, JSDOM, and raw HTTP. Both headful and headless mode. With proxy rotation."
+    },
+    {
+      "repo": "apify/crawlee-python",
+      "canonical": "apify/crawlee-python",
+      "stars": 9667,
+      "pushed_at": "2026-11-11T13:53:02Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "branch": "master",
+      "description": "Crawlee—A web scraping and browser automation library for Python to build reliable crawlers. Extract structured data with LLMs via Pydantic AI, or control the browser in natural language with Stagehand. Works with BeautifulSoup, Parsel, Playwright, and raw HTTP. Download HTML, PDF, images, and other files. Proxy rotation included."
+    },
+    {
+      "repo": "scrapy/scrapy",
+      "canonical": "scrapy/scrapy",
+      "stars": 65339,
+      "pushed_at": "2026-11-10T14:33:06Z",
+      "archived": false,
+      "license": "BSD-3-Clause",
+      "branch": "master",
+      "description": "Scrapy, a fast high-level web crawling & scraping framework for Python."
+    },
+    {
+      "repo": "adbar/trafilatura",
+      "canonical": "adbar/trafilatura",
+      "stars": 7122,
+      "pushed_at": "2026-11-11T17:21:19Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "branch": "master",
+      "description": "Python & Command-line tool to gather text and metadata on the Web: Crawling, scraping, extraction, output as CSV, JSON, HTML, MD, TXT, XML"
+    },
+    {
+      "repo": "spider-rs/spider",
+      "canonical": "spider-rs/spider",
+      "stars": 2842,
+      "pushed_at": "2026-11-06T12:35:05Z",
+      "archived": false,
+      "license": "MIT",
+      "branch": "main",
+      "description": "Foundational low latency web data collecting in Rust"
+    },
+    {
+      "repo": "D4Vinci/Scrapling",
+      "canonical": "D4Vinci/Scrapling",
+      "stars": 101709,
+      "pushed_at": "2026-11-11T19:16:10Z",
+      "archived": false,
+      "license": "BSD-3-Clause",
+      "branch": "main",
+      "description": "🕷️ The BEST Web Scraping framework that handles everything from a single request to a full-scale crawl! Don't be shy, join here: https://discord.gg/EMgGbDceNQ and follow here for daily tips and tricks: https://x.com/Scrapling_dev"
+    },
+    {
+      "repo": "unclecode/crawl4ai",
+      "canonical": "unclecode/crawl4ai",
+      "stars": 87246,
+      "pushed_at": "2026-11-10T12:30:15Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "branch": "main",
+      "description": "Official Crawl4AI Cloud: a hosted web scraping, extraction, and search API for AI agents. Free API key, 1,000 credits a month, no card. Fully open source: this repo is the Apache-2.0 crawler that powers it, and you can self-host it."
+    },
+    {
+      "repo": "firecrawl/firecrawl",
+      "canonical": "firecrawl/firecrawl",
+      "stars": 201003,
+      "pushed_at": "2026-11-12T03:12:34Z",
+      "archived": false,
+      "license": "AGPL-3.0",
+      "branch": "main",
+      "description": "Supercharge your AI agents with data from the web and beyond. Building the library for superintelligence. 🔥"
+    },
+    {
+      "repo": "xpzouying/xiaohongshu-mcp",
+      "canonical": "xpzouying/xiaohongshu-mcp",
+      "stars": 17086,
+      "pushed_at": "2026-11-10T17:46:09Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "branch": "main",
+      "description": "MCP for xiaohongshu.com"
+    },
+    {
+      "repo": "jackwener/xhs-cli",
+      "canonical": "jackwener/xhs-cli",
+      "stars": 692,
+      "pushed_at": "2026-10-09T08:39:36Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "branch": "main",
+      "description": "小红书命令行工具 — 搜索、阅读、点赞、收藏、评论，全在终端完成 | Xiaohongshu CLI"
+    },
+    {
+      "repo": "gocolly/colly",
+      "canonical": "gocolly/colly",
+      "stars": 25590,
+      "pushed_at": "2026-10-16T13:34:23Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "branch": "master",
+      "description": "Elegant Scraper and Crawler Framework for Golang"
+    },
+    {
+      "repo": "cv-cat/Spider_XHS",
+      "canonical": "cv-cat/Spider_XHS",
+      "stars": 8440,
+      "pushed_at": "2026-10-22T14:38:11Z",
+      "archived": false,
+      "branch": "master",
+      "description": "小红书爬虫数据采集，小红书逆向，私信，直播，小红书全域运营解决方案"
+    },
+    {
+      "repo": "yt-dlp/yt-dlp",
+      "canonical": "yt-dlp/yt-dlp",
+      "stars": 207011,
+      "pushed_at": "2026-11-04T07:16:27Z",
+      "archived": false,
+      "license": "Unlicense",
+      "branch": "master",
+      "description": "A feature-rich command-line audio/video downloader"
+    },
+    {
+      "repo": "jdepoix/youtube-transcript-api",
+      "canonical": "jdepoix/youtube-transcript-api",
+      "stars": 8597,
+      "pushed_at": "2026-11-09T18:39:21Z",
+      "archived": false,
+      "license": "MIT",
+      "branch": "master",
+      "description": "This is a python API which allows you to get the transcript/subtitles for a given YouTube video. It also works for automatically generated subtitles and it does not require an API key nor a headless browser, like other selenium based solutions do!"
+    },
+    {
+      "repo": "vladkens/twscrape",
+      "canonical": "vladkens/twscrape",
+      "stars": 2952,
+      "pushed_at": "2026-11-06T19:13:23Z",
+      "archived": false,
+      "license": "MIT",
+      "branch": "main",
+      "description": "Python library and CLI for X/Twitter scraping with multi-account rotation and built-in rate-limit handling."
+    },
+    {
+      "repo": "d60/twikit",
+      "canonical": "d60/twikit",
+      "stars": 4768,
+      "pushed_at": "2026-03-10T10:19:44Z",
+      "archived": false,
+      "license": "MIT",
+      "branch": "main",
+      "description": "Twitter API Scraper | Without an API key | Twitter Internal API | Free | Twitter scraper | Twitter Bot"
+    },
+    {
+      "repo": "JustAnotherArchivist/snscrape",
+      "canonical": "JustAnotherArchivist/snscrape",
+      "stars": 5466,
+      "pushed_at": "2023-11-15T00:21:52Z",
+      "archived": false,
+      "license": "GPL-3.0",
+      "branch": "master",
+      "description": "A social networking service scraper in Python"
+    },
+    {
+      "repo": "mikf/gallery-dl",
+      "canonical": "mikf/gallery-dl",
+      "stars": 20478,
+      "pushed_at": "2026-10-31T11:34:24Z",
+      "archived": false,
+      "license": "GPL-2.0",
+      "branch": "master",
+      "description": "Command-line program to download image galleries and collections from several image hosting sites"
+    },
+    {
+      "repo": "Panniantong/Agent-Reach",
+      "canonical": "Panniantong/Agent-Reach",
+      "stars": 111154,
+      "pushed_at": "2026-11-08T02:17:48Z",
+      "archived": false,
+      "license": "MIT",
+      "branch": "main",
+      "description": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees."
+    },
+    {
+      "repo": "tweepy/tweepy",
+      "canonical": "tweepy/tweepy",
+      "stars": 11182,
+      "pushed_at": "2026-07-02T19:10:57Z",
+      "archived": false,
+      "license": "MIT",
+      "branch": "master",
+      "description": "Twitter for Python!"
+    },
+    {
+      "repo": "jackwener/opencli",
+      "canonical": "jackwener/OpenCLI",
+      "stars": 31027,
+      "pushed_at": "2026-11-07T17:39:55Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "branch": "main",
+      "description": "Make Any Website into CLI & Use your logged-in browser by AI agent. "
+    },
+    {
+      "repo": "iSarabjitDhiman/TweeterPy",
+      "canonical": "iSarabjitDhiman/TweeterPy",
+      "stars": 341,
+      "pushed_at": "2026-07-11T14:21:37Z",
+      "archived": false,
+      "license": "MIT",
+      "branch": "master",
+      "description": "TweeterPy is a python library to extract data from Twitter. TweeterPy API lets you scrape data from a user's profile like username, userid, bio, followers/followings list, profile media, tweets, etc."
+    }
+  ],
+  "documents": [
+    {
+      "repo": "NanmiCoder/MediaCrawler",
+      "path": "README.md",
+      "url": "https://github.com/NanmiCoder/MediaCrawler/blob/main/README.md",
+      "characters": 15483
+    },
+    {
+      "repo": "NanmiCoder/MediaCrawler",
+      "path": "LICENSE",
+      "url": "https://github.com/NanmiCoder/MediaCrawler/blob/main/LICENSE",
+      "characters": 3411
+    },
+    {
+      "repo": "JoeanAmier/XHS-Downloader",
+      "path": "README.md",
+      "url": "https://github.com/JoeanAmier/XHS-Downloader/blob/master/README.md",
+      "characters": 29740
+    },
+    {
+      "repo": "g1879/DrissionPage",
+      "path": "README.md",
+      "url": "https://github.com/g1879/DrissionPage/blob/master/README.md",
+      "characters": 4678
+    },
+    {
+      "repo": "apify/crawlee-python",
+      "path": "README.md",
+      "url": "https://github.com/apify/crawlee-python/blob/master/README.md",
+      "characters": 11546
+    },
+    {
+      "repo": "cv-cat/Spider_XHS",
+      "path": "README.md",
+      "url": "https://github.com/cv-cat/Spider_XHS/blob/master/README.md",
+      "characters": 12566
+    },
+    {
+      "repo": "yt-dlp/yt-dlp",
+      "path": "README.md",
+      "url": "https://github.com/yt-dlp/yt-dlp/blob/master/README.md",
+      "characters": 179073
+    },
+    {
+      "repo": "jdepoix/youtube-transcript-api",
+      "path": "README.md",
+      "url": "https://github.com/jdepoix/youtube-transcript-api/blob/master/README.md",
+      "characters": 25457
+    },
+    {
+      "repo": "vladkens/twscrape",
+      "path": "readme.md",
+      "url": "https://github.com/vladkens/twscrape/blob/main/readme.md",
+      "characters": 14608
+    },
+    {
+      "repo": "vladkens/twscrape",
+      "path": "pyproject.toml",
+      "url": "https://github.com/vladkens/twscrape/blob/main/pyproject.toml",
+      "characters": 2058
+    },
+    {
+      "repo": "d60/twikit",
+      "path": "README.md",
+      "url": "https://github.com/d60/twikit/blob/main/README.md",
+      "characters": 3477
+    },
+    {
+      "repo": "Panniantong/Agent-Reach",
+      "path": "README.md",
+      "url": "https://github.com/Panniantong/Agent-Reach/blob/main/README.md",
+      "characters": 9422
+    },
+    {
+      "repo": "Panniantong/Agent-Reach",
+      "path": "docs/troubleshooting.md",
+      "url": "https://github.com/Panniantong/Agent-Reach/blob/main/docs/troubleshooting.md",
+      "characters": 6451
+    },
+    {
+      "repo": "Panniantong/Agent-Reach",
+      "path": "agent_reach/channels/twitter.py",
+      "url": "https://github.com/Panniantong/Agent-Reach/blob/main/agent_reach/channels/twitter.py",
+      "characters": 3166
+    },
+    {
+      "repo": "Panniantong/Agent-Reach",
+      "path": "agent_reach/channels/youtube.py",
+      "url": "https://github.com/Panniantong/Agent-Reach/blob/main/agent_reach/channels/youtube.py",
+      "characters": 9213
+    },
+    {
+      "repo": "Panniantong/Agent-Reach",
+      "path": "agent_reach/runtime/browser.py",
+      "url": "https://github.com/Panniantong/Agent-Reach/blob/main/agent_reach/runtime/browser.py",
+      "characters": 38264
+    },
+    {
+      "repo": "jackwener/opencli",
+      "path": "README.md",
+      "url": "https://github.com/jackwener/opencli/blob/main/README.md",
+      "characters": 23157
+    },
+    {
+      "repo": "jackwener/opencli",
+      "path": "docs/adapters/browser/twitter.md",
+      "url": "https://github.com/jackwener/opencli/blob/main/docs/adapters/browser/twitter.md",
+      "characters": 4298
+    },
+    {
+      "repo": "yt-dlp/yt-dlp-wiki",
+      "path": "Extractors.md",
+      "url": "https://github.com/yt-dlp/yt-dlp-wiki/blob/master/Extractors.md",
+      "characters": 3908
+    }
+  ],
+  "findings": {
+    "recommended_first_trial": [
+      "retain existing xpzouying/xiaohongshu-mcp",
+      "vladkens/twscrape",
+      "yt-dlp/yt-dlp",
+      "retain existing D4Vinci/Scrapling"
+    ],
+    "optional": [
+      "jdepoix/youtube-transcript-api",
+      "Panniantong/Agent-Reach",
+      "jackwener/OpenCLI",
+      "apify/crawlee-python"
+    ],
+    "license_caveats": {
+      "NanmiCoder/MediaCrawler": "Actual LICENSE: NON-COMMERCIAL LEARNING LICENSE 1.1; written consent required for commercial purposes.",
+      "cv-cat/Spider_XHS": "README MIT badge but fetched LICENSE path returns 404 and README prohibits commercial use. Permission not established.",
+      "g1879/DrissionPage": "README terms require authorization for commercial use.",
+      "JoeanAmier/XHS-Downloader": "GPL-3.0 per metadata and README; README also adds restrictions about commercial promotion/relicensing. Do not describe as unrestricted.",
+      "yt-dlp/yt-dlp": "Source Unlicense; README licensing section says bundled dependencies may change license of packaged executables."
+    },
+    "agent_reach": "Implementation confirms X uses OpenCLI; YouTube uses yt-dlp. X marked experimental. README says same-site Chrome login is copied; troubleshooting says personal Chrome sessions are never imported. This inconsistency is not resolved by this review; future integration must pin and audit actual login flow.",
+    "validation_limits": [
+      "No new candidate installed or live-tested",
+      "No Ubuntu runtime test",
+      "No completeness/uptime claim",
+      "YouTube cloud-IP restrictions explicitly documented upstream",
+      "No new paid service or credentials configured"
+    ]
+  }
+}

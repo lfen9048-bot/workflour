@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-12",
+  "status": "passed_local_regression",
+  "scope": "Fix three findings from main/origin-main review; no live agent dispatch, account/configuration changes or publication",
+  "fixes": [
+    {
+      "issue": "same-stage duplicate assignments",
+      "result": "Validate every native assignment carrying the stage token; only validated registered amendment may accompany primary; registration validates candidate before changing state."
+    },
+    {
+      "issue": "source collection time lost in merge",
+      "result": "Retain inputs[].collected_at and samples[].source_collected_at; retain fetched_at, unknown timestamps and alternate observations on repeated merges."
+    },
+    {
+      "issue": "legacy deployment environment ignored by workflow",
+      "result": "Provisioner and workflow share xhs_paths.deployment_path with primary > legacy > default precedence and home expansion."
+    }
+  ],
+  "regression": {
+    "tests_added": 10,
+    "suites": [
+      {
+        "command": "python3 -m unittest discover -s tests -p 'test_xhs_workflow.py'",
+        "tests": 27,
+        "result": "passed"
+      },
+      {
+        "command": "python3 -m unittest discover -s tests -p 'test_xhs_social_sources.py'",
+        "tests": 11,
+        "result": "passed"
+      },
+      {
+        "command": "python3 -m unittest discover -s tests -p 'test_xhs_team.py'",
+        "tests": 9,
+        "result": "passed"
+      }
+    ],
+    "total_passed": 47,
+    "before_fix": "Targeted tests reproduced duplicate assignment acceptance, missing source times and incompatible manifest selection. Re-merge regression also reproduced loss of older observations before correction.",
+    "cli_help": [
+      "xhs-workflow.py",
+      "xhs-source-collect.py",
+      "provision-xhs-team.py"
+    ],
+    "syntax_and_whitespace": "passed"
+  },
+  "source_sha256": {
+    "scripts/xhs-workflow.py": "d4e3f19dd406972edc1abd0da244bec90d5213e7c9af8ba37cd28b9deed33feb",
+    "scripts/xhs-source-collect.py": "1df279954ad3f8125a8d4adeb63fee91761ac8c93a184e2e357f96dd7311cec9",
+    "scripts/provision-xhs-team.py": "784a7d7f86151491abd9165d359daa48560c7b3694f452b3a791210f58b99381",
+    "scripts/xhs_paths.py": "729f0fa58c0c921632d6d902b18a521900c4c64ac26ac064fdc50649456cf1dd",
+    "tests/test_xhs_workflow.py": "2593e1b99fee28977d0dfbd891e5972aa44ec41fc5f5aaffa3973538d18739de",
+    "tests/test_xhs_social_sources.py": "69e7d4ba1467f3ee812f6d8a1c96ccee03fc24d4f599655b9c203eef9552ca75",
+    "integrations/openmausbot/team-xhs/README.md": "97c638dc1c97612b323deb2150d44a5bde60836c9db3e3c376adcbf4a012964c",
+    "integrations/xhs-sources/README.md": "65abaa16ad42fcde7a6025e928773707d0be66f54fee4225248b56901cebb2a9"
+  },
+  "limits": [
+    "Local isolated fixtures only; no new model call or production dispatch.",
+    "Existing immutable evidence and live ledgers were not rewritten; old merged data with missing original dates require original inputs to recover.",
+    "No new Ubuntu runtime verification."
+  ]
+}

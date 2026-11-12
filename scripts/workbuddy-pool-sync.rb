@@ -13,7 +13,8 @@ require 'tempfile'
 
 module WorkflourPoolSync
   ROLES = %w[omb-wf-manager omb-wf-plan-lead omb-wf-plan-review
-             omb-wf-code-review omb-wf-code-helper omb-wf-assistant].freeze
+             omb-wf-code-review omb-wf-code-helper omb-wf-assistant
+             omb-xhs-collector omb-xhs-planner omb-xhs-writer-dsh].freeze
   POOL_FIELDS = %w[enabled memberAccountIds orderAccountIds].freeze
   SECRET_FIELDS = /\A(?:access[_-]?token|refresh[_-]?token|api[_-]?key|token|secret|password|authorization)\z/i
 
@@ -155,7 +156,9 @@ module WorkflourPoolSync
     parser.parse!(argv)
     raise Invalid, 'unsupported profile or operation' unless argv.empty? && ROLES.include?(options[:profile]) && options[:mode]
     home = File.expand_path(options[:home])
-    prefs = preferences(read_entry(File.join(home, 'profiles/desktop/cordis.patch.yml')))
+    source_profile = ENV.fetch('WORKFLOUR_DSH_SOURCE_PROFILE', 'desktop')
+    raise Invalid, 'invalid source profile' unless /\A[a-zA-Z0-9_-]+\z/.match?(source_profile)
+    prefs = preferences(read_entry(File.join(home, 'profiles', source_profile, 'cordis.patch.yml')))
     if options[:mode] == :check
       puts JSON.generate({ profile: options[:profile], source_valid: true, regions: prefs.transform_values { |pool| { enabled: pool['enabled'], members: pool['memberAccountIds'].length, ordered: pool['orderAccountIds'].length } } })
     else

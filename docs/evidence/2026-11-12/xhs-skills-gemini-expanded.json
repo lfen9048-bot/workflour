@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-12",
+  "candidate_skills_tested": 10,
+  "text_calls": 17,
+  "image_calls": 2,
+  "total_tokens": 185049,
+  "text_tokens": 127495,
+  "image_call_reported_tokens": 57554,
+  "strict_json_pass": 16,
+  "production_bot_changed": false,
+  "published": false,
+  "limitations": [
+    "Single samples per method except two writing cases; no statistical claims.",
+    "Main SKILL text plus selected references, not full autonomous upstream workflows.",
+    "Guizang uses upstream seed rendered with local Chrome adapter; no upstream npm QA pipeline.",
+    "Handraw tests FA-039 text-trait adaptation only, no numbered reference image or model calibration.",
+    "Frozen Claude fixture is not a new real-time news verification.",
+    "AIHOT live response was retrieved by test harness, then Gemini selected topics; original sources not independently checked."
+  ],
+  "report": "examples/xhs-skill-eval-20261112/README.zh-CN.md",
+  "unique_native_conversations": 19,
+  "rendered_cards": 12,
+  "generated_illustrations": 2,
+  "body_length_pass": "1/6"
+}

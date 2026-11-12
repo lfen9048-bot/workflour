@@ -168,7 +168,11 @@ def widget(client, bot_id=None, thread_id=None, choice=None, project=None):
     current = task.get("modelSelection") or bot["modelSelection"]
     context = {"bot": bot_id, "thread": thread_id}
     if choice is None:
-        options = model_choices(instances, current["instanceId"], bot["modelSelection"]["instanceId"])
+        preferred_dsh = bot["modelSelection"]["instanceId"]
+        # Preserve the XHS writer role when selecting a DSH text alternative.
+        if bot.get("description", "").startswith("Workflour 小红书图文 · xhs-writer"):
+            preferred_dsh = "omb-xhs-writer-dsh"
+        options = model_choices(instances, current["instanceId"], preferred_dsh)
         return card(f"{bot['name']}：选择模型", [{"type": "Select", "name": "model_choice", "label": "模型与额度来源",
                     "required": True, "allowOther": False, "options": options}], {"type": "model_settings_model", "payload": context}, "下一步")
     try:

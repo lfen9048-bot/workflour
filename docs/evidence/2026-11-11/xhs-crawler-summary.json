@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-11-11",
+  "installed_skill": "agents/xhs-collector/skills/xhs-web-crawl/SKILL.md",
+  "library": "scrapling==0.5.1",
+  "http_smoke": {
+    "status": "collected",
+    "samples": 1,
+    "body_chars": [
+      4019
+    ],
+    "evidence": "docs/evidence/2026-11-11/xhs-crawler-anthropic-final.json"
+  },
+  "unit_tests": {
+    "passed": 6,
+    "failed": 0
+  },
+  "skill_validator": "passed",
+  "model_calls": 0,
+  "bot_turn_tested": false,
+  "browser_mode_tested": false,
+  "ubuntu_tested": false,
+  "image_backend": "existing Antigravity native print, unchanged"
+}

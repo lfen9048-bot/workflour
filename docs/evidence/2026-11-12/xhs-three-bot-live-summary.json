@@ -1,0 +1,298 @@
+{
+  "date": "2026-11-12",
+  "status": "completed_with_limitations",
+  "review": {
+    "reviewer": "reused readonly_main_review child",
+    "read_only": true,
+    "scope": "changes versus f5f9d8d23d02354d311f9df9e8336306f2940267 including staged, unstaged and untracked files",
+    "finding": "Legacy mixed_public_sources top-level collected_at is merge time, not original collection time.",
+    "fixed_and_rechecked": true,
+    "social_source_tests": 12,
+    "previous_unchanged_workflow_tests": 27,
+    "previous_unchanged_team_tests": 9,
+    "note": "12 social-source checks rerun after this fix; 27 workflow and 9 team checks are retained passing results from prior fixes, not a fresh 48-test run."
+  },
+  "rounds": [
+    {
+      "name": "initial official+X attempt",
+      "result": "receipt binding rejected",
+      "reason": "Planner supplied DSH session ID instead of OpenMausBot threadId. Interrupted, original state retained.",
+      "sampling_defect": "Planner requested X limit 1; collector invoked --limit 3. One detail retained."
+    },
+    {
+      "name": "official+X corrected intake",
+      "result": "pending_user_review",
+      "maintenance": "New project and explicit real workbench threadId; reused the collected sources byte-for-byte without new collection.",
+      "output": "examples/xhs-three-bot-live-20261112/round1-news-corrected",
+      "images": 2
+    },
+    {
+      "name": "YouTube captions+Gemini image",
+      "result": "pending_user_review",
+      "captions": 158,
+      "caption_chars": 5470,
+      "comments": 1,
+      "image_generate_calls": 1,
+      "useG1Credits": false,
+      "maintenance": [
+        "Writer initially ended after starting asynchronous generation without draft/cards/report.",
+        "Maintainer authorized one registered amendment in the same writer thread; image and primary receipt preserved.",
+        "Planner normalized reused_existing to reused, retaining original status and note in report.",
+        "Unrequested 13:25 one-off routine cancelled before execution; zero runs; other routines preserved."
+      ],
+      "output": "examples/xhs-three-bot-live-20261112/round2-youtube",
+      "images": 2
+    },
+    {
+      "name": "bounded revision of first article",
+      "result": "pending_user_review",
+      "revision_count": 1,
+      "old_artifacts_archived_and_hash_verified": true,
+      "source_and_brief_unchanged": true,
+      "new_draft_token_and_receipt": true,
+      "new_collection_calls": 0,
+      "new_image_generate_calls": 0
+    }
+  ],
+  "verification": {
+    "video": {
+      "status": "pending_user_review",
+      "published": false,
+      "artifacts_verified": true,
+      "unchanged": {
+        "source": true,
+        "brief": true,
+        "image": true
+      },
+      "primary_receipt_preserved": true,
+      "amendment_completed": true,
+      "maintainer_viewed": [
+        "image-generation/image-01.jpg",
+        "output/card-01.png",
+        "output/card-02.png"
+      ],
+      "content_findings": [
+        "正文与卡片将上传/发布日期写成录制时间；来源未核实录制时间。"
+      ],
+      "artifacts": {
+        "collect": {
+          "path": "sources.json",
+          "sha256": "8b5bcd18527b509c8ff31df3cd301fff057d9016cd85fbb592665f204591d662"
+        },
+        "brief": {
+          "path": "BRIEF.md",
+          "sha256": "3b0c6f3723fe27413e99de902757eee2eec2f5d0ee3f82818b6b8c097c596368"
+        },
+        "draft": {
+          "path": "draft.md",
+          "sha256": "2cbf9efd5bb5778f570063af5150947cfcc3978d21a321555d18c285c826ce20"
+        },
+        "image_1": {
+          "path": "output/card-01.png",
+          "sha256": "6cb5d550405c4feb903f1408bc75c755a6d2232c57cc1dfd21e742cc4774af01"
+        },
+        "image_2": {
+          "path": "output/card-02.png",
+          "sha256": "60f37a1865796d3e4b657e64c86ba415ea32816135631adb57b0beb52c5011fb"
+        },
+        "writing_report": {
+          "path": "writing-report.json",
+          "sha256": "0763a9e94c5afeab631e4e53454a6a84f83265e84ff2496217bb36ecc725776d"
+        },
+        "card_input": {
+          "path": "cards.json",
+          "sha256": "1740650edea8e14282187d46fc44d9d3f15686ee906ae287d5eb3d98d306b16a"
+        },
+        "render_manifest": {
+          "path": "output/render-manifest.json",
+          "sha256": "88f50d99fc4790f0dfeefc2209e4097cdc3400d067d5aa2a2938df2840e24ab1"
+        },
+        "preview": {
+          "path": "output/preview.html",
+          "sha256": "dc877e0e978702a206ab94b30bea660eec2db7fffa458652a9502e732619475c"
+        }
+      }
+    },
+    "revision": {
+      "status": "pending_user_review",
+      "published": false,
+      "artifacts_verified": true,
+      "archive_hashes_verified": true,
+      "checks": {
+        "revision_count_one": true,
+        "draft_token_changed": true,
+        "draft_receipt_changed": true,
+        "source_snapshot_unchanged": true,
+        "brief_snapshot_unchanged": true,
+        "official_url_present": true,
+        "x_url_present": true,
+        "unsupported_blanket_guarantee_removed": true,
+        "template_only": true
+      },
+      "maintainer_viewed": [
+        "output/card-01.png",
+        "output/card-02.png"
+      ],
+      "content_findings": [
+        "卡片把未提取到发布日期写成未公开；当前来源不足以支撑这个断言。"
+      ],
+      "artifacts": {
+        "collect": {
+          "path": "sources.json",
+          "sha256": "4e332b5ab4b4a89ab81b7c2b9d01bfbf8d0c4eee45ce0109bf0c78a86719a83b"
+        },
+        "brief": {
+          "path": "BRIEF.md",
+          "sha256": "4b61e2b31defb4894d7bcc7f5895b05cb0d0248566473a03c6c7d934b7def4fc"
+        },
+        "draft": {
+          "path": "draft.md",
+          "sha256": "6a4c91abd8bb3b25e835dc632c936f8afd4e02934b0ed94a109d224080cc2a47"
+        },
+        "image_1": {
+          "path": "output/card-01.png",
+          "sha256": "971525d5c668d73571771d35a787d185e29b9786b0a33bf7bbc3dda854d9f9ed"
+        },
+        "image_2": {
+          "path": "output/card-02.png",
+          "sha256": "d9c4c0f69d82214615e367d52faeceae155a732e01ffb246abfceff59d2ab061"
+        },
+        "writing_report": {
+          "path": "writing-report.json",
+          "sha256": "00d5220d12b9f4b4a65a6d349903125b955d889500c13414fc329a48f1e9e34c"
+        },
+        "card_input": {
+          "path": "cards.json",
+          "sha256": "718c22732eb1f2f78589e6d3bdcb10de0f1cb924a7d065ebe5d0d0167325760e"
+        },
+        "render_manifest": {
+          "path": "output/render-manifest.json",
+          "sha256": "faf6c3678117d51e9f101aa7622ccedf240ad55353e40fb46a070652d8a60f61"
+        },
+        "preview": {
+          "path": "output/preview.html",
+          "sha256": "e761305ee85de8d9c4252d3cf43e80331fdb27a487dec2e6eb1a620f167ffd0f"
+        }
+      }
+    },
+    "instruction_sync": {
+      "synced_roles": [
+        "xhs-collector",
+        "xhs-planner",
+        "xhs-writer"
+      ],
+      "all_idle_before_sync": true,
+      "native_soul_readback_matches": true,
+      "models_permissions_unchanged": true,
+      "other_bots_unchanged": true,
+      "model_prompts_sent": false,
+      "hardening_live_retest_performed": false,
+      "at": "2026-11-12T13:35:04.945942+08:00"
+    }
+  },
+  "native_trace_summary": {
+    "news_writer": {
+      "actual_image_read_calls": [
+        {
+          "file": "round1-news-corrected/output/card-01.png",
+          "status": "completed"
+        },
+        {
+          "file": "round1-news-corrected/output/card-02.png",
+          "status": "completed"
+        },
+        {
+          "file": "round1-news-corrected/output/card-01.png",
+          "status": "completed"
+        },
+        {
+          "file": "round1-news-corrected/output/card-02.png",
+          "status": "completed"
+        }
+      ],
+      "image_generate_calls": 0
+    },
+    "video_writer": {
+      "actual_image_read_calls": [
+        {
+          "file": "round2-youtube/image-generation/image-01.jpg",
+          "status": "completed"
+        },
+        {
+          "file": "round2-youtube/output/card-01.png",
+          "status": "completed"
+        },
+        {
+          "file": "round2-youtube/output/card-02.png",
+          "status": "completed"
+        }
+      ],
+      "image_generate_calls": 1
+    },
+    "news_planner": {
+      "actual_image_read_calls": [
+        {
+          "file": "round1-news-corrected/output/card-01.png",
+          "status": "completed"
+        },
+        {
+          "file": "round1-news-corrected/output/card-02.png",
+          "status": "completed"
+        },
+        {
+          "file": "round1-news-corrected/output/card-01.png",
+          "status": "completed"
+        },
+        {
+          "file": "round1-news-corrected/output/card-02.png",
+          "status": "completed"
+        }
+      ],
+      "image_generate_calls": 0
+    },
+    "video_planner": {
+      "actual_image_read_calls": [
+        {
+          "file": "round2-youtube/image-generation/image-01.jpg",
+          "status": "completed"
+        },
+        {
+          "file": "round2-youtube/output/card-01.png",
+          "status": "completed"
+        },
+        {
+          "file": "round2-youtube/output/card-02.png",
+          "status": "completed"
+        }
+      ],
+      "image_generate_calls": 0
+    }
+  },
+  "instruction_updates": [
+    "Collector default is DeepSeek in planner SOUL; no model changes.",
+    "Planner must use real workbench threadId, not DSH internal ID.",
+    "No automatic schedule for ordinary in-turn completion checks.",
+    "Collector must apply explicit sample cap to the search itself.",
+    "Writer fixed image provenance status vocabulary.",
+    "Writer distinguishes upload/publication/recording and unknown/unpublished dates."
+  ],
+  "remaining_limitations": [
+    "Correct workbench threadId still supplied by maintainer; no reliable automatic intake context implemented.",
+    "Asynchronous writer completion was not reliable in one trial; recovery needed a scoped amendment.",
+    "Prompt hardening added after live runs was synced and read back but not live retested.",
+    "First article card says publication date not public where source extraction only lacks a date.",
+    "Second article says recording time where only upload/publication time is known.",
+    "Pending user review is not content acceptance or permission to publish.",
+    "Provider usage did not expose reliable tokens/cost; no claim of zero cost or specific image model.",
+    "Mac only; Ubuntu not tested."
+  ],
+  "published": false,
+  "code_snapshot_sha256": {
+    "scripts/xhs-source-collect.py": "0fedafb8fd2746bcddbaa80e71745151b152e4eff8a08fdda29230e9d71c3ebe",
+    "tests/test_xhs_social_sources.py": "2881112e7aaed0c041f97173258bdeb8126f14664621fcf0cafa43d9efb28db4",
+    "agents/xhs-collector/SOUL.md": "19c51d11a8e56d9c05f60eae2462e917768a889568312585b84de39e4918319e",
+    "agents/xhs-planner/SOUL.md": "b4c445d61963340dfb0d985a061bc1e4a2581ad939e82858e2bb963dbf6a4b51",
+    "agents/xhs-writer/SOUL.md": "7eb4a5dfdcb6afc64fd430bffa15f9f935058e383257b57a95e2c62219d50b57"
+  },
+  "recorded_at": "2026-11-12T13:35:37.608256+08:00"
+}

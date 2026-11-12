@@ -1,0 +1,45 @@
+[
+  {
+    "key": "xhs-collector",
+    "name": "小红书 · 采集",
+    "instance": "omb-xhs-collector",
+    "runtime": "dsh",
+    "provider": "workbuddy",
+    "model": "deepseek-v4.1-flash",
+    "modelId": "[\"workbuddy\",\"deepseek-v4.1-flash\"]",
+    "thinking": "low",
+    "soulFile": "agents/xhs-collector/SOUL.md",
+    "skillsFile": "agents/xhs-collector/SKILLS.md",
+    "roleSkill": "xhs-collector-role",
+    "optional": false
+  },
+  {
+    "key": "xhs-planner",
+    "name": "小红书 · 思考",
+    "instance": "omb-xhs-planner",
+    "runtime": "dsh",
+    "provider": "workbuddy",
+    "model": "mimo-v2.6-pro",
+    "modelId": "[\"workbuddy\",\"mimo-v2.6-pro\"]",
+    "thinking": "high",
+    "soulFile": "agents/xhs-planner/SOUL.md",
+    "skillsFile": "agents/xhs-planner/SKILLS.md",
+    "roleSkill": "xhs-planner-role",
+    "optional": false
+  },
+  {
+    "key": "xhs-writer",
+    "name": "小红书 · 写作",
+    "instance": "agy-gemini",
+    "runtime": "antigravity",
+    "provider": "antigravity",
+    "model": "gemini-3.8-flash",
+    "modelId": "gemini-3.8-flash",
+    "thinking": "low",
+    "soulFile": "agents/xhs-writer/SOUL.md",
+    "skillsFile": "agents/xhs-writer/SKILLS.md",
+    "roleSkill": "xhs-writer-role",
+    "optional": false,
+    "dshAlternativeInstance": "omb-xhs-writer-dsh"
+  }
+]

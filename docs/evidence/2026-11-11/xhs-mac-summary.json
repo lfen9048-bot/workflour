@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-11",
+  "platform_tested": "macOS arm64",
+  "team_roles": 3,
+  "models": {
+    "collector": "DeepSeek V4.1 Flash / Low",
+    "planner": "DeepSeek V4.1 Flash / High",
+    "writer": "Antigravity Gemini 3.8 Flash / Low"
+  },
+  "native_workflow": "verified_with_maintenance_intervention",
+  "login": "verified_after_user_interactive_login",
+  "bounded_live_search": {
+    "samples": 3,
+    "details_with_body": 2
+  },
+  "demo": "Claude news",
+  "demo_source_mode": "official_web",
+  "deliverable": {
+    "draft": true,
+    "template_cards": 4,
+    "card_size": [
+      1080,
+      1440
+    ],
+    "status": "partial_pending_user_review",
+    "published": false,
+    "illustrated_version": {
+      "cards": 4,
+      "ai_rasters": 2,
+      "status": "ready_pending_user_review",
+      "published": false,
+      "base_copy_and_state_preserved": true
+    }
+  },
+  "image_generation": {
+    "status": "available_verified_with_maintenance_recovery",
+    "backend": "antigravity_print",
+    "generated_images": 2,
+    "extra_credits_enabled": false,
+    "exact_deduction": "unverified",
+    "image_model": "unverified",
+    "legacy_acp": "blocked_IMAGE_TOOL_UNAVAILABLE"
+  },
+  "other_bot_configuration_unchanged": true,
+  "tests": {
+    "python_total": 196,
+    "python_passed": 195,
+    "python_skipped": 1,
+    "collector_service_passed": 13,
+    "image_and_xhs_targeted_passed": 52,
+    "fixed_real_artifact_discovery": "passed_without_new_generation"
+  },
+  "ubuntu_tested": false,
+  "cost_comparison_tested": false,
+  "latest_model_configuration": {
+    "defaults": {
+      "collector": "GLM-5.3-Flash / Low",
+      "planner": "MiMo-V2.6-Pro / High",
+      "writer": "Antigravity Gemini 3.8 Flash / Low"
+    },
+    "alternatives": [
+      "MiniMax-M3.1-Flash",
+      "DeepSeek-V4.1-Flash",
+      "GLM writer via same-role DSH instance"
+    ],
+    "inference_tested": false,
+    "evidence": "xhs-model-integration.json"
+  }
+}

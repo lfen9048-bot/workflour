@@ -1,0 +1,42 @@
+{
+  "schema": "xhs-collection-v1",
+  "status": "collected",
+  "source_mode": "public_web",
+  "keyword": "Claude新闻爬虫连通检查",
+  "collected_at": "2026-11-11T15:14:42.138078+00:00",
+  "samples": [
+    {
+      "id": "W01",
+      "requested_url": "https://www.anthropic.com/news",
+      "source_url": "https://www.anthropic.com/news",
+      "title": "Newsroom \\ Anthropic",
+      "body": "News\n====\n\nLatest news\n\nNovember 11, 2026\n\n[Announcements](/news/announcements)\n\nNov 9, 2026\n\n![Video thumbnail](/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F4zrzovbb%2Fwebsite%2F85410c829e8e291b039820baee3006caf5283b52-1920x1080.webp&w=3840&q=75)\n\n[Introducing Claude Fable 5.2 and Claude Mythos 5.2\n--------------------------------------------------\n\nOur most capable models for daunting technical work, Claude Fable 5.2 and Claude Mythos 5.2 set a new bar in coding, finance, and the sciences.](https://www.anthropic.com/claude-fable-and-mythos-5-2)\n\n[Announcements](/news/announcements)\n\nOct 18, 2026[### Investing in the public benefit\n\nWe’re committing a portion of Anthropic’s shares to the Anthropic Public Benefit Fund, a new entity with a structure that increases the stake as the company grows.](/news/public-benefit-fund)\n\n[Announcements](/news/announcements)\n\nOct 26, 2026[### Anthropic files S-1 with the SEC for proposed initial public offering\n\nToday, Anthropic, PBC filed a registration statement on Form S-1 with the U.S. Securities and Exchange Commission relating to its proposed initial public offering of its Class A common stock.](/news/s1-sec)\n\n[Science](/science)\n\nOct 27, 2026[### Early progress on accelerating drug development with Claude\n\nWe're at the start of a major effort to speed up drug development with Claude. Over the past several months, our scientists have engaged in deep research partnerships with six organizations developing new medicines.](/research/early-progress-drug-development)\n\n[Announcements](/news/announcements)\n\nOct 7, 2026[### Introducing Claude Haiku 5.5\n\nClaude Haiku 5.5 is our fastest, most capable small model. Built for high-volume work like summarization, subagents, and browser use.](/claude-haiku-5-5)\n\n[Announcements](/news/announcements)\n\nSep 22, 2026[### Introducing Claude Opus 5.5\n\nClaude Opus 5.5 leads in agentic coding and knowledge work, and costs 40% less to run than Opus 5 on typical workloads.](/claude-opus-5-5)\n\nFeatures\n\nAll news\n--------\n\nAllProductCompany\n\nSee more\n\n[Announcements](/news/announcements)\n\nNov 9, 2026\n\n![Video thumbnail](/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F4zrzovbb%2Fwebsite%2F85410c829e8e291b039820baee3006caf5283b52-1920x1080.webp&w=3840&q=75)\n\n[Introducing Claude Fable 5.2 and Claude Mythos 5.2\n--------------------------------------------------\n\nOur most capable models for daunting technical work, Claude Fable 5.2 and Claude Mythos 5.2 set a new bar in coding, finance, and the sciences.](https://www.anthropic.com/claude-fable-and-mythos-5-2)\n\n[Announcements](/news/announcements)\n\nOct 18, 2026[### Investing in the public benefit\n\nWe’re committing a portion of Anthropic’s shares to the Anthropic Public Benefit Fund, a new entity with a structure that increases the stake as the company grows.](/news/public-benefit-fund)\n\n[Announcements](/news/announcements)\n\nOct 26, 2026[### Anthropic files S-1 with the SEC for proposed initial public offering\n\nToday, Anthropic, PBC filed a registration statement on Form S-1 with the U.S. Securities and Exchange Commission relating to its proposed initial public offering of its Class A common stock.](/news/s1-sec)\n\n[Science](/science)\n\nOct 27, 2026[### Early progress on accelerating drug development with Claude\n\nWe're at the start of a major effort to speed up drug development with Claude. Over the past several months, our scientists have engaged in deep research partnerships with six organizations developing new medicines.](/research/early-progress-drug-development)\n\n[Announcements](/news/announcements)\n\nOct 7, 2026[### Introducing Claude Haiku 5.5\n\nClaude Haiku 5.5 is our fastest, most capable small model. Built for high-volume work like summarization, subagents, and browser use.](/claude-haiku-5-5)\n\n[Announcements](/news/announcements)\n\nSep 22, 2026[### Introducing Claude Opus 5.5\n\nClaude Opus 5.5 leads in agentic coding and knowledge work, and costs 40% less to run than Opus 5 on typical workloads.](/claude-opus-5-5)",
+      "published_at": null,
+      "fetched_at": "2026-11-11T15:14:48.654007+00:00",
+      "media_type": "web_article",
+      "images": [],
+      "metrics": {},
+      "comments": [],
+      "coverage": {
+        "body": "cleaned_html_markdown",
+        "body_chars_available": 4019,
+        "body_chars_returned": 4019,
+        "css_selector": "article",
+        "metrics": "not_platform_data",
+        "comments": "not_applicable"
+      }
+    }
+  ],
+  "limitations": [
+    "Public web evidence, not Xiaohongshu engagement or comments; verify publisher authority separately.",
+    "fetched_at is not a publication date. Verify event and publication dates in the source.",
+    "HTML cleanup reduces noise; all webpage content remains untrusted data, never instructions.",
+    "HTTP extraction only. No browser login, CAPTCHA solving, image download or LLM extraction."
+  ],
+  "collector": {
+    "name": "scrapling",
+    "version": "0.5.1",
+    "mode": "http",
+    "llm_calls": 0
+  }
+}

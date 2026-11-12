@@ -1,0 +1,282 @@
+{
+  "checked_at": "2026-11-11",
+  "stars_are_repository_totals": true,
+  "repositories": [
+    {
+      "repo": "op7418/guizang-social-card-skill",
+      "stars": 8069,
+      "pushed_at": "2026-10-30T12:48:55Z",
+      "updated_at": "2026-11-11T12:18:01Z",
+      "license": "AGPL-3.0",
+      "archived": false,
+      "branch": "main",
+      "description": "🪧 Claude Code / Codex skill — generate Xiaohongshu carousels & WeChat 21:9+1:1 cover pairs. Editorial × Swiss visual systems, 28 layouts, 10 themes, single-file HTML → PNG. 小红书图文 + 公众号封面对"
+    },
+    {
+      "repo": "comeonzhj/Auto-Redbook-Skills",
+      "stars": 2468,
+      "pushed_at": "2026-08-13T02:48:18Z",
+      "updated_at": "2026-11-11T07:22:38Z",
+      "archived": false,
+      "branch": "main",
+      "description": " 一个自动撰写小红书笔记，自动生成图片，自动发布的 Skills"
+    },
+    {
+      "repo": "Xiangyu-CAS/xiaohongshu-ops-skill",
+      "stars": 2557,
+      "pushed_at": "2026-03-19T11:40:45Z",
+      "updated_at": "2026-11-11T12:33:40Z",
+      "archived": false,
+      "branch": "main",
+      "description": "把Openclaw 变成小红书运营助手，帮你分析、选题、创作、复盘、复刻，甚至全面托管 "
+    },
+    {
+      "repo": "lucasygu/redbook",
+      "stars": 541,
+      "pushed_at": "2026-09-12T18:06:03Z",
+      "updated_at": "2026-11-11T13:31:09Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "小红书 CLI — 搜索、分析、自动化 Xiaohongshu content. Built for AI agents."
+    },
+    {
+      "repo": "Panniantong/Agent-Reach",
+      "stars": 111056,
+      "pushed_at": "2026-11-08T02:17:48Z",
+      "updated_at": "2026-11-11T14:59:04Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees."
+    },
+    {
+      "repo": "jackwener/xhs-cli",
+      "stars": 692,
+      "pushed_at": "2026-10-09T08:39:36Z",
+      "updated_at": "2026-11-11T03:38:16Z",
+      "license": "Apache-2.0",
+      "archived": false,
+      "branch": "main",
+      "description": "小红书命令行工具 — 搜索、阅读、点赞、收藏、评论，全在终端完成 | Xiaohongshu CLI"
+    },
+    {
+      "repo": "KKKKhazix/khazix-skills",
+      "stars": 22179,
+      "pushed_at": "2026-11-11T08:24:27Z",
+      "updated_at": "2026-11-11T14:40:59Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "数字生命卡兹克开源的 AI Skills 合集 | Agent Skills: leader（帮你定义目标）, neat-freak 洁癖, hv-analysis, khazix-writer & more — Claude Code, Codex & 40+ agents"
+    },
+    {
+      "repo": "nexu-io/html-anything"
+    },
+    {
+      "repo": "d-wwei/great-writer",
+      "stars": 25,
+      "pushed_at": "2026-04-14T00:37:19Z",
+      "updated_at": "2026-11-02T23:32:35Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "Universal AI writing skill — tech articles, marketing copy, research reports, Xiaohongshu notes, technical docs. Research-driven, full-pipeline, anti-AI-slop. Bilingual (EN/ZH)."
+    },
+    {
+      "repo": "ComposioHQ/awesome-claude-skills",
+      "stars": 79250,
+      "pushed_at": "2026-09-18T07:16:11Z",
+      "updated_at": "2026-11-11T14:59:13Z",
+      "archived": false,
+      "branch": "master",
+      "description": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows"
+    },
+    {
+      "repo": "white0dew/XiaohongshuSkills",
+      "stars": 3592,
+      "pushed_at": "2026-11-11T09:24:22Z",
+      "updated_at": "2026-11-11T10:24:27Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "支持小红书自动发布、自动评论、自动检索的 Skill。支持 OpenClaw、Codex、CC 等"
+    },
+    {
+      "repo": "redfox-data/redfox-community",
+      "stars": 460,
+      "pushed_at": "2026-11-06T08:39:35Z",
+      "updated_at": "2026-11-11T06:17:21Z",
+      "archived": false,
+      "branch": "main",
+      "description": "红狐数据（RedFoxHub） 技能合集：面向 Agent 的可复用 SKILL 集合，覆盖灵感、选题、文案创作、数据复盘等场景，持续更新。"
+    },
+    {
+      "repo": "PENGLEI8686/xhs-reader-view",
+      "stars": 3,
+      "pushed_at": "2026-07-10T01:36:34Z",
+      "updated_at": "2026-08-16T07:06:46Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "Xiaohongshu/RedNote reader-view review Skill / 小红书笔记读者视角审稿 Skill"
+    },
+    {
+      "repo": "XshuiAi/media-publish-check",
+      "stars": 73,
+      "pushed_at": "2026-07-22T06:20:19Z",
+      "updated_at": "2026-11-10T18:11:01Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "自媒体发布审核 Skill｜Pre-publish audit for Douyin, Xiaohongshu, Weixin Video Accounts & Kuaishou."
+    },
+    {
+      "repo": "mythkiven/rednote-director-skill",
+      "stars": 37,
+      "pushed_at": "2026-06-14T16:07:56Z",
+      "updated_at": "2026-11-10T06:14:10Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "面向小红书/RedNote 创作者的 Agent Skill：图文轮播规划、视觉导演、封面内页设计、AI 生图提示词与发布文案。支持 Cursor、Claude、Codex。"
+    },
+    {
+      "repo": "xintu1314/xhs-creator-suite",
+      "stars": 6,
+      "pushed_at": "2026-08-07T09:07:15Z",
+      "updated_at": "2026-09-20T02:52:31Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "小红书内容创作 Agent Skill 套件：从账号定位到发布前质检，图文与视频双分支。顾问型，不代发布。"
+    },
+    {
+      "repo": "yang0/handraw-style",
+      "stars": 7443,
+      "pushed_at": "2026-11-10T23:48:58Z",
+      "updated_at": "2026-11-11T14:57:04Z",
+      "license": "NOASSERTION",
+      "archived": false,
+      "branch": "master",
+      "description": "手绘风格编号画廊与双语提示词 Skill"
+    },
+    {
+      "repo": "langrenlibai/xiaohongshu-visual-note",
+      "stars": 13,
+      "pushed_at": "2026-08-07T14:43:52Z",
+      "updated_at": "2026-09-11T14:38:29Z",
+      "archived": false,
+      "branch": "main",
+      "description": "小红书风格化模板skill"
+    },
+    {
+      "repo": "Luyu2026/Skill-Bible",
+      "stars": 215,
+      "pushed_at": "2026-11-03T03:07:06Z",
+      "updated_at": "2026-11-09T01:24:09Z",
+      "license": "NOASSERTION",
+      "archived": false,
+      "branch": "main",
+      "description": "好用的skill都在宝典"
+    },
+    {
+      "repo": "KKKKhazix/human-writing",
+      "stars": 4538,
+      "pushed_at": "2026-11-08T08:59:26Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "让 AI 写的中文读起来像一个具体的人在说话。通用创作与改稿 Skill，开箱即用。"
+    },
+    {
+      "repo": "larashero3-dotcom/writing-dna-skill",
+      "stars": 3111,
+      "pushed_at": "2026-11-11T10:56:24Z",
+      "license": "NOASSERTION",
+      "archived": false,
+      "branch": "main",
+      "description": "写作蒸馏器.skill｜蒸馏复刻任意写作风格的 agent skill | Writing DNA Distiller - distill and recreate any writing style as an agent skill"
+    },
+    {
+      "repo": "chengyi-ai/cy-carousel-skill",
+      "stars": 441,
+      "pushed_at": "2026-10-17T09:19:09Z",
+      "license": "NOASSERTION",
+      "archived": false,
+      "branch": "main",
+      "description": "图文轮播 Skill（cy-carousel）：给一个选题，查证、找素材、排版、检查、打包，交付封面＋10 页"
+    },
+    {
+      "repo": "mvanhorn/last30days-skill",
+      "stars": 67303,
+      "pushed_at": "2026-11-11T07:11:24Z",
+      "license": "MIT",
+      "archived": false,
+      "branch": "main",
+      "description": "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary"
+    },
+    {
+      "repo": "Jamailar/Beav",
+      "stars": 2367,
+      "pushed_at": "2026-11-11T12:33:06Z",
+      "license": "NOASSERTION",
+      "archived": false,
+      "branch": "main",
+      "description": "小红书 AI 运营工作台｜小红书采集、评论区下载、素材库、选题、AI写作、小红书全域解决方案，开箱即用，一键安装，小红书AI工作台，自媒体素材库，AI写作+图片自动编排，小红书版OpenClaw、自媒体资产底座+AI工作台，支持小红书图文+小红书评论区下载、小红书AI创作工具、自媒体版WorkBuddy、抖音、小红书爬虫数据采集"
+    },
+    {
+      "repo": "unclecode/crawl4ai",
+      "stars": 87219,
+      "pushed_at": "2026-11-10T12:30:15Z",
+      "license": "Apache-2.0",
+      "archived": false,
+      "branch": "main"
+    },
+    {
+      "repo": "firecrawl/cli",
+      "stars": 684,
+      "pushed_at": "2026-11-10T18:02:50Z",
+      "archived": false,
+      "branch": "main"
+    },
+    {
+      "repo": "firecrawl/skills",
+      "stars": 154,
+      "pushed_at": "2026-11-09T18:07:23Z",
+      "license": "ISC",
+      "archived": false,
+      "branch": "main"
+    },
+    {
+      "repo": "xpzouying/xiaohongshu-mcp",
+      "stars": 17082,
+      "pushed_at": "2026-11-10T17:46:09Z",
+      "license": "Apache-2.0",
+      "archived": false,
+      "branch": "main"
+    },
+    {
+      "repo": "nexu-io/openmotion",
+      "stars": 9507,
+      "pushed_at": "2026-11-11T15:03:04Z",
+      "license": "Apache-2.0",
+      "archived": false,
+      "branch": "main"
+    },
+    {
+      "repo": "D4Vinci/Scrapling",
+      "stars": 101501,
+      "pushed_at": "2026-11-09T10:36:37Z",
+      "license": "BSD-3-Clause",
+      "branch": "main"
+    },
+    {
+      "repo": "firecrawl/firecrawl",
+      "stars": 200804,
+      "pushed_at": "2026-11-11T13:04:26Z",
+      "license": "AGPL-3.0",
+      "branch": "main"
+    }
+  ]
+}

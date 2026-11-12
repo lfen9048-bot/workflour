@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/xpzouying/xiaohongshu-mcp",
+  "version": "v2.7.4",
+  "publishedAt": "2026-11-10T17:46:52Z",
+  "license": "Apache-2.0",
+  "licenseSource": "https://github.com/xpzouying/xiaohongshu-mcp/blob/v2.7.4/LICENSE",
+  "assets": {
+    "darwin-arm64": {
+      "server": {"name": "xiaohongshu-mcp-darwin-arm64", "sha256": "8e0194952251f6da2e2911bbc30934abec760b8eaa9ee811b0d0358656435673"},
+      "login": {"name": "xiaohongshu-login-darwin-arm64", "sha256": "3b4dcbe50d4055585e4ccab0d54ff59650213284375f6c3efdf6bcebbbaac61c"}
+    },
+    "linux-amd64": {
+      "server": {"name": "xiaohongshu-mcp-linux-amd64", "sha256": "7360e4f1c617acd0d64df807afe64b0c46ca95492ab768c337483cc367f96407"},
+      "login": {"name": "xiaohongshu-login-linux-amd64", "sha256": "2bf99cb365a968015cd096f825c4f838c4cc47a4786252cd9eca145d42b074ff"}
+    }
+  },
+  "unsupported": ["linux-arm64", "darwin-amd64"]
+}

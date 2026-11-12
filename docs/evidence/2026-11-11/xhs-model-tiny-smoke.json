@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-11",
+  "scope": "model_channel_only",
+  "models": [
+    {
+      "model": "glm-5.3-flash",
+      "effort": "low",
+      "answer": "OK",
+      "http_status": 200,
+      "seconds": 4.28,
+      "usage": {
+        "prompt_tokens": 16,
+        "completion_tokens": 3,
+        "total_tokens": 19,
+        "cached_tokens": 0
+      },
+      "passed": true
+    },
+    {
+      "model": "mimo-v2.6-pro",
+      "effort": "low",
+      "answer": "OK",
+      "http_status": 200,
+      "seconds": 2.65,
+      "usage": {
+        "prompt_tokens": 11,
+        "completion_tokens": 15,
+        "total_tokens": 26,
+        "cached_tokens": 0
+      },
+      "passed": true
+    },
+    {
+      "model": "minimax-m3.1-flash",
+      "effort": "low",
+      "answer": "OK",
+      "http_status": 200,
+      "seconds": 2.25,
+      "usage": {
+        "prompt_tokens": 206,
+        "completion_tokens": 3,
+        "total_tokens": 209,
+        "cached_tokens": 0
+      },
+      "passed": true
+    }
+  ],
+  "requests": 3,
+  "usage_reported": {
+    "prompt_tokens": 233,
+    "completion_tokens": 21,
+    "total_tokens": 254
+  },
+  "automatic_retries": 0,
+  "agent_context_loaded": false,
+  "tools_or_delegation": false,
+  "new_draft_or_image": false,
+  "full_workflow_tested": false,
+  "bot_defaults_changed": false,
+  "gemini_and_deepseek_retested": false
+}

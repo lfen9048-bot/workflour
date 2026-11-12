@@ -26,6 +26,7 @@ deliveries/
 .openmausbot/
 .obsidian/
 .workflour/
+.xhs/
 .codex/
 
 # Keep template scaffolding (including its intentional hidden files)

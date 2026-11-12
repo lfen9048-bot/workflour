@@ -15,7 +15,13 @@
 # 不是 ACP 请求；该路径同样只写 stdout 一行版本号。
 set -euo pipefail
 
+DSH_BIN_OVERRIDE="${DSH_BIN:-}"
 DSH_BIN="/Applications/DeepSeek Harness.app/Contents/Resources/runtime/cli/bin/dsh"
+if [ -n "${DSH_BIN_OVERRIDE}" ]; then
+    DSH_BIN="${DSH_BIN_OVERRIDE}"
+elif [ ! -x "${DSH_BIN}" ]; then
+    DSH_BIN="$(command -v dsh || true)"
+fi
 
 if [ ! -x "${DSH_BIN}" ]; then
     echo "run-acp-agent.sh: 找不到可执行的 dsh: ${DSH_BIN}" >&2
@@ -30,7 +36,7 @@ fi
 case "$1" in
     coder) PROFILE="omb-coder" ;;
     doc)   PROFILE="omb-doc" ;;
-    deepseek-coder|kimi-planner|glm-planner|glm-reviewer|coordinator|assistant|manager|wf-manager|wf-plan-lead|wf-plan-review|wf-code-review|wf-code-helper|wf-assistant) PROFILE="omb-$1" ;;
+    deepseek-coder|kimi-planner|glm-planner|glm-reviewer|coordinator|assistant|manager|wf-manager|wf-plan-lead|wf-plan-review|wf-code-review|wf-code-helper|wf-assistant|xhs-collector|xhs-planner|xhs-writer-dsh) PROFILE="omb-$1" ;;
     *)
         echo "run-acp-agent.sh: 未知 DSH 角色 '$1'；Antigravity 使用 run-agy-agent.sh，角色清单见 integrations/openmausbot/team-v2/roles.json" >&2
         exit 2
@@ -66,7 +72,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 DSH_ARGS=("${DSH_BIN}" --profile "${PROFILE}")
 unset WORKFLOUR_QUOTA_POLICY
 case "${PROFILE}" in
-    omb-wf-*)
+    omb-wf-*|omb-xhs-collector|omb-xhs-planner|omb-xhs-writer-dsh)
         export WORKFLOUR_QUOTA_POLICY=enabled
         # The desktop owns the checked account list and native pool ordering.
         # Compose a process-private config layer at startup; an existing ACP

@@ -203,3 +203,14 @@ profiles 保持原样，不要为了让新链路工作而改动它们。
   关键文件，以及下一项可执行操作。
 - 当前进度和待办统一维护在 Obsidian，
   本文件只保存稳定的协作约定与入口。
+
+## 小红书 Ubuntu 虚拟机入口
+
+Windows 上带桌面的 Ubuntu 24.04 x86_64 接手小红书工作流，先读
+`docs/xhs-ubuntu-handoff.zh-CN.md`；本场景不套用 Windows 原生部署步骤。
+快速入口为 `scripts/xhs-ubuntu.sh`，先 install、目标机登录，再 configure/up/connect。
+DSH 账号池默认从本机 web profile 读取，可显式指定
+`WORKFLOUR_DSH_SOURCE_PROFILE`；Mac 原入口默认 desktop 不变。
+用 start 子命令新建图文时，入口自动绑定真实工作台 threadId，不能用内部会话ID替代。
+新机生成自己的 Bot ID、账号登录和内容目录；不复制Mac凭据或虚拟环境。
+Linux CI 的安装、服务和渲染检查不代替目标虚拟机的账号/模型/配图验收。

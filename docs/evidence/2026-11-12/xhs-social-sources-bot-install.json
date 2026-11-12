@@ -1,0 +1,12 @@
+{
+  "role": "xhs-collector",
+  "native_instructions_verified": true,
+  "other_bot_settings_unchanged": true,
+  "collector_model_approval_cwd_unchanged": true,
+  "soul_sha256": "9ebc6a2d5aa997508d0455a386e1d466a6a1975c6bc30998d194825024af76da",
+  "skills": [
+    "xhs-collector-role",
+    "xhs-web-crawl",
+    "xhs-social-sources"
+  ]
+}

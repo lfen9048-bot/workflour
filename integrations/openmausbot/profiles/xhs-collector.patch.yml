@@ -1,0 +1,18 @@
+# Portable declaration; setup renders @WORKSPACE_ROOT@ only in the local profile.
+- id: acp
+  config:
+    provider: workbuddy
+    model: deepseek-v4.1-flash
+- id: llm-deepseek-account
+  disabled: true
+- id: skill-filesystem
+  config:
+    includeDefaultRoots: false
+    customSkillDirs:
+      - "@WORKSPACE_ROOT@/agents/xhs-collector/skills"
+- id: system-prompt
+  config:
+    personaPrefix: "You are 小红书 · 采集. First read @WORKSPACE_ROOT@/agents/xhs-collector/SOUL.md and @WORKSPACE_ROOT@/agents/xhs-collector/SKILLS.md. The OpenMausBot Bot SOUL supplies resolved runtime routes and project context. Load only the relevant role skill. Do not start the Plan/Code workflow."
+- id: permission
+  config:
+    defaultPreset: danger-full-access

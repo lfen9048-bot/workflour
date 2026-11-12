@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "checked_at": "2026-11-11T13:41:25.597364+00:00",
+  "provider": "antigravity",
+  "runtime_version": "1.5.5",
+  "status": "available",
+  "default_backend": "print",
+  "chat_model": "gemini-3.8-flash-low",
+  "thinking": "low",
+  "image_model": "unverified",
+  "image_quota": "exact_remaining_and_deduction_unverified",
+  "billing_override": {
+    "useG1Credits": false
+  },
+  "backends": {
+    "print": {
+      "status": "available",
+      "verified_with_real_image": true,
+      "generated_images": 2,
+      "native_image_tool_observed": false,
+      "reason": "Native print waits for delegated image artifact; valid JPEG verified visually.",
+      "image_model": "unverified",
+      "evidence": "examples/xhs-claude-demo/image-versions/gemini-v1/cover-generation.json",
+      "visual_reviewed_images": 2,
+      "automation_status": "verified_with_maintenance_recovery",
+      "latest_writer_run": {
+        "native_status": "SUCCESS",
+        "original_collection_status": "blocked_no_valid_new_native_image",
+        "maintenance_recovery": "passed",
+        "evidence": "examples/xhs-claude-demo/image-versions/gemini-v1/office-illustration/image-recovery.json"
+      },
+      "fixed_artifact_discovery": "Exact native conversation artifacts are searched when public final response omits the file path.",
+      "private_cwd": "Project-external temporary directory; offline verified, token saving not measured."
+    },
+    "acp": {
+      "version": 1,
+      "checked_at": "2026-11-11T12:37:46Z",
+      "provider": "antigravity",
+      "agent_runtime": "Antigravity ACP Server",
+      "runtime_version": "1.5.5",
+      "requested_agent": "image-generator",
+      "chat_model": "gemini-3.8-flash",
+      "thinking": "low",
+      "status": "blocked",
+      "reason": "IMAGE_TOOL_UNAVAILABLE",
+      "native_tool_calls": 0,
+      "generated_images": 0,
+      "image_model": "unverified",
+      "image_quota": "unverified",
+      "evidence_relative_to_workflour_home": "xiaohongshu-images/claude-20261111/direct/image-evidence.json"
+    }
+  },
+  "limitations": [
+    "Only print route is verified on this Mac; ACP historical failure retained.",
+    "Current login reused and extra credits disabled per call; no new API key or purchase.",
+    "Orchestrator public model labels are not authenticated image backend metadata.",
+    "Ubuntu and exact subscription accounting are not verified."
+  ]
+}

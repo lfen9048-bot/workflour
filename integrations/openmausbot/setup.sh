@@ -22,7 +22,7 @@ umask 077
 
 SETUP_ROLE="default"
 if [ "$#" -ne 0 ]; then
-    if [ "$#" -eq 2 ] && [ "$1" = "--only" ] && [[ "$2" =~ ^(deepseek-coder|kimi-planner|glm-planner|glm-reviewer|coordinator|assistant|manager|wf-manager|wf-plan-lead|wf-plan-review|wf-code-main|wf-code-review|wf-code-helper|wf-assistant)$ ]]; then
+    if [ "$#" -eq 2 ] && [ "$1" = "--only" ] && [[ "$2" =~ ^(deepseek-coder|kimi-planner|glm-planner|glm-reviewer|coordinator|assistant|manager|wf-manager|wf-plan-lead|wf-plan-review|wf-code-main|wf-code-review|wf-code-helper|wf-assistant|xhs-collector|xhs-planner|xhs-writer|xhs-writer-dsh)$ ]]; then
         SETUP_ROLE="$2"
     else
         printf '%s\n' "用法: integrations/openmausbot/setup.sh [--only ROLE]；新团队角色见 integrations/openmausbot/team-v2/roles.json" >&2
@@ -32,28 +32,41 @@ fi
 
 WORKSPACE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 DSH_HOME="${DSH_HOME:-${HOME}/.dsh}"
+DSH_BIN_OVERRIDE="${DSH_BIN:-}"
 DSH_BIN="/Applications/DeepSeek Harness.app/Contents/Resources/runtime/cli/bin/dsh"
-DESKTOP_NODE_MODULES="${DSH_HOME}/profiles/desktop/node_modules"
+if [ -n "${DSH_BIN_OVERRIDE}" ]; then
+    DSH_BIN="${DSH_BIN_OVERRIDE}"
+elif [ ! -x "${DSH_BIN}" ]; then
+    DSH_BIN="$(command -v dsh || true)"
+fi
+WORKFLOUR_DSH_SOURCE_PROFILE="${WORKFLOUR_DSH_SOURCE_PROFILE:-desktop}"
+[[ "${WORKFLOUR_DSH_SOURCE_PROFILE}" =~ ^[a-zA-Z0-9_-]+$ ]] || { printf '%s\n' 'Invalid WorkBuddy source profile' >&2; exit 2; }
+export WORKFLOUR_DSH_SOURCE_PROFILE
+DESKTOP_NODE_MODULES="${DSH_HOME}/profiles/${WORKFLOUR_DSH_SOURCE_PROFILE}/node_modules"
 TEMPLATE_DIR="${WORKSPACE_DIR}/integrations/openmausbot/profiles"
 BACKUP_DIR=""
 
 log() { printf '%s\n' "$*" >&2; }
 
-[ -x "${DSH_BIN}" ] || { log "找不到 dsh: ${DSH_BIN}"; exit 1; }
-[ -d "${DESKTOP_NODE_MODULES}" ] || { log "找不到共享 node_modules: ${DESKTOP_NODE_MODULES}"; exit 1; }
+if [ "${SETUP_ROLE}" != "wf-code-main" ] && [ "${SETUP_ROLE}" != "xhs-writer" ]; then
+    [ -x "${DSH_BIN}" ] || { log "找不到 dsh: 设置 DSH_BIN 或把 dsh 加入 PATH"; exit 1; }
+    [ -d "${DESKTOP_NODE_MODULES}" ] || { log "找不到共享 node_modules: ${DESKTOP_NODE_MODULES}"; exit 1; }
+fi
 
 # New workflow roles inherit the desktop's checked account pool on ACP startup,
 # via a private --patch layer. Validate that source before creating/changing any
 # profile; legacy profiles keep their original behavior and are not synchronized.
 case "${SETUP_ROLE}" in
-    wf-manager|wf-plan-lead|wf-plan-review|wf-code-review|wf-code-helper|wf-assistant)
+    wf-manager|wf-plan-lead|wf-plan-review|wf-code-review|wf-code-helper|wf-assistant|xhs-collector|xhs-planner|xhs-writer-dsh)
         /usr/bin/ruby "${WORKSPACE_DIR}/scripts/workbuddy-pool-sync.rb" \
             --profile "omb-${SETUP_ROLE}" --check >/dev/null
         log "[+] 账号池来源已核对：ACP 启动时读取 desktop 成员、开关与排序"
         ;;
 esac
 
-BACKUP_DIR="$(mktemp -d "${DSH_HOME}/backup-omb-$(date +%Y%m%d-%H%M%S)-XXXXXX")"
+if [ "${SETUP_ROLE}" != "wf-code-main" ] && [ "${SETUP_ROLE}" != "xhs-writer" ]; then
+    BACKUP_DIR="$(mktemp -d "${DSH_HOME}/backup-omb-$(date +%Y%m%d-%H%M%S)-XXXXXX")"
+fi
 
 # 从 dsh --dump-config 的组合树里截出某个顶层条目的文本块。
 # 顶层条目以 "- id: " 开头；块在该行之后的下一行 "- id: " 或 "- insert:" 处结束。
@@ -123,6 +136,16 @@ EOF
     if [ -f "${target}" ]; then
         workbuddy_block="$(extract_entry "${target}" "dsh-connect-workbuddy")"
     fi
+    # XHS can start on a new Ubuntu host with only a logged-in Web profile.
+    # Read its own saved entry; never require a historical Mac Doc profile.
+    case "${role}" in
+        xhs-*)
+            if [ -z "${workbuddy_block}" ] && [ -f "${DSH_HOME}/profiles/${WORKFLOUR_DSH_SOURCE_PROFILE}/cordis.patch.yml" ]; then
+                workbuddy_block="$(extract_entry "${DSH_HOME}/profiles/${WORKFLOUR_DSH_SOURCE_PROFILE}/cordis.patch.yml" "dsh-connect-workbuddy")"
+            fi
+            source_profile="${WORKFLOUR_DSH_SOURCE_PROFILE}"
+            ;;
+    esac
     # 新角色复用已工作的 Doc 登录配置，避免为此启动旧 headless profile。
     if [ -z "${workbuddy_block}" ] && [ "${role}" != "coder" ] && [ "${role}" != "doc" ] \
             && [ -f "${DSH_HOME}/profiles/omb-doc/cordis.patch.yml" ]; then
@@ -149,10 +172,37 @@ EOF
     fi
 
     {
-        cat "${template}"
+        # Only the private generated profile receives local paths. Portable XHS
+        # declarations remain relative in Git and can move to another host.
+        python3 - "${template}" "${WORKSPACE_DIR}" <<'PY'
+from pathlib import Path
+import json
+import sys
+print(Path(sys.argv[1]).read_text().replace('@WORKSPACE_ROOT@', json.dumps(sys.argv[2], ensure_ascii=False)[1:-1]), end='')
+PY
         printf '\n'
         printf '%s\n' "${workbuddy_block}"
     } > "${target}.new"
+    # XHS model choices are scoped to these profiles; desktop/account pools stay intact.
+    case "${role}" in
+        xhs-collector|xhs-planner|xhs-writer-dsh)
+            /usr/bin/ruby -r yaml -r json - "${target}.new" "${WORKSPACE_DIR}/integrations/openmausbot/team-xhs/models.json" <<'RUBY'
+path, declaration = ARGV
+rows = YAML.safe_load(File.read(path), permitted_classes: [], permitted_symbols: [], aliases: false)
+entry = rows.select { |r| r.is_a?(Hash) && r['id'] == 'dsh-connect-workbuddy' }
+raise 'Expected exactly one WorkBuddy config' unless entry.length == 1
+wanted = JSON.parse(File.read(declaration)).fetch('workbuddy')
+wanted.each do |region, choices|
+  target_region = entry[0].fetch('config').fetch('regions').fetch(region)
+  %w[enabledModelIds imageModelIds].each do |field|
+    target_region[field] = (target_region.fetch(field, []) + choices.fetch(field)).uniq
+  end
+end
+File.write(path, YAML.dump(rows))
+File.chmod(0600, path)
+RUBY
+            ;;
+    esac
     mv "${target}.new" "${target}"
 
     log "[+] ${profile}: 已写入 ${target}"
@@ -161,7 +211,7 @@ EOF
 if [ "${SETUP_ROLE}" = "default" ]; then
     setup_profile coder
     setup_profile doc
-elif [ "${SETUP_ROLE}" != "wf-code-main" ]; then
+elif [ "${SETUP_ROLE}" != "wf-code-main" ] && [ "${SETUP_ROLE}" != "xhs-writer" ]; then
     setup_profile "${SETUP_ROLE}"
 fi
 
@@ -185,6 +235,7 @@ merge_omb_config() {
     python3 - "${OMB_CONFIG}" "${WORKSPACE_DIR}" "${SETUP_ROLE}" <<'PY'
 import json
 import os
+import shlex
 import sys
 
 config_path, workspace, setup_role = sys.argv[1:]
@@ -217,7 +268,7 @@ wanted = {
 # 不用 OpenMausBot 内置的 antigravityAgent 驱动，因为那个要求下载
 # agy_acp_server.par + localharness_external（约 114MB zip）。
 wanted_direct = {
-    "agy-gemini": ("Antigravity (Gemini)", f"{workspace}/run-agy-agent.sh"),
+    "agy-gemini": ("Antigravity (Gemini)", shlex.quote(f"{workspace}/run-agy-agent.sh")),
 }
 
 if setup_role != "default":
@@ -230,8 +281,11 @@ if setup_role != "default":
              "wf-plan-review": "DSH · Plan 方案与体验评审",
              "wf-code-review": "DSH · Code 独立审核",
              "wf-code-helper": "DSH · Code 协作编码",
-             "wf-assistant": "DSH · 通用助手"}
-    if setup_role == "wf-code-main":
+             "wf-assistant": "DSH · 通用助手",
+             "xhs-collector": "DSH · 小红书采集",
+             "xhs-planner": "DSH · 小红书思考",
+             "xhs-writer-dsh": "DSH · 小红书写作（可选）"}
+    if setup_role in ("wf-code-main", "xhs-writer"):
         wanted = {}
     else:
         wanted = {f"omb-{setup_role}": (names[setup_role], setup_role)}
@@ -278,7 +332,7 @@ for instance_id, (display_name, role) in wanted.items():
     desired = {
         "driver": "customAcp",
         "displayName": display_name,
-        "config": {"cli": f"{workspace}/run-acp-agent.sh {role}"},
+        "config": {"cli": f"{shlex.quote(f'{workspace}/run-acp-agent.sh')} {role}"},
     }
     existing = instances.get(instance_id)
     if existing is None:
@@ -331,7 +385,7 @@ log ""
 log "=== OpenMausBot 接入配置就绪 ==="
 if [ "${SETUP_ROLE}" = "default" ]; then
     log "ACP profiles: ${DSH_HOME}/profiles/omb-coder, ${DSH_HOME}/profiles/omb-doc"
-elif [ "${SETUP_ROLE}" != "wf-code-main" ]; then
+elif [ "${SETUP_ROLE}" != "wf-code-main" ] && [ "${SETUP_ROLE}" != "xhs-writer" ]; then
     log "ACP profile:  ${DSH_HOME}/profiles/omb-${SETUP_ROLE}"
 else
     log "ACP runtime:  agy-gemini（独立 Antigravity，无 DSH profile）"

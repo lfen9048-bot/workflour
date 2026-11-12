@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-12",
+  "scope": "One existing collector Bot turn; X/YouTube/public web live skill smoke on macOS",
+  "status": "passed_with_command_self_corrections",
+  "model": {
+    "requested": "deepseek-v4.1-flash",
+    "actual": "deepseek-v4.1-flash",
+    "thinking": "low",
+    "channel": "WorkBuddy China selected existing expiring subscription account",
+    "confirmed_at": "2026-11-12T04:20:19.988Z",
+    "extra_api_key": false
+  },
+  "tool_counts": {
+    "read": 2,
+    "skill": 3,
+    "bash": 22,
+    "write": 1
+  },
+  "completed_tool_count": 28,
+  "usage": {
+    "uncachedInputTokens": 51914,
+    "outputTokens": 6010,
+    "cacheReadTokens": 887168,
+    "cacheWriteTokens": 0
+  },
+  "usage_note": "Cache reads are listed separately; token counts do not establish monetary cost or credits consumed.",
+  "artifacts": {
+    "sources.json": {
+      "status": "collected",
+      "mode": "mixed_public_sources",
+      "sample_count": 3,
+      "sha256": "bcc2cd63e076113a51e99da2502a6e229ac49ff94b4b8bf701baa10bcf6c1072",
+      "samples": [
+        {
+          "url": "https://x.com/i/status/2120732798952845787",
+          "body_chars": 84,
+          "comment_count": 0,
+          "caption_segments": 0,
+          "coverage": {
+            "body": "returned_post_text",
+            "comments": "unavailable_or_empty",
+            "metrics": "public_snapshot_only",
+            "comments_returned": 0
+          }
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=0vZ_UVLhSQQ",
+          "body_chars": 5470,
+          "comment_count": 2,
+          "caption_segments": 158,
+          "coverage": {
+            "body": "caption_text",
+            "description_truncated": false,
+            "captions": "returned_track",
+            "comments": "bounded_top_level_sample",
+            "metrics": "public_snapshot_only",
+            "comments_returned": 2
+          }
+        },
+        {
+          "url": "https://www.anthropic.com/news",
+          "body_chars": 4019,
+          "comment_count": 0,
+          "caption_segments": 0,
+          "coverage": {
+            "body": "cleaned_html_markdown",
+            "body_chars_available": 4019,
+            "body_chars_returned": 4019,
+            "css_selector": "article",
+            "metrics": "not_platform_data",
+            "comments": "not_applicable"
+          }
+        }
+      ]
+    },
+    "sources.web.json": {
+      "status": "collected",
+      "mode": "public_web",
+      "sample_count": 1,
+      "sha256": "ef1b1add6bb37d92ba3329f6d1fb288f5f92b7ef9934e3a4219f015eaf738b1b",
+      "samples": [
+        {
+          "url": "https://www.anthropic.com/news",
+          "body_chars": 4019,
+          "comment_count": 0,
+          "caption_segments": 0,
+          "coverage": {
+            "body": "cleaned_html_markdown",
+            "body_chars_available": 4019,
+            "body_chars_returned": 4019,
+            "css_selector": "article",
+            "metrics": "not_platform_data",
+            "comments": "not_applicable"
+          }
+        }
+      ]
+    },
+    "sources.x-search.json": {
+      "status": "collected",
+      "mode": "live_x",
+      "sample_count": 2,
+      "sha256": "62d9aaf31772c1bd2b8abee133cc1af1ef5a3960575ea8bdede415209f569d4f",
+      "samples": [
+        {
+          "url": "https://x.com/i/status/2120732798952845787",
+          "body_chars": 84,
+          "comment_count": 0,
+          "caption_segments": 0,
+          "coverage": {
+            "body": "returned_post_text",
+            "comments": "not_requested",
+            "metrics": "public_snapshot_only"
+          }
+        },
+        {
+          "url": "https://x.com/i/status/2120732758657958286",
+          "body_chars": 281,
+          "comment_count": 0,
+          "caption_segments": 0,
+          "coverage": {
+            "body": "returned_post_text",
+            "comments": "not_requested",
+            "metrics": "public_snapshot_only"
+          }
+        }
+      ]
+    },
+    "sources.x.json": {
+      "status": "collected",
+      "mode": "live_x",
+      "sample_count": 1,
+      "sha256": "052ff2abcd8801af0531181845752dc6b28e53d99420efa95a4ef77f36bfdadc",
+      "samples": [
+        {
+          "url": "https://x.com/i/status/2120732798952845787",
+          "body_chars": 84,
+          "comment_count": 0,
+          "caption_segments": 0,
+          "coverage": {
+            "body": "returned_post_text",
+            "comments": "unavailable_or_empty",
+            "metrics": "public_snapshot_only",
+            "comments_returned": 0
+          }
+        }
+      ]
+    },
+    "sources.youtube-search.json": {
+      "status": "collected",
+      "mode": "live_youtube",
+      "sample_count": 1,
+      "sha256": "34a5e2862ab8a597377af483e2d8c4e3ce95d245b50ab59f0cee18ea8655f3d3",
+      "samples": [
+        {
+          "url": "https://www.youtube.com/watch?v=HD02f3-3c7E",
+          "body_chars": 124,
+          "comment_count": 0,
+          "caption_segments": 0,
+          "coverage": {
+            "body": "search_metadata_only",
+            "description_truncated": false,
+            "captions": "not_requested",
+            "comments": "not_requested",
+            "metrics": "public_snapshot_only"
+          }
+        }
+      ]
+    },
+    "sources.youtube.json": {
+      "status": "collected",
+      "mode": "live_youtube",
+      "sample_count": 1,
+      "sha256": "9241ee1d1df5634cf3af4d29a1db3ac7009425881e5baf200832b4fddce0f953",
+      "samples": [
+        {
+          "url": "https://www.youtube.com/watch?v=0vZ_UVLhSQQ",
+          "body_chars": 5470,
+          "comment_count": 2,
+          "caption_segments": 158,
+          "coverage": {
+            "body": "caption_text",
+            "description_truncated": false,
+            "captions": "returned_track",
+            "comments": "bounded_top_level_sample",
+            "metrics": "public_snapshot_only",
+            "comments_returned": 2
+          }
+        }
+      ]
+    }
+  },
+  "merge_preserved_original_samples": true,
+  "other_bots_settings_unchanged": true,
+  "offline_checks": {
+    "xhs_team": 9,
+    "social_sources": 8,
+    "skill_frontmatter": "passed with existing skill-eval Python environment"
+  },
+  "limitations": [
+    "Initial tool attempts: missing macOS timeout executable twice; relative output path rejected twice. Agent self-corrected without maintainer intervention or repeated network fetching.",
+    "Report incorrectly included X bookmarks among zero metrics; maintainer correction is separately recorded.",
+    "X replies returned zero; no claim of comprehensive reply coverage.",
+    "YouTube fixed old tutorial and Anthropic list page are capability samples, not a latest-news article.",
+    "No head-to-head GLM comparison, no whole writing workflow, no Ubuntu test.",
+    "Skill wording hardened after this turn loaded it; updated wording not re-run in another model turn."
+  ]
+}

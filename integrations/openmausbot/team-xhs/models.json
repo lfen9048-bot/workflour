@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "status": "configured_mac_channel_smoke_passed",
+  "workbuddy": {
+    "cn": {
+      "enabledModelIds": [
+        "glm-5.3-flash",
+        "mimo-v2.6-pro",
+        "minimax-m3.1-flash",
+        "deepseek-v4.1-flash"
+      ],
+      "imageModelIds": [
+        "glm-5.3-flash",
+        "mimo-v2.6-pro",
+        "minimax-m3.1-flash",
+        "deepseek-v4.1-flash"
+      ]
+    }
+  },
+  "roleChoices": {
+    "xhs-collector": {
+      "default": "deepseek-v4.1-flash",
+      "thinking": "low",
+      "alternatives": [
+        "minimax-m3.1-flash",
+        "glm-5.3-flash"
+      ]
+    },
+    "xhs-planner": {
+      "default": "mimo-v2.6-pro",
+      "thinking": "high",
+      "alternatives": [
+        "deepseek-v4.1-flash",
+        "glm-5.3-flash"
+      ]
+    },
+    "xhs-writer": {
+      "default": "gemini-3.8-flash",
+      "thinking": "low",
+      "dshAlternativeInstance": "omb-xhs-writer-dsh",
+      "dshAlternativeModel": "glm-5.3-flash",
+      "dshAlternativeThinking": "low"
+    }
+  },
+  "notes": [
+    "Use existing signed-in WorkBuddy accounts; no additional API key or subscription.",
+    "MiniMax default upstream effort is max; choose explicit low for collection.",
+    "These are available choices, not an automatic comparison or a new permanent Bot.",
+    "MiMo and MiniMax are tried as selected; existing quota-failure policy is unchanged.",
+    "Image generation remains the Antigravity print tool regardless of text runtime."
+  ],
+  "smoke_scope": "2026-11-11 macOS: GLM/MiMo/MiniMax each one tiny Low request; full workflow and writing quality not tested",
+  "collector_skill_smoke": {
+    "date": "2026-11-12",
+    "model": "deepseek-v4.1-flash",
+    "thinking": "low",
+    "platform": "macOS",
+    "status": "passed_with_command_self_corrections",
+    "evidence": "docs/evidence/2026-11-12/xhs-deepseek-collector-smoke.json"
+  }
+}
