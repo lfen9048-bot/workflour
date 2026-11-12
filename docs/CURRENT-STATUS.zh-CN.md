@@ -73,3 +73,12 @@
 - **后台依赖原电脑在线和可运行会话。** 睡眠、机器离线或自动化执行环境不可用时不能保证准点工作；已有非空任意仓库一键接管和报告 Agent 也未完成。
 
 下一步：用户验收现有网页，或从大管家发一个真正项目；Windows 接手 Agent 按 [项目大纲的适配顺序](PROJECT-OUTLINE.zh-CN.md#windows-的具体实施顺序) 建立本机证据，不能重放旧派单、补签旧验收或上传账号状态来省略安装步骤。
+
+## 小红书 Ubuntu 桌面虚拟机快速接入（2026-11-12）
+
+入口为 [快速接入教程](xhs-ubuntu-handoff.zh-CN.md) 和 scripts/xhs-ubuntu.sh，
+面向 Windows 上带桌面的 Ubuntu24.04 x86_64。已提供安装、Web账号源、
+systemd后台、自检、平台登录及绑定真实工作台threadId的派稿入口。
+Ubuntu CI工具安装、99项测试、两个真实服务健康检查、2张中文卡片与systemd语法通过；
+[证据](evidence/2026-11-12/xhs-ubuntu-quickstart.json)。CI无账号、无模型调用，
+服务以直接进程启动；目标VM登录、桌面systemd启停、采集和Gemini生图尚未验收。

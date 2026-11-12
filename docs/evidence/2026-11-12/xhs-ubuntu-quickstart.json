@@ -1,0 +1,84 @@
+{
+  "date": "2026-11-12",
+  "target": "Windows-hosted Ubuntu 24.04 x86_64 desktop VM",
+  "status": "ubuntu_ci_passed_target_vm_account_validation_pending",
+  "validated_runtime_commit": "67b8b2c7d507d9d565b02c7e25ca25c8f865b519",
+  "ci": {
+    "conclusion": "success",
+    "headSha": "67b8b2c7d507d9d565b02c7e25ca25c8f865b519",
+    "status": "completed",
+    "url": "https://github.com/lfen9048-bot/workflour/actions/runs/43166243328"
+  },
+  "versions": {
+    "node": "24.22.3",
+    "node_linux_x64_sha256": "4f2b175a6d53a5c617a80dba2676238a0688cef28c6da4eba35c7d844e66fcfb",
+    "dsh": "0.2.1-rc.2",
+    "pnpm": "10.34.9",
+    "workbuddy": "5.13.1",
+    "openmausbot": "0.1.143",
+    "target": "Ubuntu 24.04 x86_64 desktop",
+    "checked": "2026-11-12"
+  },
+  "linux_unit_tests": {
+    "xhs": 86,
+    "collector": 13
+  },
+  "local_shared_tests": {
+    "account_pool": 10,
+    "model_controls": 13
+  },
+  "real_linux_smoke": {
+    "platform": "linux",
+    "account_login": false,
+    "model_prompts_sent": false,
+    "workbench": {
+      "health": "passed",
+      "status": 200
+    },
+    "collector": {
+      "health": "passed",
+      "status": 200
+    },
+    "render": {
+      "images": 2,
+      "width": 1080,
+      "height": 1440,
+      "overflow": false
+    },
+    "systemd_units": "syntax_verified"
+  },
+  "images": [
+    {
+      "file": "sample/output/card-01.png",
+      "sha256": "0fce229574ad49342d9b6d0a5cee563662d3b1543c0a66a6b1a1acbfec5d2d24",
+      "maintainer_viewed": true
+    },
+    {
+      "file": "sample/output/card-02.png",
+      "sha256": "c6017a96935626ab4e97da35f74bccdf6d29e2f63dda6f2d3b055c06c78913d1",
+      "maintainer_viewed": true
+    }
+  ],
+  "source_sha256": {
+    "scripts/xhs-ubuntu.py": "09cd3127524e7f181b37a35b53ad685858922c2a57f53b516452daf40f0f1c2c",
+    "scripts/start-xhs.py": "38427da4d7927234f4bd2f59166ba634c60f5494c30107398fced5a503d2493a",
+    "scripts/xhs-ubuntu.sh": "e3c7c6e0d90c7d1b3d7aa19240e35b7ae762a10ae49ec316f0b889c398a2a7a5",
+    "integrations/openmausbot/setup.sh": "6c226de2eb18367b5b873e48ed966bfd006af91ab321606e18f56330d19b75f0",
+    "scripts/workbuddy-pool-sync.rb": "b7ba1ec1f3863a56253a9c251e37968a889b0b9093660f50b023fb1cb84cbb33",
+    "tests/xhs-linux-smoke.py": "ec6bf706c19f5cdee7a3ff4a8aa21a1a5811193383b7c320ab249f0014a67775",
+    ".github/workflows/xhs-ubuntu.yml": "eb385723a6ad887cff8c22272a8a2dbf9755145157f78b6223b0bb4120a19b92"
+  },
+  "ci_findings_resolved": [
+    "Fresh host lacked pnpm; added pinned pnpm.",
+    "Native npm builds require a runtime-local allowScripts policy.",
+    "Collector first-run bundled browser extraction takes longer than 60 seconds; readiness check now waits up to 5 minutes.",
+    "systemd WorkingDirectory does not use ExecStart token quoting; fixed path syntax."
+  ],
+  "preserved_limits": [
+    "No target VM connection, account login, model prompt, platform collection or Gemini image request performed in Ubuntu CI.",
+    "systemd units were syntax-checked; services were launched directly for health checks, not through a logged-in desktop user manager.",
+    "Mac model workflow evidence is historical and includes maintenance interventions.",
+    "Existing Node >=24 was reused in CI; fallback Node archive SHA256 was verified against official distribution metadata, not exercised as a fresh Linux download."
+  ],
+  "recorded_at": "2026-11-12T14:15:34.181066+08:00"
+}

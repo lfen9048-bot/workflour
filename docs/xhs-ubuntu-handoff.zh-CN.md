@@ -112,6 +112,8 @@ python3 scripts/provision-xhs-team.py instructions
 
 ## 验证范围与已知问题
 
+2026-11-12：Ubuntu 24.04 CI 已通过工具安装、99项测试、两个服务实际HTTP健康检查、两张1080×1440中文卡片渲染和systemd语法检查；两张产物已读图。见[通过的检查](https://github.com/lfen9048-bot/workflour/actions/runs/43166243328)与[验证记录](evidence/2026-11-12/xhs-ubuntu-quickstart.json)。服务健康检查使用前台进程，目标桌面用户的systemd启停和账号业务仍需现场验证。
+
 本机 Mac 已跑过完整三角色图文、真实 Gemini 插图及一次局部返工；过程发生过写作提前返回、采集上限不遵守及日期表述错误，需要维护补交或人工核对。已补提示约束，但不能承诺模型永远遵守。
 
 仓库包含 [Ubuntu 自动检查](../.github/workflows/xhs-ubuntu.yml)：在全新 Ubuntu runner 安装工具，跑隔离测试，真实启动工作台/采集服务并渲染中文卡片。它不带账号，不调用模型；CI 通过也不能替代这台 Windows 虚拟机上的登录、订阅、生图和业务验收。实际运行状态见 GitHub Actions，未运行的项目不能写成通过。
