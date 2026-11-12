@@ -1,0 +1,95 @@
+{
+  "platform": "linux",
+  "account_login": false,
+  "model_prompts_sent": false,
+  "systemd_user_start": "not_tested",
+  "agy_subscription": "not_tested",
+  "profiles": {
+    "isolated_profiles": 6,
+    "instances": 7,
+    "repeat_setup": "passed",
+    "manifest_stable": true,
+    "real_bots_created": false,
+    "account_config_copied": false
+  },
+  "workbench": {
+    "health": "passed",
+    "private_overlay": true,
+    "native_create_contract": {
+      "validation_only_posts": 7,
+      "all_rejected_after_settings_parsing": true,
+      "expected_error": "model instance \"__workflour_ci_missing__\" is unavailable",
+      "native_bot_ids_unchanged": true,
+      "model_requests": 0
+    }
+  },
+  "browser": {
+    "chrome_channel": "chrome",
+    "screenshots": [
+      "ubuntu-code-team-desktop.png",
+      "ubuntu-code-team-mobile.png"
+    ],
+    "button_interaction": "passed",
+    "narrow_overflow": false,
+    "visual_judgment": "not_claimed"
+  },
+  "systemd_syntax": {
+    "normal_paths": "verified",
+    "spaces_quotes_percent_dollar": "verified"
+  },
+  "checked_date": "2026-11-12",
+  "target": "Ubuntu 24.04 x86_64 desktop",
+  "code_commit": "6326c9513df655c133bcbbacf9d7f26208ba546e",
+  "github_run": {
+    "id": 43169502044,
+    "url": "https://github.com/lfen9048-bot/workflour/actions/runs/43169502044",
+    "conclusion": "success",
+    "duration_seconds": 138
+  },
+  "local_tests": {
+    "python": {
+      "passed": 90,
+      "failed": 0,
+      "note": "Related modules run separately; provision final 25 tests replace the earlier 24-test run."
+    },
+    "node": {
+      "passed": 35,
+      "failed": 0
+    }
+  },
+  "linux_tests": {
+    "python": {
+      "total": 71,
+      "passed": 70,
+      "skipped": 1,
+      "failed": 0,
+      "skip_reason": "One pre-existing native Cordis composition test requires the original Mac DSH CLI path."
+    },
+    "node": {
+      "passed": 35,
+      "failed": 0
+    }
+  },
+  "manual_artifact_inspection": {
+    "desktop_chinese_readable": true,
+    "mobile_chinese_readable": true,
+    "sample": "Synthetic browser readiness page; not a seven-Agent business product or UI acceptance."
+  },
+  "remaining_target_vm_checks": [
+    "WorkBuddy accounts, live model catalog and exact image input capability",
+    "Antigravity login, keyring, subscription and ACP model call",
+    "Seven native Bots and one complete business workflow",
+    "User-level systemd start/stop/relogin and natural 13:00 execution",
+    "User acceptance"
+  ],
+  "screenshots": [
+    {
+      "path": "ubuntu-code-team-desktop.png",
+      "sha256": "29a03932ee235d6a090ce41b184241c8ea77b60dbdfd1216ef2127f3c2711991"
+    },
+    {
+      "path": "ubuntu-code-team-mobile.png",
+      "sha256": "9a55ac56f10f4b16cc640fb098d6b70eccacdab128d7bdd06e4eea181b214488"
+    }
+  ]
+}
