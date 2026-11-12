@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "purpose": "Offline existing-capability reuse and permission-boundary screening for wf-search-first; paired arms receive identical task and output contract.",
+  "task_path_base": "this_file_directory",
+  "input_mode": "inline-no-tools",
+  "independence_note": "Synthetic complete inventory and official capability summaries. No real account or project data. Oracle is outside the task directory in ignored tests/evidence and must not be sent to the model.",
+  "cases": [
+    {
+      "case_id": "search-reuse",
+      "task_path": "search-reuse/TASK.md",
+      "relevant_skills": [
+        "wf-search-first"
+      ],
+      "subcases": [
+        "reuse-existing-report",
+        "isolated-office-profile",
+        "unsupported-evidence-claim"
+      ],
+      "context_group": "independent-offline-capability-choice"
+    }
+  ]
+}

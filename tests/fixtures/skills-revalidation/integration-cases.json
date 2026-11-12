@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "task_path_base": "this_file_directory",
+  "input_mode": "tools-isolated-fixture-copy",
+  "notes": "Run copies outside the source fixture tree. These are integration checks, not unseen validation of all skills. Never copy grader oracles into the model fixture.",
+  "cases": [
+    {"case_id":"tools-code","task_path":"tools-code/TASK.md","fixture_path":"tools-code","relevant_skills":["wf-test-coverage-review","wf-property-based-testing"],"requires":["python3","file-read","shell-execution"],"observations":["actual-test-command-exit-output","reproduction-evidence","source-unchanged"]},
+    {"case_id":"tools-ux","task_path":"tools-ux/TASK.md","fixture_path":"tools-ux","relevant_skills":["wf-ux-critique","wf-webapp-testing"],"requires":["existing-playwright-python","chrome","file-read","shell-execution","read-image-model-route"],"observations":["script-execution","four-current-image-reads","actual-state-comparison","source-unchanged"],"environment_prepared_by":"maintainer","subcases":["one","two"],"context_group":"tools-ux"}
+  ]
+}

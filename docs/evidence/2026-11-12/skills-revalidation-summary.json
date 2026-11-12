@@ -1,0 +1,342 @@
+{
+  "date": "2026-11-12",
+  "environment": "Original macOS; not Windows/Ubuntu acceptance",
+  "scope": "Seven development roles; excludes parallel XHS work",
+  "formal_defaults_and_full_permissions_unchanged": true,
+  "formal_roles_idle_at_final_readback": true,
+  "phases": {
+    "before_free_only_steering": {
+      "started_sessions": 23,
+      "completed": 21,
+      "user_interrupted": 2,
+      "models": {
+        "mimo": 21,
+        "glm": 2
+      },
+      "all_stopped_after_steering": true
+    },
+    "after_free_only_steering": {
+      "completed_sessions": 17,
+      "provider": "workbuddy-global",
+      "model": "hy3",
+      "text_pairs": 5,
+      "catalog_trigger_runs": 2,
+      "tool_pairs": 2,
+      "plans_only_ablation_runs": 1,
+      "paid_fallback": false,
+      "guard_allow_events": 78,
+      "guard_stop_events": 0,
+      "every_allow_effective_multiplier": 0,
+      "per_session_request_attribution_available": false,
+      "billing_verified": false,
+      "cleanup_closed_all_sessions": true
+    }
+  },
+  "grading": {
+    "mimo_text_pairs": {
+      "current_win": 3,
+      "tie": 4,
+      "current_loss": 0
+    },
+    "hy3_text_pairs": {
+      "current_win": 3,
+      "tie": 0,
+      "current_loss": 2
+    },
+    "hy3_tool_pairs": {
+      "code": [
+        "current_better",
+        "current_better"
+      ],
+      "ux": [
+        "without_better",
+        "tie"
+      ]
+    },
+    "ablation": "writing-plans only still overstates ongoing free as permanently guaranteed; one task, non-blind followup; no statistical significance claimed",
+    "method_group_blind_only": true,
+    "model_blind": false,
+    "all_methods_passed": false,
+    "combined_skill_effects_cannot_be_attributed_to_one_member": true
+  },
+  "tool_runs": [
+    {
+      "case": "tools-code",
+      "arm": "baseline",
+      "elapsed_seconds": 111.845,
+      "tools": 7,
+      "image_tool_completions": 0,
+      "source_unchanged": true,
+      "runtime_overlay_unchanged": true,
+      "status": "completed"
+    },
+    {
+      "case": "tools-code",
+      "arm": "candidate",
+      "elapsed_seconds": 141.636,
+      "tools": 10,
+      "image_tool_completions": 0,
+      "source_unchanged": true,
+      "runtime_overlay_unchanged": true,
+      "status": "completed"
+    },
+    {
+      "case": "tools-ux",
+      "arm": "candidate",
+      "elapsed_seconds": 353.91,
+      "tools": 39,
+      "image_tool_completions": 6,
+      "source_unchanged": true,
+      "runtime_overlay_unchanged": true,
+      "status": "completed"
+    },
+    {
+      "case": "tools-ux",
+      "arm": "baseline",
+      "elapsed_seconds": 146.602,
+      "tools": 20,
+      "image_tool_completions": 4,
+      "source_unchanged": true,
+      "runtime_overlay_unchanged": true,
+      "status": "completed",
+      "failed_plain_read_attempts_on_png": 4
+    }
+  ],
+  "recorder_limit": "Native tool names/status preserved; raw commands/output/exit not retained. DSH kind=other caused empty execute filter, clarified by exact titles post-run. Independent CPU replay is not original native exit evidence.",
+  "offline_checks": {
+    "validator": {
+      "passed": 8,
+      "failed": 0
+    },
+    "acp_resume_protocol": {
+      "passed": 24,
+      "failed": 0
+    }
+  },
+  "methods": [
+    {
+      "name": "wf-differential-review",
+      "entry_sha256": "a69787109002c82b3ec03718001cf4801420c35dfeaaa1ceb311e1e8542fbec4",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+        "SKILL.md": "a69787109002c82b3ec03718001cf4801420c35dfeaaa1ceb311e1e8542fbec4",
+        "SOURCE.md": "97bac08984f33e82fc7941c12e4fb05cc0e3f4c633e437db23116d08d8d83547",
+        "references/adversarial.md": "cf6da96cc2d551bed7c748ea7021c5dc85ddd64cb570bbfac72dffa6349f8585",
+        "references/patterns.md": "ec8dce4015c7a9536adab7ba82b2b3ae4bbf3d1ebf5932ddc0882a58da9d9d64"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-frontend-design",
+      "entry_sha256": "1304cf0d1a25ef6f0f3bdbbd4d4a263eea69969ed2f599f97b5eb2c7b7587e48",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "LICENSE-IMPECCABLE": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812",
+        "SKILL.md": "1304cf0d1a25ef6f0f3bdbbd4d4a263eea69969ed2f599f97b5eb2c7b7587e48",
+        "SOURCE.md": "03e5c46f83c4e0ad1c6988538c4dd22b2bb760183c67fa1169a3d8ced63c4362",
+        "references/visual-finish.md": "ae9b510d1439598c614a019c68017fd15445af383c774609efd6f318f826e22d"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-obsidian-markdown",
+      "entry_sha256": "9779d5ca4c1a02b0d9c858369db4b27a823a9898c77e04085f32cef473fdbea2",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "64c64d48361edfe8610016441bf593256ea9b67f133b00f47c55aa29ee878567",
+        "SKILL.md": "9779d5ca4c1a02b0d9c858369db4b27a823a9898c77e04085f32cef473fdbea2",
+        "SOURCE.md": "b85d7eb3e22089ad9eb2bda39f7b8749db6575d57b740dcabc49433fc861b11c",
+        "references/CALLOUTS.md": "9912ec2e3f8711f65b8ceb82cc19cbffc5e6f8ccf2ab627e18926c522c383d8b",
+        "references/EMBEDS.md": "63b6205507e28fb58cf200bc348a2b139e50ae739743e2e6316732148973cb7a",
+        "references/PROPERTIES.md": "392953b5838c3ab3df135b5a914f100ae7b95e4501b6a2e5c8dc63da3ac7558b"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-property-based-testing",
+      "entry_sha256": "3595aaacffcfc238da8a79704a7e0cded7d1498d56d78b26c203f145a0625c7c",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+        "SKILL.md": "3595aaacffcfc238da8a79704a7e0cded7d1498d56d78b26c203f145a0625c7c",
+        "SOURCE.md": "1c030d6b3513574358581becf6a93655540f03549f4974f086368579f4fc2dd5",
+        "references/reviewing-and-failures.md": "c5a7805f90e7268de34853276403c87bdf2fd09ccf33a6fe8836858b94c15681",
+        "references/writing.md": "80627244e1c051a47889c1e4e5512a3057e2393591f9dfdb6f981fa401cea870"
+      },
+      "configuration_state": "candidate-not-in-role-index"
+    },
+    {
+      "name": "wf-receiving-code-review",
+      "entry_sha256": "13b9747ceb1de3c81c959e7136b8478139771b38529fc6576f58c4ecae25f259",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "13b9747ceb1de3c81c959e7136b8478139771b38529fc6576f58c4ecae25f259",
+        "SOURCE.md": "a244d9d7869796e7273ee1135e0f9a1ad59f52ac81a9c146060abf51b937b74f"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-requirements-interview",
+      "entry_sha256": "f683ebac7ee6d5bd1ad8ada4032ff1f6ee75a7d89508c5c054b307d58b9b9a67",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "SKILL.md": "f683ebac7ee6d5bd1ad8ada4032ff1f6ee75a7d89508c5c054b307d58b9b9a67",
+        "SOURCE.md": "b22a984ff2daecab76105adba73129082dba6ad0ea08a5606aa7165257cc5148"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-research-synthesis",
+      "entry_sha256": "db083bb52a72376c237bbaaa524558393ba34b095c2f316527c692b06fd5db90",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "SKILL.md": "db083bb52a72376c237bbaaa524558393ba34b095c2f316527c692b06fd5db90",
+        "SOURCE.md": "34863730ee7da88bc09b6312d6313e9e0ce8aaa316ff20b53e49f41c27c2ddf3"
+      },
+      "configuration_state": "enabled-narrow-conflict-applicability-trigger"
+    },
+    {
+      "name": "wf-search-first",
+      "entry_sha256": "88cb1f371e2aa5deb4654bf2c8c87868025591f36e384481e6bb834a5f76118a",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+        "SKILL.md": "88cb1f371e2aa5deb4654bf2c8c87868025591f36e384481e6bb834a5f76118a",
+        "SOURCE.md": "96ada453730690a3910bb737b064974409ad3be155f9bf134db8d284ee9f1664"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-sharp-edges",
+      "entry_sha256": "4d75e5002aa7e4044f22abb500531c148943d1b85ef0ad5c03f5d690d1a4b9f5",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+        "SKILL.md": "4d75e5002aa7e4044f22abb500531c148943d1b85ef0ad5c03f5d690d1a4b9f5",
+        "SOURCE.md": "4ab809e1b2058a1925a7772cd613d6c39b1ed2caaba6383f4e4d1143b4f17a83",
+        "references/auth-patterns.md": "1fbf526ca1db7204f9ebb1bf4eb3c48c544676623d23e5d28e01f6f63c355be2",
+        "references/case-studies.md": "2e81a320728b4597bf84c490176d5bf212f1e6ba6f87aafba61ad1734de35332",
+        "references/config-patterns.md": "1d99f2716f7bef18efe71015ce0c56e0f4961c042faa503d796d6d4d1626fdc6",
+        "references/crypto-apis.md": "8baddc83a1f964d6d8b15678d60a37c93029c18dc162bd7c00895e585ff1a825",
+        "references/lang-c.md": "d077d711c73749c924eae81c06018b14bbf1ec9b93d71723c472b43df5d7d5ae",
+        "references/lang-csharp.md": "8fa9e93d36c0e1397b7ca81307163370fc43cf700215b7c6d7aa1b09fdb91fb4",
+        "references/lang-go.md": "839c0e7b4e3fa2f3b37c651e926aa59d69d20bfef5e67f569eedacf11354844d",
+        "references/lang-java.md": "3b93b6049f7e0e356a1ffebc0b4642f3cef315d90be45b63e15c8c4814f9ebeb",
+        "references/lang-javascript.md": "cf72f55d31318666942a8d1d64340befc3c4e7223afc2ca196e6a776ffa4c895",
+        "references/lang-kotlin.md": "c891148c10a4941c3396416a10ac64512eb3a9e13ea5eeaec3902da4b51501dd",
+        "references/lang-php.md": "7960d9773874cf06c5b470a5ca3ab406d896e66b71e713d809bc1ecfcab63485",
+        "references/lang-python.md": "36543becc25b4e3f41eaedcab62e9b204657e6742b8ac95e405bcd040d33bf03",
+        "references/lang-ruby.md": "d9ba749caaccb8a3bb39e2199b2062c0957cf48739218ba8022d49be5cba2088",
+        "references/lang-rust.md": "3d14993ea70b2b2df3fc0f388cbd1631470895c27ccbd9d764296d1da8f5b6ee",
+        "references/lang-swift.md": "a64ab8692db0f3e43526088c63c7fdcb7354d1b24e6fe7ca759aea3260890e04",
+        "references/language-specific.md": "4522b4a37cfd7d3aa689209dfd4569f3b39074bd1f5987a36a6e819f501141b6"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-systematic-debugging",
+      "entry_sha256": "a7645caa9b8b15fdf777e6edd173395552ac146fb90a16e9227e8e45c6a25615",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "a7645caa9b8b15fdf777e6edd173395552ac146fb90a16e9227e8e45c6a25615",
+        "SOURCE.md": "c2858ce295b7d9f8f2d3b9c716a3a342d731bfeae4328fccf9b4190df7b2be41",
+        "references/condition-based-waiting-example.ts": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e",
+        "references/condition-based-waiting.md": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26",
+        "references/defense-in-depth.md": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7",
+        "references/root-cause-tracing.md": "1c742ae4220a73b939840a1e2e926866d2bf450527c1a8bb1505b4736c88f403"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-test-coverage-review",
+      "entry_sha256": "75ae55a12d2ca04731ebd39fd558195c52f6e0eabeeea7a4cd4dfc32b28a836c",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "SKILL.md": "75ae55a12d2ca04731ebd39fd558195c52f6e0eabeeea7a4cd4dfc32b28a836c",
+        "SOURCE.md": "a6045d8421df4b8c6432cc91f65c1f50da33b62e534ebc24bfe2f5812831bae8",
+        "references/error-paths.md": "3931e65e63d4dc53ed1d48f9992e1f4f9508c51a25048e348b956791f3368a38"
+      },
+      "configuration_state": "candidate-not-in-role-index"
+    },
+    {
+      "name": "wf-test-driven-development",
+      "entry_sha256": "08611ae26837e9165eb2457fd6aefda7993342f144cf170ae79507b7a35a91e1",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "08611ae26837e9165eb2457fd6aefda7993342f144cf170ae79507b7a35a91e1",
+        "SOURCE.md": "b7beb938b1b24bb5a9332908b09b9cf47bd7f417d56d2e385b966240454f1da0",
+        "references/writing-good-tests.md": "9e13270c25a123f4b407e9ec496df7057d13f4c861af9b0ac5c697d74002dcb3"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-ux-critique",
+      "entry_sha256": "447f533b20ddc22755c42b9170b4fed1c906adf3248a134ee9b65cd93acd0aac",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812",
+        "LICENSE-MIT": "6cd1609c9c12233507cdd2ce0d32e9a721e3c27494951be06b90090deeeb7af2",
+        "SKILL.md": "447f533b20ddc22755c42b9170b4fed1c906adf3248a134ee9b65cd93acd0aac",
+        "SOURCE.md": "be1e2737cdcc1edcf51eb91e80e4f883ae655a6d79bf7791fa3cef9aa9788126",
+        "references/experience.md": "de6399b63e6a9e1b48d9eeb56dab7fc54d082c37242a41e3af860e1579d7d803",
+        "references/plan.md": "f848d02caafa1052a71d1aa9495065c567cb090546cfdf6adedf4b0dfec1bc34",
+        "references/preview.md": "0a260ab1af61f1b8e48b187876019153c49b89716632548b1a047fff7c42be9d",
+        "references/recheck.md": "48d2707e3c54978e3340829f6df3110edbcf0bd69c863de6fd1acdcec26ffe75"
+      },
+      "configuration_state": "candidate-not-in-role-index"
+    },
+    {
+      "name": "wf-verification-before-completion",
+      "entry_sha256": "e18933b39ac993ba388c3f4a489f0c802de85b49e408c20942bfbd422ce0526f",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "e18933b39ac993ba388c3f4a489f0c802de85b49e408c20942bfbd422ce0526f",
+        "SOURCE.md": "06a0206afbfe496dc6f73cafb294e0265ddd36f8fa07b1408e328b212520c33b"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-webapp-testing",
+      "entry_sha256": "5af7b4e70c8f50482b092f90f3cc9ecbe90c33da4ab2b372d1bf2a2697d83d9c",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+        "SKILL.md": "5af7b4e70c8f50482b092f90f3cc9ecbe90c33da4ab2b372d1bf2a2697d83d9c",
+        "SOURCE.md": "824f32fc6a8d43b04a52613367adad75f318a4122b208d0cfdf26e31e48313fb"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    },
+    {
+      "name": "wf-writing-plans",
+      "entry_sha256": "1d9da0dd2a04b31ebb1fc7ebd044d0a4a4ae9225ce082406e478821d6625c3f5",
+      "entry_unchanged_during_revalidation": true,
+      "package_sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "LICENSE-APACHE-2.0": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "SKILL.md": "1d9da0dd2a04b31ebb1fc7ebd044d0a4a4ae9225ce082406e478821d6625c3f5",
+        "SOURCE.md": "e2516bfcd09422c4608eeff507ad9632333175aba93f138314a5ffc20b79a7b8"
+      },
+      "configuration_state": "retained-existing-not-fully-proven"
+    }
+  ],
+  "latency_confound": "UX current arm overlapped ~52s of unrelated small fixture trigger checks; baseline had no equivalent load; no causal latency ratio claimed.",
+  "public_artifacts": {
+    "evidence/2026-11-12/skills/two-bottom.png": "142fbc2eada1235257b10c2af5ff6b74530e5470d4fa5d0a16a6ada6cd10c1ed",
+    "evidence/2026-11-12/skills/one-bottom.png": "5681a71d270fc431c46f451896b2ee6e55fa4223e7bc9781a0ee42a18bd07313"
+  },
+  "free_guard_private_source_sha256": "f1884efcdf445a4f0525893b484c9186b8b516d1c74e98c0aa758ba9cbbf9b26",
+  "formal_business_bot_prompt_sent": false,
+  "all_recorded_method_package_hashes_match_final": true,
+  "recorded_package_file_hash_comparisons": 218,
+  "role_index_paths_verified": 30,
+  "final_recorder_sha256": "bad34e1d33991d9f42849628c1e2383c3b6a8ae676353ddcaeb0684a6589b977",
+  "recorder_after_live_runs_change": "Exact tool-title classification and explicit command/exit evidence limit; offline tested, no additional live rerun."
+}

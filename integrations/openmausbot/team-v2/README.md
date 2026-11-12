@@ -22,4 +22,4 @@ AGY 的自动 skill 发现未经证明，因此它的职责明确要求用文件
 
 ## 针对性方法补强
 
-七角色的新按需触发、四项补充方法及验证边界见 [SKILLS.md](SKILLS.md) 与[本轮实施记录](../../../docs/SKILLS-SPECIALIZATION.zh-CN.md)。新共享方法按角色索引的相对路径用文件工具读取，不新增软链接或框架插件；原文不作为活动目录。
+七角色按需索引与当前启用/候选状态见 [SKILLS.md](SKILLS.md)，2026-11-12 的先验证再配置结果见[复验结论](../../../docs/SKILLS-REVALIDATION.zh-CN.md)；上一轮见[历史实施记录](../../../docs/SKILLS-SPECIALIZATION.zh-CN.md)。新共享方法按角色索引的相对路径用文件工具读取，不新增软链接或框架插件；原文不作为活动目录。

@@ -62,7 +62,7 @@ def redact(text: str) -> str:
 
 
 class AcpProcess:
-    def __init__(self, role: str):
+    def __init__(self, role: str, *, launch_cwd: Path | None = None):
         self.role = role
         self.stdout_lines: list[str] = []
         self.stderr_lines: list[str] = []
@@ -70,7 +70,7 @@ class AcpProcess:
         self._queue: queue.Queue[str | None] = queue.Queue()
         self.proc = subprocess.Popen(
             [str(LAUNCHER), role],
-            cwd=str(WORKSPACE),
+            cwd=str(launch_cwd or WORKSPACE),
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,

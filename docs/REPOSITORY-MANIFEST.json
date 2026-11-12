@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-11",
-  "scope": "curated repository with seven-role skill specialization and four-account routing; index blobs only; manifest itself excluded to avoid self-hash",
-  "file_count": 516,
+  "date": "2026-11-12",
+  "scope": "Curated repository with skill revalidation, narrowed research trigger and three held candidates; staged index blobs only; manifest itself excluded to avoid self-hash",
+  "file_count": 546,
   "entries": [
     {
       "path": ".gitattributes",
@@ -96,8 +96,8 @@
     {
       "path": "agents/wf-assistant/SKILLS.md",
       "kind": "file",
-      "bytes": 981,
-      "sha256": "ccc69af448aaa16f7c459ea6096288e7e1ff448345704fc0e84b0594ac86bf8c"
+      "bytes": 1268,
+      "sha256": "e7a83498141fc29e481cab05d2dafc711ef419201a09adf26c47f9e4cafb4d6a"
     },
     {
       "path": "agents/wf-assistant/SOUL.md",
@@ -108,6 +108,8 @@
     {
       "path": "agents/wf-assistant/skills/model-settings",
       "kind": "symlink",
+      "bytes": 34,
+      "sha256": "5ceb2fd7730bf95496ec50011b1c82714ceed594132b23cd07b86f506ddd94e9",
       "target": "../../shared/skills/model-settings"
     },
     {
@@ -119,18 +121,22 @@
     {
       "path": "agents/wf-assistant/skills/wf-obsidian-markdown",
       "kind": "symlink",
+      "bytes": 43,
+      "sha256": "9b5b28ec57c346dc0fc4e08a4d33a1ab4d9dbc66f192e6cb720c1de62743064b",
       "target": "../../wf-shared/skills/wf-obsidian-markdown"
     },
     {
       "path": "agents/wf-assistant/skills/wf-search-first",
       "kind": "symlink",
+      "bytes": 38,
+      "sha256": "68dc0bd2eec44f0b3d37afb7f4642ab921b492a4cf1f4af63f55e5e82edcbbb2",
       "target": "../../wf-shared/skills/wf-search-first"
     },
     {
       "path": "agents/wf-code-helper/SKILLS.md",
       "kind": "file",
-      "bytes": 1361,
-      "sha256": "0a46d80bde4eea39d117b36c50d94b3bbd1024e3a8d67ebb9c89034fe668c677"
+      "bytes": 1455,
+      "sha256": "b8991603800ea695442e9edd85ee6a08a56ace3a840feaeca00bf00a8dab2c15"
     },
     {
       "path": "agents/wf-code-helper/SOUL.md",
@@ -147,31 +153,43 @@
     {
       "path": "agents/wf-code-helper/skills/wf-frontend-design",
       "kind": "symlink",
+      "bytes": 41,
+      "sha256": "184c11fa72ba2763951f515b72945394bdcce3c8f4f8183b691648ccbea2b38f",
       "target": "../../wf-shared/skills/wf-frontend-design"
     },
     {
       "path": "agents/wf-code-helper/skills/wf-receiving-code-review",
       "kind": "symlink",
+      "bytes": 47,
+      "sha256": "fb5cc43a12f1dc39dd024b6d8623ab18e2dc2ec14260e6d8ed0ccbf6dfcfdd7e",
       "target": "../../wf-shared/skills/wf-receiving-code-review"
     },
     {
       "path": "agents/wf-code-helper/skills/wf-systematic-debugging",
       "kind": "symlink",
+      "bytes": 46,
+      "sha256": "4d46a850bc6ab6d626fe97436621d518eaf6bd4db9c84db6dc8b478709476b6e",
       "target": "../../wf-shared/skills/wf-systematic-debugging"
     },
     {
       "path": "agents/wf-code-helper/skills/wf-test-driven-development",
       "kind": "symlink",
+      "bytes": 49,
+      "sha256": "993d6f2d07dcc1fccfee527b2719e95d060f0708e43901ecf9044322db3e3fd4",
       "target": "../../wf-shared/skills/wf-test-driven-development"
     },
     {
       "path": "agents/wf-code-helper/skills/wf-verification-before-completion",
       "kind": "symlink",
+      "bytes": 56,
+      "sha256": "f53400bb832e839c2876c18da2c68ff7070741768251ffb5db9246248876db0c",
       "target": "../../wf-shared/skills/wf-verification-before-completion"
     },
     {
       "path": "agents/wf-code-helper/skills/wf-webapp-testing",
       "kind": "symlink",
+      "bytes": 40,
+      "sha256": "0d08157957b6231102a5fd9c36cd79f3697cb55b611d4ebdd726a03c3a950bb9",
       "target": "../../wf-shared/skills/wf-webapp-testing"
     },
     {
@@ -195,38 +213,50 @@
     {
       "path": "agents/wf-code-main/skills/wf-frontend-design",
       "kind": "symlink",
+      "bytes": 41,
+      "sha256": "184c11fa72ba2763951f515b72945394bdcce3c8f4f8183b691648ccbea2b38f",
       "target": "../../wf-shared/skills/wf-frontend-design"
     },
     {
       "path": "agents/wf-code-main/skills/wf-receiving-code-review",
       "kind": "symlink",
+      "bytes": 47,
+      "sha256": "fb5cc43a12f1dc39dd024b6d8623ab18e2dc2ec14260e6d8ed0ccbf6dfcfdd7e",
       "target": "../../wf-shared/skills/wf-receiving-code-review"
     },
     {
       "path": "agents/wf-code-main/skills/wf-systematic-debugging",
       "kind": "symlink",
+      "bytes": 46,
+      "sha256": "4d46a850bc6ab6d626fe97436621d518eaf6bd4db9c84db6dc8b478709476b6e",
       "target": "../../wf-shared/skills/wf-systematic-debugging"
     },
     {
       "path": "agents/wf-code-main/skills/wf-test-driven-development",
       "kind": "symlink",
+      "bytes": 49,
+      "sha256": "993d6f2d07dcc1fccfee527b2719e95d060f0708e43901ecf9044322db3e3fd4",
       "target": "../../wf-shared/skills/wf-test-driven-development"
     },
     {
       "path": "agents/wf-code-main/skills/wf-verification-before-completion",
       "kind": "symlink",
+      "bytes": 56,
+      "sha256": "f53400bb832e839c2876c18da2c68ff7070741768251ffb5db9246248876db0c",
       "target": "../../wf-shared/skills/wf-verification-before-completion"
     },
     {
       "path": "agents/wf-code-main/skills/wf-webapp-testing",
       "kind": "symlink",
+      "bytes": 40,
+      "sha256": "0d08157957b6231102a5fd9c36cd79f3697cb55b611d4ebdd726a03c3a950bb9",
       "target": "../../wf-shared/skills/wf-webapp-testing"
     },
     {
       "path": "agents/wf-code-review/SKILLS.md",
       "kind": "file",
-      "bytes": 1240,
-      "sha256": "da3c5cb27aa706e8a804817ab5dd3338854ed874956be7a0f040ff9836941551"
+      "bytes": 1194,
+      "sha256": "46614e4394b5762fab8ee2bab1844fc41fca3947562602bbece049145e9b8407"
     },
     {
       "path": "agents/wf-code-review/SOUL.md",
@@ -243,16 +273,22 @@
     {
       "path": "agents/wf-code-review/skills/wf-differential-review",
       "kind": "symlink",
+      "bytes": 45,
+      "sha256": "06d7b6cb8e01fdc94a46f31605b76d5672862dc478376200f3804ee97dad3aa7",
       "target": "../../wf-shared/skills/wf-differential-review"
     },
     {
       "path": "agents/wf-code-review/skills/wf-verification-before-completion",
       "kind": "symlink",
+      "bytes": 56,
+      "sha256": "f53400bb832e839c2876c18da2c68ff7070741768251ffb5db9246248876db0c",
       "target": "../../wf-shared/skills/wf-verification-before-completion"
     },
     {
       "path": "agents/wf-code-review/skills/wf-webapp-testing",
       "kind": "symlink",
+      "bytes": 40,
+      "sha256": "0d08157957b6231102a5fd9c36cd79f3697cb55b611d4ebdd726a03c3a950bb9",
       "target": "../../wf-shared/skills/wf-webapp-testing"
     },
     {
@@ -270,6 +306,8 @@
     {
       "path": "agents/wf-manager/skills/model-settings",
       "kind": "symlink",
+      "bytes": 34,
+      "sha256": "5ceb2fd7730bf95496ec50011b1c82714ceed594132b23cd07b86f506ddd94e9",
       "target": "../../shared/skills/model-settings"
     },
     {
@@ -281,8 +319,8 @@
     {
       "path": "agents/wf-plan-lead/SKILLS.md",
       "kind": "file",
-      "bytes": 1179,
-      "sha256": "3b490b8c14ef0ad20a8b910edb62d88a8a6eaf4155ab7e4719529b151dee7244"
+      "bytes": 1492,
+      "sha256": "a9731f57fac9b0c1db76f32998b16b103376ed7c3136fe43a72a78263f23511f"
     },
     {
       "path": "agents/wf-plan-lead/SOUL.md",
@@ -299,28 +337,36 @@
     {
       "path": "agents/wf-plan-lead/skills/wf-requirements-interview",
       "kind": "symlink",
+      "bytes": 48,
+      "sha256": "76558ef9315b4522057fa95e1cc5cbaf98c7daea2890c95e73cbc85c8736bee7",
       "target": "../../wf-shared/skills/wf-requirements-interview"
     },
     {
       "path": "agents/wf-plan-lead/skills/wf-search-first",
       "kind": "symlink",
+      "bytes": 38,
+      "sha256": "68dc0bd2eec44f0b3d37afb7f4642ab921b492a4cf1f4af63f55e5e82edcbbb2",
       "target": "../../wf-shared/skills/wf-search-first"
     },
     {
       "path": "agents/wf-plan-lead/skills/wf-verification-before-completion",
       "kind": "symlink",
+      "bytes": 56,
+      "sha256": "f53400bb832e839c2876c18da2c68ff7070741768251ffb5db9246248876db0c",
       "target": "../../wf-shared/skills/wf-verification-before-completion"
     },
     {
       "path": "agents/wf-plan-lead/skills/wf-writing-plans",
       "kind": "symlink",
+      "bytes": 39,
+      "sha256": "12b3e72c357c33dc68acf3a2fbbef0abf7f28c5e58bea255fc8db3a4a706cedf",
       "target": "../../wf-shared/skills/wf-writing-plans"
     },
     {
       "path": "agents/wf-plan-review/SKILLS.md",
       "kind": "file",
-      "bytes": 1132,
-      "sha256": "4db8133c3c7da2240411a0bf447234dcbaa534fd655dae7329fe052f2071f9b5"
+      "bytes": 1250,
+      "sha256": "c5d92c5778044b8d0a0765b4982c8bdd28eacb2014e2bf458584685fdd7f3627"
     },
     {
       "path": "agents/wf-plan-review/SOUL.md",
@@ -337,21 +383,29 @@
     {
       "path": "agents/wf-plan-review/skills/wf-search-first",
       "kind": "symlink",
+      "bytes": 38,
+      "sha256": "68dc0bd2eec44f0b3d37afb7f4642ab921b492a4cf1f4af63f55e5e82edcbbb2",
       "target": "../../wf-shared/skills/wf-search-first"
     },
     {
       "path": "agents/wf-plan-review/skills/wf-sharp-edges",
       "kind": "symlink",
+      "bytes": 37,
+      "sha256": "90eee1d23c00777ff176d67e57c24d8778e05c21fbbb6346fb4c640dcfba0deb",
       "target": "../../wf-shared/skills/wf-sharp-edges"
     },
     {
       "path": "agents/wf-plan-review/skills/wf-verification-before-completion",
       "kind": "symlink",
+      "bytes": 56,
+      "sha256": "f53400bb832e839c2876c18da2c68ff7070741768251ffb5db9246248876db0c",
       "target": "../../wf-shared/skills/wf-verification-before-completion"
     },
     {
       "path": "agents/wf-plan-review/skills/wf-webapp-testing",
       "kind": "symlink",
+      "bytes": 40,
+      "sha256": "0d08157957b6231102a5fd9c36cd79f3697cb55b611d4ebdd726a03c3a950bb9",
       "target": "../../wf-shared/skills/wf-webapp-testing"
     },
     {
@@ -873,8 +927,8 @@
     {
       "path": "docs/CURRENT-STATUS.zh-CN.md",
       "kind": "file",
-      "bytes": 10118,
-      "sha256": "cd5122ffd1fe6cc638015dab43d96a7e2a66cd8dc9fe04bbbf0ac5d22eb8e616"
+      "bytes": 10750,
+      "sha256": "a94a827d647662ddf6a255b29e0344ea62b29ec17012f63b6a07df9e027e37f7"
     },
     {
       "path": "docs/PROJECT-OUTLINE.zh-CN.md",
@@ -889,10 +943,16 @@
       "sha256": "4bc27b91476e2bed108278e468ea49062affc28fc76a913865741a2d9e374bad"
     },
     {
+      "path": "docs/SKILLS-REVALIDATION.zh-CN.md",
+      "kind": "file",
+      "bytes": 12453,
+      "sha256": "f74528a2d6b799b8f3bd66a02bc6aad2046c7d63c87923bf8c86f801f1bfa354"
+    },
+    {
       "path": "docs/SKILLS-SPECIALIZATION.zh-CN.md",
       "kind": "file",
-      "bytes": 6365,
-      "sha256": "d02d4ebb4de342ce7670ebcf0306c68b018e488449a7edcdac6ddda24d4dcba1"
+      "bytes": 6669,
+      "sha256": "4d68c27e0dbc63d4dd71ee1d550e9eda83e00d0d767b6db4931fef92431a610f"
     },
     {
       "path": "docs/evidence/2026-11-11/README.md",
@@ -1079,6 +1139,24 @@
       "kind": "file",
       "bytes": 262,
       "sha256": "c284836ef255f01917326e246e71f9c62f48e1fe176c87d7d3020113cc86bbd7"
+    },
+    {
+      "path": "docs/evidence/2026-11-12/skills-revalidation-summary.json",
+      "kind": "file",
+      "bytes": 16913,
+      "sha256": "9f4890e02a8ad2a0cd42799180d2b977e90550c84930b830d60ca78bb89ae7a4"
+    },
+    {
+      "path": "docs/evidence/2026-11-12/skills/one-bottom.png",
+      "kind": "file",
+      "bytes": 70288,
+      "sha256": "5681a71d270fc431c46f451896b2ee6e55fa4223e7bc9781a0ee42a18bd07313"
+    },
+    {
+      "path": "docs/evidence/2026-11-12/skills/two-bottom.png",
+      "kind": "file",
+      "bytes": 68319,
+      "sha256": "142fbc2eada1235257b10c2af5ff6b74530e5470d4fa5d0a16a6ada6cd10c1ed"
     },
     {
       "path": "docs/project-records/01-需求/目标与待定事项.md",
@@ -1513,6 +1591,18 @@
       "sha256": "a22d1b7a0f65c53356169ebfb0050bb32023da6434a955b8fa29f4e9d05f2312"
     },
     {
+      "path": "docs/research/2026-11-12-skills/code-review.md",
+      "kind": "file",
+      "bytes": 26575,
+      "sha256": "1766f01a61fdf4896e9d65bffb6877d128462eff4b33cb1839fddd2e2e237000"
+    },
+    {
+      "path": "docs/research/2026-11-12-skills/plan-ux.md",
+      "kind": "file",
+      "bytes": 21762,
+      "sha256": "b6f661f40d83748f72ee0d5a5250b1c833872aec0452d4ef92799bd18ba0ddbc"
+    },
+    {
       "path": "docs/windows-deployment/00-从这里开始.md",
       "kind": "file",
       "bytes": 5321,
@@ -1557,14 +1647,14 @@
     {
       "path": "docs/windows-deployment/07-项目Markdown完整目录.md",
       "kind": "file",
-      "bytes": 45950,
-      "sha256": "7d5c70c60875184f464d9c39d2864f345d6d70650d33d2372ae400241c1effd9"
+      "bytes": 43497,
+      "sha256": "5eff8ca525cfde5aae2e5dbec3e510eb65c9a021a4201c9204c279b69ffca728"
     },
     {
       "path": "docs/windows-deployment/08-Windows-Agent接手提示词.md",
       "kind": "file",
-      "bytes": 8073,
-      "sha256": "d4c6438df97c4f7aebe88569bc0111ec576ffd8728086b9df3592a9c10782fc0"
+      "bytes": 8617,
+      "sha256": "95a855f5f745a9d676ea2a7136dd21363d839317731e5f06fd8e6315dd090daa"
     },
     {
       "path": "docs/windows-deployment/09-来源版本与交付边界.md",
@@ -1863,14 +1953,14 @@
     {
       "path": "integrations/openmausbot/team-v2/README.md",
       "kind": "file",
-      "bytes": 2019,
-      "sha256": "b915b019942321572adfa64f0148a2a96d266df6ed13e979e5646493b44d76b0"
+      "bytes": 2117,
+      "sha256": "50f296b7544da0a3284fe3a0f131cde322709b617f23f00242f1dcbbcfb6d411"
     },
     {
       "path": "integrations/openmausbot/team-v2/SKILLS.md",
       "kind": "file",
-      "bytes": 4524,
-      "sha256": "d0cd3df0a8b23176a009ab9efe25b5fab75137a4c8cdf0a27969d5d749cde47b"
+      "bytes": 4830,
+      "sha256": "4a87ac43ab6a4c469e3e6dacb3c49459f557d2d52146c94e0dde61c176c2e690"
     },
     {
       "path": "integrations/openmausbot/team-v2/roles.json",
@@ -2757,8 +2847,8 @@
     {
       "path": "tests/acp-smoke.py",
       "kind": "file",
-      "bytes": 11909,
-      "sha256": "8e3d98414ae2a3b5ace3b60024d935eddfae3f995f24125611c70944235bfb83"
+      "bytes": 11958,
+      "sha256": "0e924525036a367c8c3536a60db07788b6166cf1540cc6e6dd184f0aa3bbe766"
     },
     {
       "path": "tests/budget-acp-live.py",
@@ -2783,6 +2873,144 @@
       "kind": "file",
       "bytes": 218,
       "sha256": "50b63ed994a55287d8ee7ccd130d2ab6d9b7cc45a70f2e63c3493eb47c4ccee6"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation-extra/debugging-feedback/TASK.md",
+      "kind": "file",
+      "bytes": 2604,
+      "sha256": "930cb0fd4f2da8db20629146be47db8fd3221fef9ee1acef9662f5a7bb75af7f"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation-extra/differential-sharp/TASK.md",
+      "kind": "file",
+      "bytes": 2851,
+      "sha256": "8aff8891be890ebb09667fd2f7ef2c7e85db8d1a0f9dab8525941e50ca8580fa"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation-extra/screening-extra.json",
+      "kind": "file",
+      "bytes": 1294,
+      "sha256": "a82f4cb4dba00c0c6611ab88f8553b497881afc111390388a67098466891941c"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation-search/screening-search.json",
+      "kind": "file",
+      "bytes": 851,
+      "sha256": "da9c3d9c2da28bd00be6154c0b5e24553389d7341bb1e1e20e6528b82a8e6aa4"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation-search/search-reuse/TASK.md",
+      "kind": "file",
+      "bytes": 5424,
+      "sha256": "6ffe1f2cc19bcc922b2c4a5bd82131a5138c0d2f1524ba0983070f0d3de7bea7"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/README.md",
+      "kind": "file",
+      "bytes": 1673,
+      "sha256": "f5b7f23271c9311a2f0b7f9e8a444e0de52480cb0a07925db2989a5fec7e6b29"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/integration-cases.json",
+      "kind": "file",
+      "bytes": 1067,
+      "sha256": "ca6ebcb9c6f533f9f61b496c12268b16db3130bcd7bc349bd633ea417dfbf15c"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/manager-routing/TASK.md",
+      "kind": "file",
+      "bytes": 1688,
+      "sha256": "701628f4a0441a4f4522ae3ab7a2b0594575e7d08264f7b21ac712dd6d3aa51d"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/obsidian-boundary/TASK.md",
+      "kind": "file",
+      "bytes": 1556,
+      "sha256": "128ee9dab1c7684065efd7e44531caa1cc9358174bb9e9af4789c8d868ffe95a"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/property-contracts/TASK.md",
+      "kind": "file",
+      "bytes": 1973,
+      "sha256": "a6abc6f615c6aac31981b09cd72ae1d37723148049e3b720e8022381a582536f"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/research-clear/TASK.md",
+      "kind": "file",
+      "bytes": 1654,
+      "sha256": "289d4f6514418e88df7c5823453d13623fe7b5f898e27da475718c84afc6e76e"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/research-conflict/TASK.md",
+      "kind": "file",
+      "bytes": 2070,
+      "sha256": "67212a78cce910a69dbc4c8b9825961aa8812d8ad8250b29033c93e63522957d"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/review-batch/TASK.md",
+      "kind": "file",
+      "bytes": 1906,
+      "sha256": "77559b9310588452c33581394689609c410ca1119d03aef8f312af53b8090065"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/review-storage/TASK.md",
+      "kind": "file",
+      "bytes": 1762,
+      "sha256": "d88ad3bb585829453bc4912b3f73b03cec54d0847305f84bbd2f5fdc96b07009"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/scope-plan-copy/TASK.md",
+      "kind": "file",
+      "bytes": 1684,
+      "sha256": "9974faf95e96650d6d0b99c669ba265cebcb6d74f93401f01a5a9e971981d0ce"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/screening-cases.json",
+      "kind": "file",
+      "bytes": 2313,
+      "sha256": "0fa58fa9a45af2ba044b9b314341553699394765b750bcb91c1f30042ed6c700"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/tools-code/TASK.md",
+      "kind": "file",
+      "bytes": 1641,
+      "sha256": "b2eab98ac8d9dddf8112a4db17e45cce248ece223e1845db57a1c1d82596d3fa"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/tools-code/ledger.py",
+      "kind": "file",
+      "bytes": 612,
+      "sha256": "aadb0ecf153725610be75d08f081125087434e5a70153f3a1ecdf25a6e65e35f"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/tools-code/test_ledger.py",
+      "kind": "file",
+      "bytes": 1255,
+      "sha256": "cbe8e46a4f695203de55469830e004f520023362e92bbe1b85b6db31133c2919"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/tools-ux/TASK.md",
+      "kind": "file",
+      "bytes": 1818,
+      "sha256": "5e5788bd65da39e4c414c804dcb3361822edcb5c63dab231b54cf8dd16c6f394"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/tools-ux/browser_check.py",
+      "kind": "file",
+      "bytes": 3209,
+      "sha256": "3993cf09746318c619ec53025dc173ca6622c289052c1791df69c167d1836253"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/tools-ux/one.html",
+      "kind": "file",
+      "bytes": 2612,
+      "sha256": "04e9c889b731b5f5fbd0f6bb87cd75531ce3140b3b7c0baaca411fbb44861f22"
+    },
+    {
+      "path": "tests/fixtures/skills-revalidation/tools-ux/two.html",
+      "kind": "file",
+      "bytes": 2611,
+      "sha256": "962bf7458c53ae4661677e4aec3791dadb48d41e1dfb51135224e7dec846e83d"
     },
     {
       "path": "tests/fixtures/skills-specialization/agy-load/TASK.md",
@@ -2907,8 +3135,8 @@
     {
       "path": "tests/skills-specialization-live.py",
       "kind": "file",
-      "bytes": 23488,
-      "sha256": "d95e1a967abbe8c28a4cb001e43af41b6734848e6761b7989f68fbd6259d39b9"
+      "bytes": 29677,
+      "sha256": "bad34e1d33991d9f42849628c1e2383c3b6a8ae676353ddcaeb0684a6589b977"
     },
     {
       "path": "tests/test_acp_resume_bridge.py",
@@ -3029,6 +3257,12 @@
       "kind": "file",
       "bytes": 4111,
       "sha256": "79b2295346b4f3a78e88fcf74cce51da7f84f9710fb09be4dc7bee8ac66168f6"
+    },
+    {
+      "path": "tests/test_skill_exercise.py",
+      "kind": "file",
+      "bytes": 5311,
+      "sha256": "9106c609adb3abf86c47a58b0f0705d0aa2ab49cc913c29a34d644c729187b0b"
     },
     {
       "path": "tests/test_workbench_dom.py",

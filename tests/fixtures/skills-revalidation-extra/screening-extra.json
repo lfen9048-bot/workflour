@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "purpose": "Additional independent textual screening tasks for existing debugging, feedback, verification and scoped review methods. Grading oracles are outside the fixture tree.",
+  "task_path_base": "this_file_directory",
+  "input_mode": "inline-no-tools",
+  "independence_note": "These are screening/development inputs, not hidden holdout tests. Several methods are combined per case; differences cannot be attributed to a single skill. Statements and subcases in one TASK share model context and are not independent trials.",
+  "cases": [
+    {
+      "case_id": "debugging-feedback",
+      "task_path": "debugging-feedback/TASK.md",
+      "relevant_skills": ["wf-systematic-debugging", "wf-test-driven-development", "wf-receiving-code-review", "wf-verification-before-completion"],
+      "subcases": ["caller-helper-boundary", "review-feedback", "test-expectation", "old-version-evidence"],
+      "context_group": "debugging-feedback"
+    },
+    {
+      "case_id": "differential-sharp",
+      "task_path": "differential-sharp/TASK.md",
+      "relevant_skills": ["wf-differential-review", "wf-sharp-edges"],
+      "subcases": ["greenfield-review", "api-default", "optional-summary", "outer-error-handling"],
+      "context_group": "differential-sharp"
+    }
+  ]
+}

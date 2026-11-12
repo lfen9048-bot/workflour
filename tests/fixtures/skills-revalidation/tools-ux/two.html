@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>会议报名</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding-bottom:90px;background:#edf2f5;color:#1d303d;font:16px/1.6 system-ui}main{max-width:540px;padding:24px;margin:auto}h1{font-size:27px}label{display:block;font-weight:650;margin-top:20px}input{display:block;width:100%;padding:12px;border:1px solid #546777;border-radius:7px;font:inherit}button,.button{font:inherit;display:inline-block;padding:10px 13px;border:2px solid #243b50;border-radius:7px;cursor:pointer;background:#243b50;color:white}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}:focus-visible{outline:3px solid #a75500;outline-offset:4px}section{background:white;padding:18px;border-radius:10px;margin-top:22px}footer{position:fixed;bottom:0;width:100%;background:#243b50;color:white;padding:32px;text-align:center}#status{min-height:32px}small{color:#3a5264}
+</style>
+<main><h1>秋季交流会报名</h1><p>填写姓名后可以保存草稿。正式报名将在主办方确认后生效。</p>
+<label for="name">姓名</label><input id="name" autocomplete="off">
+<div class="actions"><button class="button" id="save">保存草稿</button><button id="cancel">取消报名</button></div>
+<p id="status" role="status">尚未保存</p>
+<label><input type="checkbox" id="fail" style="display:inline;width:auto"> 模拟存储不可用</label>
+<section><h2>报名说明</h2><p>时间：周六上午 09:30。</p><p>地点：城市图书馆交流室。</p><p>请在开场前十分钟到达。</p><p>活动免费，不要求提交支付信息。</p><p>可携带一本书参加交换。</p><p>迟到仍可进入，请保持安静。</p><p>工作人员会在入口核对姓名。</p><p>如有无障碍需求，可在确认时说明。</p><p>请自行保管随身物品。</p><p>取消草稿不影响已经确认的其他活动。</p><p id="last-note">最终说明：草稿不等于报名成功，请等待主办方确认。</p></section>
+</main><footer>会议服务台 · 09:00–17:00</footer>
+<script>
+const field=document.querySelector('#name'),status=document.querySelector('#status');
+document.querySelector('#save').addEventListener('click',()=>{try{if(document.querySelector('#fail').checked)throw new Error('storage');localStorage.setItem('draft',field.value);status.textContent='草稿已保存'}catch(e){status.textContent='保存失败，请稍后重试'}});
+document.querySelector('#cancel').addEventListener('click',()=>{status.textContent='已取消报名'});
+</script></html>

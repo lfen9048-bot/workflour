@@ -45,4 +45,8 @@
 ---
 
 
-当前七角色已补充研究综合、UX评审、测试覆盖/错误路径及属性与边界检查。请读 `integrations/openmausbot/team-v2/SKILLS.md` 和 `docs/SKILLS-SPECIALIZATION.zh-CN.md`：共享路径相对于角色SKILLS文件解析，使用文件工具读取，不为这四项方法新增软链接或安装整套Claude插件。按需加载，局部修复不重设设计。实际渠道无法读图就明确blocked，不能用截图存在/DOM检查冒充视觉验收。
+2026-11-11 历史配置曾补充研究综合、UX评审、测试覆盖/错误路径及属性与边界检查；当前启用状态以下方2026-11-12复验补充为准。请读 `integrations/openmausbot/team-v2/SKILLS.md` 和 `docs/SKILLS-SPECIALIZATION.zh-CN.md`：共享路径相对于角色SKILLS文件解析，使用文件工具读取，不为这四项方法新增软链接或安装整套Claude插件。按需加载，局部修复不重设设计。实际渠道无法读图就明确blocked，不能用截图存在/DOM检查冒充视觉验收。
+
+## 2026-11-12 技能复验补充
+
+先读 `docs/SKILLS-REVALIDATION.zh-CN.md` 与各角色当前 `SKILLS.md`。16项文件不代表16项都启用或已证明有效：研究综合限冲突/适用性问题按需使用，新UX、覆盖审核、PBT是候选。公开fixture已作为开发集使用，不能再称未见过的最终验收。Mac的HY3零倍率活动、图片配置和验证启动器不应复制为Windows免费保证；目标机重新核对，不自动退到付费。

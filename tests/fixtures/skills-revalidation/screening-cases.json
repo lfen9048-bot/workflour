@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "purpose": "Independent textual screening inputs; expected answers are stored outside this fixture tree.",
+  "task_path_base": "this_file_directory",
+  "input_mode": "inline-no-tools",
+  "independence_note": "Subcases within a TASK share model context and must not be counted as independent trials. These cases are screening/development inputs; reserve unseen inputs for final validation.",
+  "cases": [
+    {"case_id":"research-conflict","task_path":"research-conflict/TASK.md","relevant_skills":["wf-research-synthesis","wf-writing-plans"],"subcases":["version-applicability","expired-promotion"],"context_group":"research-conflict"},
+    {"case_id":"research-clear","task_path":"research-clear/TASK.md","relevant_skills":["wf-research-synthesis","wf-writing-plans"],"subcases":["consistent-current-spec"],"context_group":"research-clear"},
+    {"case_id":"review-storage","task_path":"review-storage/TASK.md","relevant_skills":["wf-test-coverage-review"],"subcases":["storage-error","normal-cancel","optional-extension"],"context_group":"review-storage"},
+    {"case_id":"review-batch","task_path":"review-batch/TASK.md","relevant_skills":["wf-test-coverage-review"],"subcases":["atomic-update","wrong-test-expectation","normal-cancel"],"context_group":"review-batch"},
+    {"case_id":"property-contracts","task_path":"property-contracts/TASK.md","relevant_skills":["wf-property-based-testing"],"subcases":["shared-codec-error","duplicate-preservation","lossy-canonicalization","idempotence"],"context_group":"property-contracts"},
+    {"case_id":"scope-plan-copy","task_path":"scope-plan-copy/TASK.md","relevant_skills":["wf-requirements-interview","wf-writing-plans","wf-frontend-design"],"subcases":["clear-cli-requirements","local-copy-only"],"context_group":"scope-plan-copy","trigger_testing":true},
+    {"case_id":"manager-routing","task_path":"manager-routing/TASK.md","relevant_skills":[],"role":"wf-manager","subcases":["new-delegation","receipt-versus-phase"],"context_group":"manager-routing","simulated_actions_only":true},
+    {"case_id":"obsidian-boundary","task_path":"obsidian-boundary/TASK.md","relevant_skills":["wf-obsidian-markdown"],"subcases":["current-project-update","unconfirmed-work","automatic-record-boundary"],"context_group":"obsidian-boundary"}
+  ]
+}
