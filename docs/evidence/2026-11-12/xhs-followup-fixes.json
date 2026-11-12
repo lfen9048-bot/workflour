@@ -1,6 +1,6 @@
 {
   "date": "2026-11-12",
-  "status": "passed_local_regression",
+  "status": "passed_macos_and_ubuntu_regression",
   "fixes": [
     "Project X/YouTube cumulative request limits checked before adapter calls; failed attempts count; new filenames do not reset limits.",
     "Generated/reused AI image claims require completed native evidence, original raster and matching SHA256; finish only commits a fully valid snapshot.",
@@ -132,7 +132,7 @@
     "Image evidence validation cannot guarantee the writer waits for async work, performs visual inspection, or writes factually correct prose.",
     "Social limits apply to X/YouTube adapters in a configured project, not a file sandbox or upstream page-prefetch size.",
     "Legacy ledgers without limits are not retroactively changed; per-platform smaller limits must be recorded before dispatch.",
-    "Target Ubuntu VM not accessed; current changes initially verified on macOS.",
+    "Target Ubuntu desktop VM not accessed; Ubuntu CI services run as direct processes, not a desktop user systemd lifecycle.",
     "Card rendering first failed under process sandbox; explicit escalated local headless Chrome render passed."
   ],
   "publication_subset_verification": {
@@ -140,5 +140,24 @@
     "xhs_tests": 102,
     "result": "passed",
     "note": "git archive of published HEAD plus only this fix set; unrelated working changes excluded"
+  },
+  "ubuntu_ci": {
+    "status": "passed",
+    "run_id": 43169220232,
+    "url": "https://github.com/lfen9048-bot/workflour/actions/runs/43169220232",
+    "runtime_commit": "8e01202e688855ce9624014af6cc6dcd49ee84b7",
+    "tests": 115,
+    "workbench_http": 200,
+    "collector_http": 200,
+    "render": {
+      "images": 2,
+      "width": 1080,
+      "height": 1440,
+      "overflow": false
+    },
+    "systemd_units": "syntax_verified",
+    "account_login": false,
+    "model_prompts_sent": false,
+    "artifact_digest": "sha256:b19c36eee2a1be2637c90d5184396cba66a5f54a3cc32cd7ca767932776c939b"
   }
 }
