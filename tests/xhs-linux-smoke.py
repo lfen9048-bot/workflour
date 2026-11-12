@@ -31,7 +31,8 @@ def check_server(command, url, env):
                         return {'health': 'passed', 'status': response.status}
                 except OSError:
                     time.sleep(0.5)
-            raise RuntimeError('Runtime health timeout')
+            log.seek(0)
+            raise RuntimeError('Runtime health timeout: ' + log.read().decode(errors='replace')[-5000:])
         finally:
             try:
                 os.killpg(process.pid, signal.SIGTERM)
@@ -58,6 +59,7 @@ def main():
          'http://127.0.0.1:8799/api/bots?messages=0'),
         ('collector', [sys.executable, str(ROOT / 'integrations/xiaohongshu/service.py'), 'run'],
          'http://127.0.0.1:18060/health')):
+        print('Checking real runtime: ' + label, flush=True)
         results[label] = check_server(command, url, env)
     project = args.output / 'sample'
     project.mkdir()
