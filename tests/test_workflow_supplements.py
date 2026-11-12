@@ -141,12 +141,23 @@ class Supplements(unittest.TestCase):
             alerts, lines, _ = observer.collect(Path(temporary), self.state, {'code_files': []}, self.rows)
             self.assertIn('已登记补充', str(lines)); self.assertIn('extra', str(lines))
             self.assertIn('排队', str(alerts))
+            self.assertEqual(observer.observed_next_step(self.state, {}, self.rows)['status'], 'running')
+            self.extra['status'] = 'completed'
+            self.assertEqual(observer.observed_next_step(self.state, {}, self.rows)['status'], 'returned')
+            self.item['status'] = 'completed'
+            self.assertEqual(observer.observed_next_step(self.state, {}, self.rows)['status'], 'settled')
 
     def test_cli_registration_and_result_advance_require_all_real_receipts(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary); (root / '.workflour').mkdir()
+        with contextlib.ExitStack() as stack:
+            # A successful implementation now also needs a real initialized
+            # project and imported passing test evidence, not just receipts.
+            spec = importlib.util.spec_from_file_location('supplement_evidence_fixture', ROOT / 'tests/test_plan_code_workflow.py')
+            fixtures = importlib.util.module_from_spec(spec); spec.loader.exec_module(fixtures)
+            fixture = fixtures.PlanCodeEvidenceTests(); fixture.setUp()
+            stack.callback(fixture.doCleanups)
+            fixture.project.save()
+            root = fixture.root
             path = root / '.workflour/coordination.json'; path.write_text(json.dumps(self.state))
-            (root / '.workflour/handoff.json').write_text(json.dumps({'code_files': []}))
             (root / 'supplement.md').write_text('Source user quote; bounded copy fix; primary/extra receipts; same worker thread.')
             (root / 'result.md').write_text('Latest implementation and tests')
             def invoke(args, success=True):

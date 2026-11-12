@@ -7,6 +7,7 @@ import {join} from 'node:path';
 import {homedir} from 'node:os';
 import {createBudgetRouter} from './budget-router.mjs';
 import {DS_IDS,isDeepSeek,isManaged} from './budget-policy.mjs';
+import {createTaskCapabilities} from './task-capabilities.mjs';
 export const name='workflour-model-fallback';
 export const inject=['agents','llm'];
 export const BACKUPS=[{provider:'workbuddy',model:'deepseek-v4.1-flash'},
@@ -43,7 +44,8 @@ function fileStore(base){
   return {read(id){try{return JSON.parse(readFileSync(path(id),'utf8'))}catch(e){if(e.code==='ENOENT')return null;throw e}},
     write(id,value){const p=path(id),tmp=p+'.'+process.pid+'.tmp';writeFileSync(tmp,JSON.stringify(value,null,2)+'\n',{mode:0o600});renameSync(tmp,p)}};
 }
-export function install(ctx,{store,clock=Date.now,notice,controlRevision,budget}={}){
+export function install(ctx,{store,clock=Date.now,notice,controlRevision,budget,capabilities}={}){
+  capabilities??=createTaskCapabilities({clock});
   store??=fileStore(join(process.env.DSH_HOME||join(homedir(),'.dsh'),'workflour-fallback'));
   controlRevision??=(id=>{try{return JSON.parse(readFileSync(join(process.env.DSH_HOME||join(homedir(),'.dsh'),'workflour-fallback-controls',id+'.json'),'utf8')).revision}catch(e){if(e.code==='ENOENT')return null;throw e}});
   notice??=((id,text)=>process.stdout.write(JSON.stringify({jsonrpc:'2.0',method:'session/update',params:{sessionId:id,update:{sessionUpdate:'agent_message_chunk',content:{type:'text',text:'\n【系统·模型状态】'+text+'\n'}}}})+'\n'));
@@ -52,6 +54,17 @@ export function install(ctx,{store,clock=Date.now,notice,controlRevision,budget}
     state.events=[...(state.events||[]),{at:new Date(clock()).toISOString(),text}].slice(-40);
     store.write(agent.session.id,state);
     notice(agent.session.id,text);
+  }
+  const needsImage=current=>current.required_capabilities?.includes('image');
+  async function imageUsable(candidate){
+    try{
+      const declaration=await budget?.imageDeclared?.(candidate);
+      return !!declaration&&await capabilities.confirmedImage({...candidate,nativeProvider:declaration.provider},declaration.workbuddyVersion);
+    }catch{return false}
+  }
+  function imageBlocked(agent,current){
+    publish(agent,current,'当前任务要求实际读图，但所选模型或同系列额度线路没有同时通过图片声明与真实读图验证。已保留任务并停止自动选择；未跨模型或转用付费 API，也未覆盖手动选择。');
+    throw Error('Required image capability is unavailable or unverified');
   }
   function state(agent,turn,selected){
     const id=agent.session.id,key=id+':'+turn;
@@ -92,10 +105,15 @@ export function install(ctx,{store,clock=Date.now,notice,controlRevision,budget}
     // Cost routing is an equivalent DeepSeek-source choice. A different
     // model family becomes eligible only after an explicit quota failure.
     if(!fallback&&isDeepSeek(current.primary))candidates=candidates.filter(c=>Object.values(DS_IDS).some(ids=>ids.includes(c.model)));
+    if(needsImage(current))candidates=candidates.filter(c=>isDeepSeek(current.primary)&&Object.values(DS_IDS).some(ids=>ids.includes(c.model)));
     if(sameRegionOnly)candidates=candidates.filter(c=>c.region===current.billing?.region&&c.tier===current.billing?.tier&&c.model===current.active.model);
-    if(fallback&&!sameRegionOnly&&await budget.apiAllowed())candidates.push({provider:'deepseek-official',model:'deepseek-flash'});
+    if(fallback&&!sameRegionOnly&&!needsImage(current)&&await budget.apiAllowed())candidates.push({provider:'deepseek-official',model:'deepseek-flash'});
     for(const candidate of candidates){
       if(current.tried.includes(routeKey(candidate)))continue;
+      if(needsImage(current)){
+        const usable=await imageUsable(candidate);if(signal.aborted)return;
+        if(!usable)continue;
+      }
       let resolved;
       try{
         await budget.ensure(candidate);signal.throwIfAborted();
@@ -115,14 +133,27 @@ export function install(ctx,{store,clock=Date.now,notice,controlRevision,budget}
         `${fallback?'当前请求需要切换':'按免费与临期额度优先规则选择'}：${budget.describe(candidate)}；思考档位：${current.active.reasoningEffort||'模型默认'}。只处理当前模型请求，不重派任务；尚未确认实际返回。`);
       return true;
     }
-    if(!fallback)throw Error('No verified WorkBuddy billing route is available');
+    if(!fallback){if(needsImage(current))imageBlocked(agent,current);throw Error('No verified WorkBuddy billing route is available')}
     return false;
   }
   ctx.on('agent/request',async ({agent,turn,signal},next)=>{
     const original=await next();if(signal.aborted)return original;
     const current=state(agent,turn,original);
+    const entry=turns.get(agent.session.id+':'+turn);
+    if(!entry.capabilitiesInitialized){
+      try{
+        const requirements=await capabilities.requirements(agent.session.id,{signal});
+        current.required_capabilities=requirements.required_capabilities;
+        current.capability_intents=requirements.intents;
+        entry.capabilitiesInitialized=true;
+      }catch(error){
+        if(signal.aborted)return original;
+        publish(agent,current,'无法核对当前任务的原生派单身份或能力要求；已停止自动选择并保留任务，未转用付费模型。');
+        throw Error('Native task capability lookup failed');
+      }
+    }
+    if(signal.aborted)return original;
     if(budget){
-      const entry=turns.get(agent.session.id+':'+turn);
       if(!entry.budgetInitialized){
         // Default DS Flash follows the cost policy. Explicit alternate models
         // (including the paid -sg menu route) are tried as chosen first.
@@ -138,6 +169,11 @@ export function install(ctx,{store,clock=Date.now,notice,controlRevision,budget}
       // Check before the NEXT request, never interrupt an in-flight stream.
       if(isManaged(current.active)&&budget.valid&&!(await budget.valid(current.billing)))await chooseBudget(agent,current,signal);
       if(isManaged(current.active))await budget.ensure(current.billing);
+    }
+    if(needsImage(current)){
+      const usable=await imageUsable(current.billing||current.active);
+      if(signal.aborted)return original;
+      if(!usable)imageBlocked(agent,current);
     }
     const {reasoningEffort,...rest}=original;
     return {...rest,...current.active};
@@ -166,9 +202,11 @@ export function install(ctx,{store,clock=Date.now,notice,controlRevision,budget}
     current.tried=[...new Set([...current.tried,routeKey(current.active)])];
     if(budget){
       if(await chooseBudget(agent,current,signal,{fallback:true}))return {kind:'retry'};
+      if(needsImage(current))return imageBlocked(agent,current);
       publish(agent,current,'已用尽本次可确认的免费、临期及普通额度通道；任务暂停。未知额度不会被当成已耗尽，不会无限重试或重新派单。');
       return;
     }
+    if(needsImage(current))return imageBlocked(agent,current);
     for(const candidate of BACKUPS){
       if(current.tried.includes(routeKey(candidate)))continue;
       let resolved;

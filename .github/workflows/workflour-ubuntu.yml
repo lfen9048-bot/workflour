@@ -12,6 +12,11 @@ on:
       - 'scripts/workflour_paths.py'
       - 'scripts/init-workflour-vault.py'
       - 'scripts/workflow-observer.py'
+      - 'scripts/workflow-check.py'
+      - 'scripts/coordinator-workflow.py'
+      - 'scripts/native_assignments.py'
+      - 'scripts/dispatch_intents.py'
+      - 'scripts/prepare-dispatch.py'
       - 'scripts/workbuddy-pool-sync.rb'
       - 'run-acp-agent.sh'
       - 'run-agy-agent.sh'
@@ -21,6 +26,20 @@ on:
       - 'tests/test_team_portability.py'
       - 'tests/test_workflow_observer.py'
       - 'tests/test_workbuddy*'
+      - 'tests/test_acp*.py'
+      - 'tests/test_plan_code*.py'
+      - 'tests/test_implementation_gate.py'
+      - 'tests/test_dispatch*'
+      - 'tests/test_capability_dispatch_integration.py'
+      - 'tests/test_task_capabilities.mjs'
+      - 'tests/test_model_fallback.mjs'
+      - 'tests/test_budget*.mjs'
+      - 'tests/test_workflow_supplements.py'
+      - 'tests/test_workflow_check.py'
+      - 'tests/test_workflow_recovery.py'
+      - 'tests/test_coordinator_workflow.py'
+      - 'tests/skills-specialization-live.py'
+      - 'tests/test_skill_exercise.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -45,6 +64,26 @@ jobs:
           node --test tests/test_workbuddy_checkin.mjs tests/test_workbuddy_portable.mjs
           bash -n integrations/openmausbot/setup.sh run-acp-agent.sh run-agy-agent.sh scripts/workflour-ubuntu.sh
           ruby -c scripts/workbuddy-pool-sync.rb
+      - name: Offline workflow gates, dispatch identity and capability routing
+        run: |
+          set -euo pipefail
+          {
+            for pattern in test_implementation_gate.py test_plan_code_freshness.py test_plan_code_workflow.py test_coordinator_workflow.py test_workflow_supplements.py test_workflow_check.py test_workflow_recovery.py test_dispatch_intents.py test_acp_resume_bridge.py test_acp_session_bindings.py test_capability_dispatch_integration.py test_skill_exercise.py; do
+              python3 -m unittest discover -s tests -p "$pattern" -v
+            done
+          } 2>&1 | tee "$RUNNER_TEMP/workflow-hardening-python.log"
+          node --test tests/test_dispatch_guard.mjs tests/test_task_capabilities.mjs tests/test_model_fallback.mjs tests/test_budget_router.mjs tests/test_budget_policy.mjs tests/test_budget_snapshot.mjs 2>&1 | tee "$RUNNER_TEMP/workflow-hardening-node.log"
+      - name: Native DSH tool hook when the installed registry is available
+        run: |
+          set -euo pipefail
+          export DSH_TOOLS_ROOT="$HOME/.workflour/ubuntu/runtime/node_modules/@deepseek-ai"
+          if [ -f "$DSH_TOOLS_ROOT/dsh-tools/lib/index.js" ] && [ -f "$DSH_TOOLS_ROOT/cordis/lib/index.js" ]; then
+            echo "Testing the installed native registry with an in-memory fake tool; no model or MCP requests."
+          else
+            echo "::notice::Native registry packages are unavailable in this installation; the following native-hook cases are skipped, not passed."
+            export DSH_TOOLS_ROOT="$RUNNER_TEMP/unavailable-dsh-native-registry"
+          fi
+          node --test tests/test_dispatch_guard_native.mjs 2>&1 | tee "$RUNNER_TEMP/workflow-hardening-native-hook.log"
       - name: Real private workbench, browser and isolated seven profiles
         run: python3 tests/workflour-linux-smoke.py --output "$RUNNER_TEMP/workflour-ubuntu-smoke"
       - uses: actions/upload-artifact@v4
@@ -56,4 +95,5 @@ jobs:
             ${{ runner.temp }}/workflour-ubuntu-smoke/*.png
             ${{ runner.temp }}/workflour-ubuntu-smoke/*.service
             ${{ runner.temp }}/workflour-ubuntu-smoke/*.timer
+            ${{ runner.temp }}/workflow-hardening-*.log
           if-no-files-found: warn

@@ -27,7 +27,7 @@ python3 scripts/coordinator-workflow.py --project /实际项目目录 --actor pl
 
 默认按 project.json 启用 plan-code。负责人自身的研究和定稿用 `record research --evidence records/plan-lead/research.md`、`record plan --evidence records/plan-lead/plan.md`；不向自己派单，不编造原生回执。
 
-其他阶段依次 `claim PHASE ROLE --bot-id 当前角色ID`，将返回的 `WF-DISPATCH:<dispatch_token>` 原样放进原生委派。收到真实原生回执后 `receipt PHASE ROLE ASSIGNMENT-ID`，读取结果和文件后 `result PHASE ROLE completed --evidence 项目相对路径`。再 `advance NEXT-PHASE`。Bot ID 从当前团队路由读取，不从历史记录复制。领取后拒绝重复领取；等待与审批中不能重派。
+其他阶段依次 `claim PHASE ROLE --bot-id 当前角色ID`，然后 `prepare-dispatch PHASE ROLE --message-file 完整任务文件 --title '角色 · 任务编号'`。只在返回 `state:prepared` 时，把 `native_arguments` 原样交给原生 `coordinate_bots`；不手写或改写 `WF-DISPATCH` / `WF-INTENT`。收到真实原生回执后 `receipt PHASE ROLE ASSIGNMENT-ID`，读取结果和文件后 `result PHASE ROLE completed --evidence 项目相对路径`。再 `advance NEXT-PHASE`。Bot ID 从当前团队路由读取，不从历史记录复制。领取后拒绝重复领取；等待与审批中不能重派。发送状态是 sending/uncertain 时只核对原生回执，不能重新发送；接线与补充单见 [派单保护说明](dispatch-guard/README.md)。
 
 可选协作编码：在实现前 `enable-helper --reason '具体独立子任务及文件范围' --evidence records/plan-lead/helper-scope.md`。启用后实现阶段必须有两位编码者的真实回执；不要为小任务强制拆文件。
 
@@ -44,6 +44,8 @@ python3 scripts/coordinator-workflow.py --project /实际项目目录 --actor pl
 - `code_files` 包含实现、测试和依赖；`baseline` 为实现前快照，新文件为 null。审核快照必须匹配真实当前文件。
 - Code 运行 `python3 .workflour/check.py test --files 实现文件 --files 测试文件 -- 真实命令 参数...`（重复 `--files` 覆盖所有实际实现、测试和依赖文件；已有完整 code_files 时可省略），生成独立 JSON 记录及原始输出，不写 handoff。负责人用 `python3 .workflour/check.py --actor plan-lead import-test .workflour/evidence/实际记录.json` 导入，保留失败历史；另写 `artifacts.verification` 所指的覆盖说明。
 - 负责人以 `python3 .workflour/check.py --actor plan-lead handoff` 更新可读摘要。
+
+登记实现完成和进入独立审核使用同一强制检查：代码及测试文件归属完整、最新测试通过且对应当前快照、输出哈希未变化、测试期间代码未变化。失败时原账本不推进，列出具体缺项；检查器不会自行运行测试，也不提前要求独立审核通过。完成阶段后的旧等待原因应同步清理；观察器另外展示从原生回执推导的当前动作，冲突时提醒负责人更新，仍不代写共享状态。
 
 检查器阶段沿用 `requirements → plan → implement → review → verify → experience → acceptance → done`。派单账本的 research/plan-review 是准备阶段；不是所有阶段都需要一次模型派单。开始工作检查上一已完成阶段，结束时检查本阶段；pending 的本阶段不是开工阻塞。
 
@@ -63,14 +65,18 @@ python3 scripts/coordinator-workflow.py --project /实际项目目录 --actor pl
 
 1. **初始化**：新建空目录模板，阅读项目 AGENTS；将 handoff 的 `task_id/original_request/requirements/artifacts.spec/next_action` 填实，保留 `owner:plan-lead`、`acceptance.status:pending`。当前原生会话 ID 必须是 Plan 负责人接单的会话，不是大管家或之前探针的会话。`L init TASK 原话 --thread-id 当前会话` 只建账本，不派单。`in_my_folder:true` 只继承父会话目录；父目录不是项目时，工具命令必须另指定实际项目 cwd 或用 `project-exec.py`，不能声称继承后自动换了目录。
 2. **调研初案**：保留真实来源、假设与可验收需求，`C check --stage requirements`；完成材料后 `L record research --evidence records/plan-lead/research.md`，再 `L advance plan-review`。已记录的 research 文件保留原样，定稿另写文件。
-3. **独立方案意见**：`L claim plan-review plan-review --bot-id 精确ID`，带返回 token 原生派单，绑定真实 `receipt plan-review plan-review ID` 并结束回合。回传后读取意见与材料，`result plan-review plan-review completed --evidence records/plan-review/proposal-review.md`，再 `advance plan`。这一阶段无需实现代码、技术审核或测试已经通过。
+3. **独立方案意见**：`L claim plan-review plan-review --bot-id 精确ID`，用 `L prepare-dispatch plan-review plan-review --message-file 任务文件` 生成原生参数并原样派单，绑定真实 `receipt plan-review plan-review ID` 并结束回合。回传后读取意见与材料，`result plan-review plan-review completed --evidence records/plan-review/proposal-review.md`，再 `advance plan`。这一阶段无需实现代码、技术审核或测试已经通过。
 4. **定稿**：负责人整理最终 plan/tasks，填写两位规划角色的独立 contributions、sources 和 `planning.status:settled/discussion_rounds`。创建一个主编码 work_item（初始 files 可空），`C check --stage plan`。`L record plan --evidence records/plan-lead/plan.md` 后 `advance implement`，仅给 code-main 正式派单。派单包括早期 preview consult 要求和测试 `--files` 接口。
 5. **实现返回**：主编码回传实际文件与测试记录后，负责人先补齐 `code_files/baseline/work_items`（新文件 baseline 为 null），将完成 work_item 设 completed。导入 detached 测试记录，编写 verification 覆盖说明，`C check --stage implement`，再 `L result implement code-main completed --evidence records/code-main/implementation.md` 和 `advance review`。此时 review 仍 pending 是正常待做状态，不要提前 `check --stage review`。
 6. **技术审核返回**：code-review 独立读取当前需求、代码及测试，记录自己的实际快照和结论。负责人核对后更新 `review.status/reviewer/findings/snapshot`，导入审核者的实际测试记录。技术通过才执行 `C check --stage review` 和 `C check --stage verify`，随后保存审核 result、`L advance experience`。发现真实缺陷按下表返工，不能只改 passed 字段。
-7. **实际体验返回**：给 plan-review 新会话派发体验任务，明确 `rework:true` 以允许再次委派同一角色；它不能复用此前方案意见或 preview 作为最终体验。保存单独 `experience.json`、截图和交互日志。负责人填 `artifacts.experience`，`C check --stage experience`，再记录 `result experience plan-review completed --evidence records/plan-review/experience.json`。
+7. **实际体验返回**：给 plan-review 新会话派发体验任务，`prepare-dispatch experience plan-review` 自动加入 `rework:true` 以允许再次委派同一角色；网页任务同时绑定 image 能力。它不能复用此前方案意见或 preview 作为最终体验。接收端核对真实派单身份，只使用当前图片开关、模型目录、插件版本和实际探针证据均匹配的同系列线路；无合格线路就阻塞，不自动换模型。保存单独 `experience.json`、截图和交互日志。负责人填 `artifacts.experience`，`C check --stage experience`，再记录 `result experience plan-review completed --evidence records/plan-review/experience.json`。
 8. **待验收**：负责人编写 `artifacts.acceptance` 所指的逐项对照说明，更新 `handoff.stage:acceptance`、`next_owner:User`、下一步等待用户验收，保持 `acceptance.status:pending`。`C check --stage acceptance` 和 `L advance acceptance` 均通过后，用 `C --actor plan-lead handoff` 生成交接并通过原派单返回。不要新增 verify/acceptance worker，也不要调用 `check --stage done` 或把用户验收写成 accepted。
 
 每次完成 result 或本地 record 会锁定**当时的证据文件哈希和代码快照**。先整理共享 handoff、再记录完成，紧接着 advance；之后不要改已完成报告或偷偷替换截图。技术/产品返工保留旧报告与旧测试，使用带轮次的新文件，避免覆盖历史证据。
+
+2026-11-12 起新建的 plan-code 账本使用 `workflow_version:3 / freshness_version:1`。负责人执行最终 `record plan` 时固定用户原话、`requirements` 内容及 spec 路径/SHA；此前 requirements/plan 检查不要求已经锁定，进入 implement 前必须锁定。后续 `check` 与 `advance` 会拒绝需求/spec 变化，并复核仍有效的 research、plan-review、plan 及**当前返工轮**已完成报告的 SHA。旧返工轮是历史，不把它的代码快照强行与修复后的新代码比较；进度、下一步、测试记录等正常更新不改变需求锁。
+
+若已锁定材料需要实质变更，保留原账本与证据，明确新的范围/验收后重新安排方案和审核；首版没有覆盖该锁或原地重置方案的命令。不要删除版本标记、手填新哈希或把旧通过带到新要求上。已有 v2 或更早账本不自动补造过去的快照；用新版检查器查看时明确显示 `freshness.mode:legacy`，维持原行为及原有代码/截图校验，不能宣称具备新增资料失效保护。已有项目内复制的旧检查器不自动覆盖。
 
 | 状态 | 含义与处理 |
 | --- | --- |

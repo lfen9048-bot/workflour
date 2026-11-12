@@ -1,0 +1,3 @@
+- insert:
+    - id: workflour-dispatch-guard
+      name: /Users/a1/Documents/a/workflour/integrations/openmausbot/dispatch-guard/plugin.mjs

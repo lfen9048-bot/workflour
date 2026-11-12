@@ -15,7 +15,7 @@ export function describeRoute(r){
   const tier=r.tier==='free'?'已核对免费':r.tier==='expiring'?`临期积分，${new Date(r.expiresAtMs).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})} 到期`:'普通积分';
   return `${source} / ${r.model} / 账号 …${r.accountId.slice(-6)}（${tier}）`;
 }
-export function createBudgetRouter(ctx,{clock=Date.now,bridgeFactory,moduleLoader,metadataLoader,snapshotStorage={read,write}}={}){
+export function createBudgetRouter(ctx,{clock=Date.now,bridgeFactory,moduleLoader,metadataLoader,imagePreferencesLoader,snapshotStorage={read,write}}={}){
   let bridge,preferences,plugin,pending,snapshot,initializing;
   const adapters=new Map(),failures=new Map(),creating=new Map();
   async function init(){
@@ -118,6 +118,21 @@ export function createBudgetRouter(ctx,{clock=Date.now,bridgeFactory,moduleLoade
   }
   function reason(active){return failures.get(active.provider)?.outcome}
   return {candidates,ensure,reason,describe:describeRoute,refresh,
+    async imageDeclared(candidate){
+      await init();
+      // Closing a native image checkbox must take effect even while an ACP
+      // process is alive. Opening it still needs the loaded adapter to agree.
+      const currentPreferences=imagePreferencesLoader?await imagePreferencesLoader():metadataLoader?preferences:await (await import('../workbuddy/client.mjs')).loadPreferences();
+      const provider=candidate.nativeProvider||candidate.provider;
+      const region=candidate.region||(provider==='workbuddy'?'cn':provider==='workbuddy-global'?'global':null);
+      if(!region||(currentPreferences.pluginVersion&&currentPreferences.pluginVersion!==plugin.version)||
+        preferences.enabledRegions?.[region]===false||currentPreferences.enabledRegions?.[region]===false||
+        !(preferences.imageModelIds?.[region]||[]).includes(candidate.model)||!(currentPreferences.imageModelIds?.[region]||[]).includes(candidate.model))return null;
+      const data=await refresh();
+      const rows=(data.accounts[region]||[]).filter(a=>!candidate.accountId||a.accountId===candidate.accountId);
+      if(!rows.some(a=>a.available!==false&&!a.error&&a.models?.some(m=>m.id===candidate.model)))return null;
+      return {workbuddyVersion:plugin.version,provider:region==='cn'?'workbuddy':'workbuddy-global'};
+    },
     async valid(candidate){const rows=await candidates();return rows.some(r=>r.provider===candidate.provider&&r.model===candidate.model&&r.tier===candidate.tier)},
     async apiAllowed(){const s=await refresh();return !s.errors.length},
     async close(){await Promise.all([...adapters.values()].map(entry=>entry.cleanup()));adapters.clear()}};

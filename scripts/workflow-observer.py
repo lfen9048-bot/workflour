@@ -130,6 +130,86 @@ def project_snapshot(root, state):
     return result
 
 
+def observed_next_step(ledger, handoff, rows):
+    """Read-only advice from receipts; never infer or perform a transition."""
+    if ledger.get('workflow') != 'plan-code':
+        return {'text': handoff.get('next_action', ''), 'status': 'reported', 'alerts': []}
+    phase = ledger.get('phase')
+    roles = {'research': ['plan-lead'], 'plan-review': ['plan-review'], 'plan': ['plan-lead'],
+             'implement': ['code-main'], 'review': ['code-review'], 'experience': ['plan-review']}
+    if phase == 'acceptance':
+        text = ('用户验收已有记录，保留交付证据。' if handoff.get('acceptance', {}).get('status') == 'accepted'
+                else '等待用户验收；不自动标记完成。')
+        return {'text': text, 'status': 'acceptance', 'alerts': []}
+    if phase not in roles:
+        return {'text': '阶段未知，先核对项目账本；不派单。', 'status': 'unknown', 'alerts': []}
+    if phase == 'implement' and ledger.get('helper_subtask'):
+        roles[phase].append('code-helper')
+    states = []
+    for role in roles[phase]:
+        repair = ledger.get('repair_round', 0) if phase in ('implement', 'review', 'experience') else 0
+        key = phase + '/' + role + (f'@{repair}' if repair else '')
+        item = ledger.get('assignments', {}).get(key)
+        if not item:
+            states.append('unassigned'); continue
+        local = phase in ('research', 'plan') and item.get('execution') == 'local'
+        if local:
+            states.append('settled' if item.get('status') == 'completed' else 'local'); continue
+        try:
+            native = matching(ledger, item, rows)
+        except ValueError:
+            states.append('unknown'); continue
+        if (not native or native.get('id') != item.get('assignment_id')
+                or (item.get('thread_id') and native.get('thread_id') != item['thread_id'])):
+            states.append('unknown'); continue
+        status = effective_status(native)
+        if status == 'completed' and item.get('status') in ('failed', 'stopped'):
+            states.append('unknown'); continue
+        if status == 'completed':
+            states.append('settled' if item.get('status') == 'completed' else 'returned')
+        else:
+            states.append(status)
+    alerts = []
+    if 'unknown' in states:
+        status, text = 'unknown', '原生回执缺失或冲突，先核对；不能据此重派或报完成。'
+    elif any(s in ('failed', 'cancelled', 'stopped') for s in states):
+        status, text = 'blocked', '存在失败或停止回执，先核对副作用及恢复条件；保留原任务。'
+    elif any(s in ('needs_input', 'waiting') for s in states):
+        status, text = 'waiting', '等待当前任务的审批或输入；不重复派单。'
+    elif any(s in ('running', 'queued', 'resume') for s in states):
+        status, text = 'running', '等待当前回合及已登记补充返回；不重复派单。'
+    elif all(s == 'settled' for s in states):
+        target = {'research': '方案评审', 'plan-review': '方案定稿', 'plan': '主编码',
+                  'implement': '独立技术审核', 'review': '实际体验检查', 'experience': '待用户验收'}[phase]
+        status, text = 'settled', f'当前阶段结果已登记完成，等待负责人核对并推进{target}。'
+    elif all(s in ('settled', 'returned') for s in states):
+        status, text = 'returned', '原生回执已返回，等待负责人核对实际产物和测试，再登记阶段结果。'
+    else:
+        status, text = 'pending', '由负责人完成当前自身工作或核对尚未派发的职责；不自动派单。'
+    # Free-form text is not machine state. Only flag an explicit old wait for
+    # worker return, not a valid wait for review or for user acceptance.
+    if status in ('settled', 'returned') and re.search(r'等待[^。；\n]*(?:回传|返回|补充单|主单)', str(handoff.get('next_action', ''))):
+        alerts.append('负责人记录仍在等待回传，但当前回执已返回；请核对并更新 next_action 与 HANDOFF.md。')
+    return {'text': text, 'status': status, 'alerts': alerts}
+
+
+def handoff_consistency_alerts(root, ledger, handoff):
+    if ledger.get('workflow') != 'plan-code':
+        return []
+    alerts = []
+    phase = ledger.get('phase')
+    if phase in ('plan', 'implement', 'review', 'experience', 'acceptance') and handoff.get('stage') != phase:
+        alerts.append('派单阶段与项目阶段不一致，请负责人核对并更新交接；观察器不修改共享状态。')
+    readable = root / 'HANDOFF.md'
+    if readable.is_file() and not readable.is_symlink():
+        text = readable.read_text()
+        if 'Regenerated from .workflour/handoff.json.' in text and any(
+                f'- {field}: {handoff.get(field, "")}' not in text
+                for field in ('task_id', 'stage', 'owner', 'next_owner', 'next_action')):
+            alerts.append('HANDOFF.md 与 handoff.json 不一致，请负责人核对 JSON 后重新生成可读交接。')
+    return alerts
+
+
 def collect(root, ledger, handoff, rows):
     alerts, lines, threads = [], [], {}
     for tid in workflow_threads(ledger):
@@ -184,6 +264,8 @@ def collect(root, ledger, handoff, rows):
             alerts.append(f'{section}：代码已经变化，旧快照失效；重新审核/测试。')
     if handoff.get('stage') == 'acceptance' and handoff.get('acceptance', {}).get('status') == 'pending':
         alerts.append('等待用户验收：技术完成不等于用户接受，不自动标 done。')
+    alerts.extend(observed_next_step(ledger, handoff, rows)['alerts'])
+    alerts.extend(handoff_consistency_alerts(root, ledger, handoff))
     return alerts, lines, threads
 
 
@@ -252,7 +334,8 @@ def _sync_project(row, read_native=read_assignments, read_thread=EXPORT.read_thr
         for file in sorted(records_root.rglob('*.md'))[:200]:
             resolved=file.resolve();resolved.relative_to(root)
             if resolved.is_file(): home += '- ' + link(resolved,safe_text(str(file.relative_to(root)))) + '\n'
-    progress = f'# 当前进度\n\n- 派单阶段：{safe_text(ledger.get("phase", "尚未启动"))}\n- 项目阶段：{safe_text(handoff.get("stage"))}\n- 负责人：{safe_text(handoff.get("owner"))}\n- 下一步：{safe_text(handoff.get("next_action"))}\n- 用户验收：{safe_text(handoff.get("acceptance", {}).get("status"))}\n\n| 阶段/角色 | 原生状态 | 账本状态 | 回执 |\n| --- | --- | --- | --- |\n' + '\n'.join(lines) + '\n'
+    next_step = observed_next_step(ledger, handoff, rows)
+    progress = f'# 当前进度\n\n- 派单阶段：{safe_text(ledger.get("phase", "尚未启动"))}\n- 项目阶段：{safe_text(handoff.get("stage"))}\n- 负责人：{safe_text(handoff.get("owner"))}\n- 当前下一步（按账本与回执核对）：{safe_text(next_step["text"])}\n- 负责人记录（可能滞后）：{safe_text(handoff.get("next_action"))}\n- 用户验收：{safe_text(handoff.get("acceptance", {}).get("status"))}\n\n| 阶段/角色 | 原生状态 | 账本状态 | 回执 |\n| --- | --- | --- | --- |\n' + '\n'.join(lines) + '\n'
     write(output/'首页.md', home); write(output/'进度.md', progress)
     write(output/'异常.md', '# 异常与等待\n\n' + '\n'.join('- ' + safe_text(a) for a in errors+alerts or ['当前未发现阻塞；这不代替独立代码和测试验证。']) + '\n')
     status = {'checked_at':now(), 'ok':not errors, 'alerts':alerts, 'errors':errors, 'output':str(output), 'exported_threads':len(records)}

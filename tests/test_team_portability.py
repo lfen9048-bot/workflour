@@ -40,14 +40,15 @@ class TeamPortabilityTests(unittest.TestCase):
         shutil.copyfile(ROOT / 'integrations/openmausbot/team-xhs/models.json', integration / 'team-xhs/models.json')
         shutil.copyfile(ROOT / 'run-acp-agent.sh', self.repo / 'run-acp-agent.sh')
         shutil.copyfile(ROOT / 'scripts/workbuddy-pool-sync.rb', self.repo / 'scripts/workbuddy-pool-sync.rb')
-        for component in ('session-title', 'model-fallback'):
+        for component in ('session-title', 'model-fallback', 'dispatch-guard'):
             folder = integration / component
             folder.mkdir()
             shutil.copyfile(ROOT / 'integrations/openmausbot' / component / 'cordis.patch.yml', folder / 'cordis.patch.yml')
             (folder / 'plugin.mjs').write_text('// fixture; never imported or executed\n')
         (integration / 'acp-resume-bridge.py').write_text(
             'import json,os,sys\nprint(json.dumps({"argv":sys.argv[1:],'
-            '"policy":os.environ.get("WORKFLOUR_QUOTA_POLICY")}))\n')
+            '"policy":os.environ.get("WORKFLOUR_QUOTA_POLICY"),'
+            '"dispatch_guard":os.environ.get("WORKFLOUR_DISPATCH_GUARD")}))\n')
         self.home = self.base / 'private home'
         self.dsh = self.home / '.dsh'
         self.omb = self.home / '.openmausbot'
@@ -177,11 +178,20 @@ class TeamPortabilityTests(unittest.TestCase):
         self.assertEqual(repeated['argv'][-4:], result['argv'][-4:])
         self.assertEqual(originals, {p: hashlib.sha256(p.read_bytes()).hexdigest() for p in originals})
         self.assertFalse(self.cli_log.exists())
+        self.assertIsNone(result['dispatch_guard'])
+        self.setup_role('wf-plan-lead')
+        guarded = self.launch('wf-plan-lead')
+        self.assertEqual(guarded['dispatch_guard'], 'enabled')
+        self.assertEqual(guarded['argv'].count('--patch'), 4)
+        guard_path = Path(guarded['argv'][-5])
+        self.assertEqual(read_yaml(guard_path)[0]['insert'][0]['id'], 'workflour-dispatch-guard')
         # Legacy roles keep two plugin layers and do not acquire quota policy.
         (self.dsh / 'profiles/omb-coder').mkdir()
         self.env['WORKFLOUR_QUOTA_POLICY'] = 'enabled'
+        self.env['WORKFLOUR_DISPATCH_GUARD'] = 'enabled'
         legacy = self.launch('coder')
         self.assertIsNone(legacy['policy'])
+        self.assertIsNone(legacy['dispatch_guard'])
         self.assertEqual(legacy['argv'].count('--patch'), 2)
 
     def test_missing_plugin_fails_before_bridge_or_cli_and_version_probe_still_works(self):

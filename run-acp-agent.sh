@@ -74,10 +74,12 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 # templates may still contain the historical Mac root, but neither a moved
 # checkout nor a second host should import plugins from that machine's path.
 # Keep the original plugin files in place (their relative imports need them).
-PLUGIN_PATCH_DIR="$(/usr/bin/ruby -r yaml -r digest -r fileutils -r tempfile - "${SCRIPT_DIR}" "${DSH_HOME}" <<'RUBY'
-root, home = ARGV
+PLUGIN_PATCH_DIR="$(/usr/bin/ruby -r yaml -r digest -r fileutils -r tempfile - "${SCRIPT_DIR}" "${DSH_HOME}" "${PROFILE}" <<'RUBY'
+root, home, profile = ARGV
 begin
-  rendered = %w[session-title model-fallback].to_h do |component|
+  components = %w[session-title model-fallback]
+  components << 'dispatch-guard' if profile == 'omb-wf-plan-lead'
+  rendered = components.to_h do |component|
     source = File.join(root, 'integrations/openmausbot', component, 'cordis.patch.yml')
     plugin = File.join(root, 'integrations/openmausbot', component, 'plugin.mjs')
     raise 'Required project plugin or patch is missing' unless File.file?(source) && File.file?(plugin)
@@ -112,6 +114,7 @@ RUBY
 )"
 DSH_ARGS=("${DSH_BIN}" --profile "${PROFILE}")
 unset WORKFLOUR_QUOTA_POLICY
+unset WORKFLOUR_DISPATCH_GUARD
 case "${PROFILE}" in
     omb-wf-*|omb-xhs-collector|omb-xhs-planner|omb-xhs-writer-dsh)
         export WORKFLOUR_QUOTA_POLICY=enabled
@@ -124,6 +127,10 @@ case "${PROFILE}" in
         DSH_ARGS+=(--patch "${POOL_PATCH}")
         ;;
 esac
+if [ "${PROFILE}" = "omb-wf-plan-lead" ]; then
+    export WORKFLOUR_DISPATCH_GUARD=enabled
+    DSH_ARGS+=(--patch "${PLUGIN_PATCH_DIR}/dispatch-guard/cordis.patch.yml")
+fi
 exec /usr/bin/python3 "${SCRIPT_DIR}/integrations/openmausbot/acp-resume-bridge.py" \
     "${DSH_ARGS[@]}" \
     --patch "${PLUGIN_PATCH_DIR}/session-title/cordis.patch.yml" \

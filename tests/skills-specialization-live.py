@@ -55,7 +55,7 @@ def inside(path, root):
     try:
         path.resolve().relative_to(root.resolve())
         return True
-    except ValueError:
+    except (OSError, RuntimeError, ValueError):
         return False
 
 
@@ -96,6 +96,10 @@ def usage_fields(value):
 
 def tool_operation(tool):
     """Keep ACP's kind, but recognize DSH's generic-kind tool names."""
+    # ACP adapters may classify image tools as the generic read kind. The
+    # exact image-tool name still needs its narrower fixture-only policy.
+    if str(tool.get("title", "")).strip() == "read_image":
+        return "read_image"
     kind = tool.get("kind")
     if kind and kind != "other":
         return kind
@@ -104,6 +108,44 @@ def tool_operation(tool):
     return {"read": "read", "read_file": "read", "read_image": "read_image",
             "bash": "execute", "shell": "execute", "write": "edit",
             "edit": "edit"}.get(str(tool.get("title", "")).strip(), "other")
+
+
+def tool_file_paths(tool, fixture):
+    """Parse declared file targets, never path-looking substrings in content."""
+    values = [location.get("path") for location in tool.get("locations", []) or []
+              if isinstance(location, dict)]
+    raw = tool.get("rawInput")
+    if isinstance(raw, dict):
+        values.extend(raw.get(key) for key in ("path", "file_path", "filePath"))
+    paths = []
+    for value in values:
+        if not isinstance(value, str) or not value:
+            continue
+        try:
+            path = Path(value)
+            path = (path if path.is_absolute() else fixture / path).resolve()
+        except (OSError, RuntimeError, ValueError):
+            continue
+        if path not in paths:
+            paths.append(path)
+    return paths
+
+
+def file_hash_observation(path):
+    """A missing/unreadable evidence input must not discard the session report."""
+    try:
+        return {"status": "readable", "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+    except (OSError, RuntimeError, ValueError) as error:
+        return {"status": "unreadable", "sha256": None, "error": type(error).__name__}
+
+
+def runtime_integrity(before, after):
+    if not before and not after:
+        return "not_requested"
+    if before.keys() != after.keys() or any(
+            item["status"] != "readable" for item in [*before.values(), *after.values()]):
+        return "unverified"
+    return "unchanged" if all(before[path]["sha256"] == after[path]["sha256"] for path in before) else "changed"
 
 
 def file_observations(tools, allowed):
@@ -119,9 +161,13 @@ def file_observations(tools, allowed):
     for call in calls.values():
         for value in call["paths"]:
             path = Path(value)
-            if not allowed(path) or not path.is_file():
+            if not allowed(path):
                 continue
-            record = {"path": value, "sha256_after": hashlib.sha256(path.read_bytes()).hexdigest()}
+            observation = file_hash_observation(path)
+            record = {"path": value, "sha256_after": observation["sha256"],
+                      "file_status_after": observation["status"]}
+            if "error" in observation:
+                record["hash_error_after"] = observation["error"]
             paths[value] = record
             if tool_operation(call) == "read" and call["status"] == "completed":
                 reads[value] = record
@@ -191,6 +237,13 @@ class EvidenceProcess(smoke.AcpProcess):
                     return False, "write_outside_fixture"
             elif not self.read_allowed(resolved):
                 return False, "path_outside_test_scope"
+        if kind == "read_image":
+            image_paths = tool_file_paths(tool, self.fixture)
+            if not image_paths:
+                return False, "missing_image_path"
+            if not all(inside(path, self.fixture) for path in image_paths):
+                return False, "image_outside_fixture"
+            return True, "declared_fixture_image_read"
         if kind in ("read", "search") and paths:
             return True, "declared_read_scope"
         if kind in ("edit", "delete", "move") and paths:
@@ -229,18 +282,13 @@ class EvidenceProcess(smoke.AcpProcess):
                         item[field] = safe_text(update[field], 60)
                 if "kind" in item or "title" in item:
                     item["operation"] = tool_operation(item)
-                item["paths"] = [safe_text(x["path"], 600) for x in update.get("locations", []) or []
-                                 if isinstance(x, dict) and isinstance(x.get("path"), str)]
+                item["paths"] = [safe_text(str(path), 600) for path in tool_file_paths(update, self.fixture)
+                                 if self.read_allowed(path)]
                 # Some DSH adapters expose path arguments but no locations.
-                # Preserve only known method/fixture paths, never raw inputs.
+                # Preserve only declared scoped file targets, never raw inputs.
                 raw = update.get("rawInput")
-                if raw is not None:
-                    encoded = json.dumps(raw, ensure_ascii=False)
-                    known = [*self.methods, *[p for m in self.methods for p in m.parent.glob("references/*.md")],
-                             *[p for p in self.fixture.rglob("*") if p.is_file()]]
-                    item["paths"] = list(dict.fromkeys(item["paths"] + [str(p) for p in known if str(p) in encoded]))
-                    if isinstance(raw, dict):
-                        item["input_field_names"] = list(raw)[:20]
+                if isinstance(raw, dict):
+                    item["input_field_names"] = list(raw)[:20]
                 self.report["tools"].append(item)
             elif kind == "config_option_update":
                 current = selection(update)
@@ -396,6 +444,7 @@ def parse_args(argv=None):
 def main(argv=None):
     args = parse_args(argv)
     task = (args.fixture / "TASK.md").read_text()
+    runtime_before = {str(path): file_hash_observation(path) for path in args.runtime_file}
     report = {"schema_version": 1, "case": args.case, "variant": args.variant, "role": args.role, "requested_effort": args.effort,
               "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               "transport_sha256": hashlib.sha256((ROOT / "tests/acp-smoke.py").read_bytes()).hexdigest(),
@@ -409,7 +458,8 @@ def main(argv=None):
                   for p in args.method for f in p.parent.rglob("*") if f.is_file() and not f.is_symlink()},
               "launcher_sha256": hashlib.sha256(args.launcher.read_bytes()).hexdigest() if args.launcher else None,
               "launch_cwd": str(args.fixture),
-              "runtime_files_before": {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in args.runtime_file},
+              "runtime_files_before": {path: item["sha256"] for path, item in runtime_before.items()},
+              "runtime_file_observations_before": runtime_before,
               "status": "starting", "public_answer": "", "tools": [], "permissions": [],
               "config_confirmations": [], "selected_model": None, "usage": None, "usage_events": [],
               "fallback": None, "cleanup": {}, "graded": False,
@@ -510,7 +560,10 @@ def main(argv=None):
             report["public_answer"] = safe_text(report["public_answer"], 120000)
             report["observed_file_paths"], report["completed_read_files"] = file_observations(
                 report["tools"], proc.read_allowed if proc else lambda path: False)
-            report["runtime_files_after"] = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in args.runtime_file}
+            runtime_after = {str(path): file_hash_observation(path) for path in args.runtime_file}
+            report["runtime_files_after"] = {path: item["sha256"] for path, item in runtime_after.items()}
+            report["runtime_file_observations_after"] = runtime_after
+            report["runtime_integrity"] = runtime_integrity(runtime_before, runtime_after)
             report["elapsed_seconds"] = round(time.monotonic() - started, 3)
             report["finished_at"] = datetime.now(timezone.utc).isoformat()
             args.output.parent.mkdir(parents=True, exist_ok=True)

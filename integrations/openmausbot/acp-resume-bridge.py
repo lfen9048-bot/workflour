@@ -23,6 +23,78 @@ import threading
 import uuid
 from pathlib import Path
 import re
+import base64
+
+
+def session_binding(params):
+    """Extract only OMB's two identifiers; never persist MCP headers or env."""
+    found = []
+    servers = params.get('mcpServers', []) if isinstance(params, dict) else []
+    for server in servers if isinstance(servers, list) else []:
+        if not isinstance(server, dict):
+            continue
+        envs = []
+        env = server.get('env', [])
+        if isinstance(env, list):
+            envs.append({row.get('name'): row.get('value') for row in env if isinstance(row, dict)
+                         and row.get('name') in ('OMB_BOT_ID', 'OMB_THREAD_ID')})
+        headers = server.get('headers', [])
+        for header in headers if isinstance(headers, list) else []:
+            if not isinstance(header, dict) or str(header.get('name', '')).lower() != 'x-omb-agents-env':
+                continue
+            value = header.get('value')
+            if not isinstance(value, str) or len(value) > 65536:
+                raise ValueError('Invalid OMB session binding')
+            try:
+                decoded = json.loads(base64.b64decode(value + '=' * (-len(value) % 4), altchars=b'-_', validate=True))
+            except (ValueError, UnicodeDecodeError):
+                raise ValueError('Invalid OMB session binding') from None
+            if not isinstance(decoded, dict):
+                raise ValueError('Invalid OMB session binding')
+            envs.append({k: decoded[k] for k in ('OMB_BOT_ID', 'OMB_THREAD_ID') if k in decoded})
+        for env in envs:
+            if not env:
+                continue
+            if any(not isinstance(env.get(k), str) or not re.fullmatch(r'[A-Za-z0-9_-]{1,160}', env[k])
+                   for k in ('OMB_BOT_ID', 'OMB_THREAD_ID')):
+                raise ValueError('Incomplete OMB session binding')
+            found.append({'bot_id': env['OMB_BOT_ID'], 'thread_id': env['OMB_THREAD_ID']})
+    if found and any(item != found[0] for item in found):
+        raise ValueError('Conflicting OMB session bindings')
+    return found[0] if found else None
+
+
+class SessionBindings:
+    """Task identity journal, deliberately separate from model-control revision."""
+
+    def write(self, session_id, binding):
+        if not isinstance(session_id, str) or not re.fullmatch(r'[A-Za-z0-9_-]{1,160}', session_id):
+            raise ValueError('Invalid native session id')
+        base = Path(os.environ.get('DSH_HOME', str(Path.home() / '.dsh'))) / 'workflour-session-bindings'
+        target = base / (session_id + '.json')
+        if base.is_symlink() or target.is_symlink():
+            raise ValueError('Unsafe native task binding path')
+        base.mkdir(parents=True, exist_ok=True, mode=0o700)
+        value = {'schema_version': 1, 'session_id': session_id,
+                 **(binding if binding is not None else {'scope': 'non_omb'})}
+        temporary = target.with_suffix('.tmp-' + uuid.uuid4().hex)
+        try:
+            fd = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            with os.fdopen(fd, 'w') as output:
+                json.dump(value, output)
+            os.replace(temporary, target)
+        finally:
+            temporary.unlink(missing_ok=True)
+
+    def verify(self, session_id, binding):
+        base = Path(os.environ.get('DSH_HOME', str(Path.home() / '.dsh'))) / 'workflour-session-bindings'
+        target = base / (session_id + '.json')
+        if base.is_symlink() or target.is_symlink():
+            raise ValueError('Unsafe native task binding path')
+        expected = {'schema_version': 1, 'session_id': session_id,
+                    **(binding if binding is not None else {'scope': 'non_omb'})}
+        if json.loads(target.read_text()) != expected:
+            raise ValueError('Native task binding changed after session acknowledgement')
 
 
 def harness_request(line):
@@ -127,7 +199,7 @@ class ResumeBridge:
     client ID waits for that private response rather than being misrouted.
     """
 
-    def __init__(self, controls=None):
+    def __init__(self, controls=None, bindings=None):
         self.owned = set()
         self.pending = {}
         self.closes = {}
@@ -135,6 +207,13 @@ class ResumeBridge:
         self.can_close = False
         self.controls = controls
         self.selections = {}
+        self.bindings = bindings
+        self.unbound = set()
+        self.binding_expectations = {}
+
+    def binding_error(self, ident):
+        return [('client', encode({'jsonrpc': '2.0', 'id': ident, 'error': {
+            'code': -32603, 'message': 'Native task identity could not be verified or recorded; task was not started'}}))]
 
     def control_error(self, ident):
         return [("client", encode({"jsonrpc": "2.0", "id": ident, "error": {
@@ -165,6 +244,21 @@ class ResumeBridge:
         params = request.get("params")
         session_id = params.get("sessionId") if isinstance(params, dict) else None
         method = request["method"]
+        if method == 'session/prompt' and session_id in self.unbound:
+            return self.binding_error(request['id'])
+        if method == 'session/prompt' and self.bindings:
+            try:
+                if session_id not in self.binding_expectations:
+                    raise ValueError('Resume the session before starting a prompt')
+                self.bindings.verify(session_id, self.binding_expectations[session_id])
+            except (OSError, ValueError):
+                return self.binding_error(request['id'])
+        binding = None
+        if method in ('session/new', 'session/load', 'session/resume') and self.bindings:
+            try:
+                binding = session_binding(params)
+            except ValueError:
+                return self.binding_error(request['id'])
         if method == "session/prompt" and session_id in self.selections:
             state = self.selections[session_id]
             if state["initializing"]:
@@ -194,7 +288,7 @@ class ResumeBridge:
             elif method == "session/set_config_option" and params.get("configId") in ("model", "reasoning_effort") and isinstance(params.get("value"), str):
                 changed[params["configId"]] = params["value"]
         self.pending[key] = {"method": "session/resume" if method == "session/load" else method,
-                             "session": session_id, "selection": changed}
+                             "session": session_id, "selection": changed, "binding": binding}
         return [("child", translated)]
 
     def child(self, line):
@@ -212,6 +306,7 @@ class ResumeBridge:
                 output = [("client", encode({**response, "id": request["id"]}))]
             else:
                 # Use the original load params, never cached MCP credentials.
+                self.binding_expectations.pop(closing['session'], None)
                 output = self.client(encode(request))
             for held in self.held.pop(key, []):
                 output.extend(self.client(held))
@@ -223,6 +318,8 @@ class ResumeBridge:
                 self.owned.discard(session_id)
             if "error" not in response:
                 result = response.get("result")
+                if method == 'session/close':
+                    self.binding_expectations.pop(session_id, None)
                 if pending["selection"] and session_id in self.selections:
                     state = self.selections[session_id]
                     before = state["selection"]
@@ -242,11 +339,27 @@ class ResumeBridge:
                     if isinstance(result.get("sessionId"), str):
                         self.owned.add(result["sessionId"])
                         try:
+                            if self.bindings:
+                                self.bindings.write(result['sessionId'], pending['binding'])
+                        except (OSError, ValueError):
+                            self.unbound.add(result['sessionId'])
+                            return self.binding_error(response['id'])
+                        self.unbound.discard(result['sessionId'])
+                        self.binding_expectations[result['sessionId']] = pending['binding']
+                        try:
                             self.baseline(result["sessionId"], result, fresh=True)
                         except (OSError, ValueError):
                             return self.control_error(response["id"])
                 elif method == "session/resume" and isinstance(session_id, str):
                     self.owned.add(session_id)
+                    try:
+                        if self.bindings:
+                            self.bindings.write(session_id, pending['binding'])
+                    except (OSError, ValueError):
+                        self.unbound.add(session_id)
+                        return self.binding_error(response['id'])
+                    self.unbound.discard(session_id)
+                    self.binding_expectations[session_id] = pending['binding']
                     try:
                         self.baseline(session_id, result)
                     except (OSError, ValueError):
@@ -256,7 +369,8 @@ class ResumeBridge:
 
 def relay(command):
     """Keep both pipe directions moving; propagate EOF, signals and exit status."""
-    process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    process = subprocess.Popen(command, env={**os.environ, 'WORKFLOUR_REQUIRE_SESSION_BINDING': 'enabled'},
+                               stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     def forward_signal(number, _frame):
         if process.poll() is None:
@@ -269,7 +383,7 @@ def relay(command):
         signal.signal(number, forward_signal)
 
     events = queue.Queue()
-    bridge = ResumeBridge(controls=ModelControls())
+    bridge = ResumeBridge(controls=ModelControls(), bindings=SessionBindings())
 
     def read_frames(fd, source):
         pending = b""

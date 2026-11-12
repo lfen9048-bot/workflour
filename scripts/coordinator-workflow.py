@@ -200,6 +200,10 @@ def apply(state, action, phase=None, role=None, assignment_id=None, status=None,
             if status == 'completed' and (item['status'] != 'running' or not item.get('assignment_id')):
                 raise ValueError('Completed results require a persisted dispatch receipt')
             item.update(status=status, evidence=evidence, settled_at=now())
+            # Recovery advice describes a previous observation, not the settled
+            # result. Do not leave "wait/settle" attached to completed work.
+            if status == 'completed':
+                item.pop('next_action', None)
     state['updated_at'] = now()
     return state
 
@@ -222,6 +226,14 @@ def code_snapshot(root):
         path.relative_to(root)
         result[name] = hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
     return result
+
+
+def project_checks(root):
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('coordinator_project_checks', Path(__file__).with_name('workflow-check.py'))
+    checks = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(checks)
+    return checks.Project(root)
 
 
 def recover(state, action, phase, role, rows, *, reason=None, evidence=None,
@@ -396,6 +408,13 @@ def main():
     p.add_argument('--workflow', choices=('code-team', 'plan-code'), help='Defaults to the initialized project workflow')
     p.add_argument('--new-task', action='store_true', help='Explicitly archive a completed verified run before a new task')
     sub.add_parser('status')
+    p = sub.add_parser('prepare-dispatch', help='Prepare checked native arguments; never sends a Bot message')
+    p.add_argument('phase', choices=ALL_PHASES); p.add_argument('role')
+    p.add_argument('--message-file', type=Path, required=True)
+    p.add_argument('--title'); p.add_argument('--done-when')
+    p.add_argument('--supplement', action='store_true')
+    p.add_argument('--reason'); p.add_argument('--evidence')
+    p.add_argument('--require-image', action='store_true')
     p = sub.add_parser('repair-token'); p.add_argument('phase', choices=ALL_PHASES); p.add_argument('role')
     p = sub.add_parser('bind-origin'); p.add_argument('--thread-id', required=True)
     p = sub.add_parser('adopt-origin'); p.add_argument('--thread-id', required=True)
@@ -424,6 +443,16 @@ def main():
     args = parser.parse_args()
     lock = None
     try:
+        if args.action == 'prepare-dispatch':
+            if args.actor != 'plan-lead':
+                raise ValueError('Shared-state updates belong to plan-lead')
+            # The helper owns coordination.lock. Do not acquire it twice.
+            import dispatch_intents
+            value = dispatch_intents.prepare(args.project, args.phase, args.role, args.message_file.read_text(),
+                title=args.title, done_when=args.done_when, supplement=args.supplement,
+                reason=args.reason, evidence=args.evidence, require_image=args.require_image)
+            print(json.dumps({k: value[k] for k in ('id', 'state', 'native_arguments', 'required_capabilities')}, ensure_ascii=False))
+            return 0
         root = args.project.resolve(strict=True)
         path = root / '.workflour' / 'coordination.json'
         if path.parent.is_symlink() or not path.parent.is_dir():
@@ -466,7 +495,7 @@ def main():
                      'assignments': {}, 'created_at': now(),
                      'coordinator_thread': args.thread_id}
             if workflow == 'plan-code':
-                state.update(workflow='plan-code', workflow_version=2, phase='research',
+                state.update(workflow='plan-code', workflow_version=3, freshness_version=1, phase='research',
                              shared_state_owner='plan-lead', acceptance='pending')
                 state.pop('discussion_version', None)
         else:
@@ -475,11 +504,13 @@ def main():
             if args.action != 'status' and args.actor != expected_actor:
                 raise ValueError('Shared-state updates belong to ' + expected_actor + '; return your result to it')
             if args.action == 'advance':
+                if is_plan_code(state):
+                    project_checks(root).check_freshness(state,
+                        require_contract=args.phase in ('implement', 'review', 'experience', 'acceptance'))
+                    if args.phase == 'review':
+                        project_checks(root).check_implementation_ready()
                 if is_plan_code(state) and args.phase == 'acceptance':
-                    import importlib.util
-                    checker_spec = importlib.util.spec_from_file_location('plan_code_acceptance', Path(__file__).with_name('workflow-check.py'))
-                    checks = importlib.util.module_from_spec(checker_spec); checker_spec.loader.exec_module(checks)
-                    checks.Project(root).check('acceptance')
+                    project_checks(root).check('acceptance')
                 for owner in phases_for(state).get(state.get('phase'), []):
                     completed = state.get('assignments', {}).get(key_for(state, state['phase'], owner), {})
                     proof_name = completed.get('evidence')
@@ -508,6 +539,8 @@ def main():
                 item = state['assignments'].get(key_for(state, args.phase, args.role), {})
                 if is_plan_code(state) or item.get('supplements'):
                     validate_completion(root, state, item, workflow_rows(state))
+                if is_plan_code(state) and args.phase == 'implement':
+                    project_checks(root).check_implementation_ready()
             if args.action == 'result' and is_plan_code(state) and args.phase == 'experience' and args.status == 'completed':
                 if not evidence:
                     raise ValueError('Experience requires actual browser evidence JSON')
@@ -517,9 +550,17 @@ def main():
                     raise ValueError('Discussion requires peer response JSON')
                 validate_discussion(root, state, args.role, evidence)
             if args.action == 'record':
+                contract = None
+                if is_plan_code(state) and args.phase == 'plan':
+                    project = project_checks(root)
+                    freshness = project.check_freshness(state)
+                    if freshness['mode'] == 'versioned':
+                        contract = project.requirements_snapshot()
                 state = apply(state, 'record', args.phase, 'plan-lead', evidence=evidence)
                 state['assignments'][key_for(state, args.phase, 'plan-lead')].update(
                     snapshot=code_snapshot(root), evidence_sha256=hashlib.sha256((root / evidence).read_bytes()).hexdigest())
+                if contract is not None:
+                    state['requirements_snapshot'] = contract
             elif args.action == 'enable-helper':
                 if not is_plan_code(state) or state['phase'] not in ('research', 'plan-review', 'plan') or state.get('helper_subtask'):
                     raise ValueError('Enable a helper once before implementation, for an explicit independent subtask')

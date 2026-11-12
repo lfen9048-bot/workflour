@@ -111,3 +111,87 @@ class SuspendedRegistryTests(unittest.TestCase):
             result=m.sync_project(row,lambda _:native,missing)
             self.assertFalse(result['ok']);self.assertIn('HTTP 404',str(result['errors']))
             self.assertEqual((root/'.workflour/coordination.json').read_bytes(),ledger)
+
+
+class CurrentNextStepTests(unittest.TestCase):
+    prepare = ObserverTests.prepare
+
+    def setup_plan_code(self, temporary, *, settled=True):
+        root, vault, row, native = self.prepare(temporary)
+        ledger = {'workflow': 'plan-code', 'coordinator_thread': 'chief', 'phase': 'implement',
+                  'assignments': {'implement/code-main': {'status': 'completed' if settled else 'running',
+                                                         'assignment_id': 'a'}}}
+        handoff = {'task_id': 'PC-1', 'stage': 'implement', 'owner': 'plan-lead',
+                   'next_owner': 'code-main', 'next_action': '等待主单与补充单回传后复核',
+                   'artifacts': {}, 'code_files': [], 'acceptance': {'status': 'pending'}}
+        native[0]['status'] = 'completed'
+        (root / '.workflour/coordination.json').write_text(json.dumps(ledger))
+        (root / '.workflour/handoff.json').write_text(json.dumps(handoff))
+        return root, vault, row, native, ledger, handoff
+
+    def test_completed_work_shows_observed_next_step_without_mutating_shared_files(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root, _, row, native, _, _ = self.setup_plan_code(temporary)
+            readable = root / 'HANDOFF.md'
+            readable.write_text('Keep this existing handoff')
+            files = [root / '.workflour/coordination.json', root / '.workflour/handoff.json', readable]
+            before = {file: file.read_bytes() for file in files}
+            result = m.sync_project(row, lambda _: native, lambda _: [])
+            progress = (Path(result['output']) / '进度.md').read_text()
+            self.assertIn('当前阶段结果已登记完成', progress)
+            self.assertIn('推进独立技术审核', progress)
+            self.assertIn('负责人记录（可能滞后）', progress)
+            self.assertTrue(any('仍在等待回传' in alert for alert in result['alerts']))
+            self.assertEqual(before, {file: file.read_bytes() for file in files})
+
+    def test_returned_receipt_is_not_mislabelled_as_settled(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            _, _, _, native, ledger, handoff = self.setup_plan_code(temporary, settled=False)
+            next_step = m.observed_next_step(ledger, handoff, native)
+            self.assertEqual(next_step['status'], 'returned')
+            self.assertIn('核对实际产物和测试', next_step['text'])
+            self.assertNotIn('登记完成', next_step['text'])
+
+    def test_missing_running_failed_receipts_never_offer_stage_advance(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            _, _, _, native, ledger, handoff = self.setup_plan_code(temporary)
+            for status, expected in (('running', 'running'), ('needs_input', 'waiting'),
+                                     ('failed', 'blocked'), ('cancelled', 'blocked')):
+                with self.subTest(status=status):
+                    native[0]['status'] = status
+                    result = m.observed_next_step(ledger, handoff, native)
+                    self.assertEqual(result['status'], expected)
+                    self.assertNotIn('推进', result['text'])
+            self.assertEqual(m.observed_next_step(ledger, handoff, [])['status'], 'unknown')
+
+    def test_valid_wait_for_review_is_not_flagged_as_old_worker_wait(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            _, _, _, native, ledger, handoff = self.setup_plan_code(temporary)
+            handoff['next_action'] = '等待负责人推进独立技术审核'
+            self.assertEqual(m.observed_next_step(ledger, handoff, native)['alerts'], [])
+
+    def test_other_receipt_with_same_token_cannot_replace_primary(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            _, _, _, native, ledger, handoff = self.setup_plan_code(temporary)
+            ledger['assignments']['implement/code-main']['dispatch_token'] = 'marker'
+            native[0].update(id='different-primary', tokens=['marker'])
+            self.assertEqual(m.observed_next_step(ledger, handoff, native)['status'], 'unknown')
+
+    def test_stale_generated_handoff_and_phase_difference_are_visible(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root, _, _, _, ledger, handoff = self.setup_plan_code(temporary)
+            (root / 'HANDOFF.md').write_text(
+                'Regenerated from .workflour/handoff.json.\n' +
+                '\n'.join(f'- {key}: {value}' for key, value in handoff.items() if key in
+                          ('task_id', 'stage', 'owner', 'next_owner', 'next_action')))
+            self.assertEqual(m.handoff_consistency_alerts(root, ledger, handoff), [])
+            handoff.update(stage='review', next_action='新的交接')
+            alerts = m.handoff_consistency_alerts(root, ledger, handoff)
+            self.assertTrue(any('派单阶段与项目阶段不一致' in alert for alert in alerts))
+            self.assertTrue(any('HANDOFF.md 与 handoff.json 不一致' in alert for alert in alerts))
+
+    def test_acceptance_stays_a_user_action(self):
+        result = m.observed_next_step({'workflow': 'plan-code', 'phase': 'acceptance'},
+                                     {'acceptance': {'status': 'pending'}}, [])
+        self.assertEqual(result['status'], 'acceptance')
+        self.assertIn('等待用户验收', result['text'])

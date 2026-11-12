@@ -142,6 +142,78 @@ class Project:
             raise InvalidHandoff("Missing or empty artifact: " + name)
         return path
 
+    def requirements_snapshot(self):
+        """Freeze the agreed contract, not mutable progress/test metadata."""
+        requirements = self.state.get("requirements")
+        if (not isinstance(requirements, list) or not requirements
+                or any(not isinstance(r, dict) or not r.get("id") or not r.get("criterion")
+                       for r in requirements)):
+            raise InvalidHandoff("Finalize requirements before recording the plan")
+        original = self.state.get("original_request")
+        if not isinstance(original, str) or not original.strip():
+            raise InvalidHandoff("Keep the original request before recording the plan")
+        spec = self.artifact("spec")
+        return {"original_request": original,
+                "requirements": json.loads(json.dumps(requirements)),
+                "spec": {"path": self.state["artifacts"]["spec"], "sha256": digest(spec)}}
+
+    def check_freshness(self, coordination=None, *, require_contract=False):
+        """Versioned checks; never invent snapshots for an existing ledger.
+
+        Report bytes from the active repair round remain dependencies. Earlier
+        repair rounds remain history; their code snapshots must not be compared
+        to the repaired code. Native receipt validation stays in the coordinator.
+        """
+        if coordination is None:
+            ledger_path = self.path(".workflour/coordination.json")
+            if not ledger_path.exists():
+                return {"mode": "legacy", "reason": "No versioned coordination ledger"}
+            coordination = json.loads(ledger_path.read_text())
+        if not isinstance(coordination, dict):
+            raise InvalidHandoff("Coordination ledger must be an object")
+        version = coordination.get("workflow_version", 0)
+        marker = coordination.get("freshness_version")
+        if coordination.get("workflow") != "plan-code":
+            return {"mode": "legacy", "reason": "No plan-code freshness contract"}
+        if type(version) is int and version < 3 and marker is None:
+            return {"mode": "legacy", "reason": "Existing ledger has no historical requirements snapshot"}
+        if type(version) is not int or version != 3 or type(marker) is not int or marker != 1:
+            raise InvalidHandoff("Unsupported or missing plan-code freshness version; do not downgrade the ledger")
+        contract = coordination.get("requirements_snapshot")
+        if contract is None:
+            if require_contract or coordination.get("phase") not in ("research", "plan-review", "plan"):
+                raise InvalidHandoff("Record the final plan to lock requirements before implementation")
+        elif contract != self.requirements_snapshot():
+            raise InvalidHandoff("Requirements/spec changed after final plan; preserve the old evidence and explicitly replan")
+        repair = coordination.get("repair_round", 0)
+        if type(repair) is not int or not 0 <= repair <= 2:
+            raise InvalidHandoff("Invalid repair round in freshness ledger")
+        assignments = coordination.get("assignments", {})
+        if not isinstance(assignments, dict):
+            raise InvalidHandoff("Invalid assignment registry")
+        checked = []
+        for key, item in assignments.items():
+            if not isinstance(item, dict) or item.get("status") != "completed":
+                continue
+            base, separator, suffix = key.partition("@")
+            phase = base.split("/", 1)[0]
+            if phase in ("research", "plan-review", "plan"):
+                if separator:
+                    raise InvalidHandoff("Planning reports cannot be relabelled as repair history")
+            elif phase in ("implement", "review", "experience"):
+                if separator and (not suffix.isdigit() or int(suffix) == 0):
+                    raise InvalidHandoff("Invalid repair suffix in report registry")
+                if (int(suffix) if separator else 0) != repair:
+                    continue
+            else:
+                continue
+            evidence = self.path(item.get("evidence", ""))
+            if not evidence.is_file() or not evidence.stat().st_size or digest(evidence) != item.get("evidence_sha256"):
+                raise InvalidHandoff("Active completed report evidence changed or is missing: " + key)
+            checked.append(key)
+        return {"mode": "versioned", "version": 1, "contract_locked": contract is not None,
+                "checked_reports": checked}
+
     def latest_tests(self, snapshot):
         latest = {}
         records = self.state.get("tests", [])
@@ -156,6 +228,30 @@ class Project:
             if test.get("snapshot") == snapshot:
                 latest[tuple(argv)] = test
         return list(latest.values())
+
+    def check_test_evidence(self, current):
+        """Validate imported results without running commands or requiring review."""
+        self.artifact("verification")
+        verification = self.state.get("verification", {})
+        if verification.get("status") != "passed" or verification.get("snapshot") != current:
+            raise InvalidHandoff("Current code has not passed verification")
+        tests = self.latest_tests(current)
+        if not tests or any(type(t.get("exit_code")) is not int or t["exit_code"] != 0
+                            or t.get("source_changed_during_test") for t in tests):
+            raise InvalidHandoff("Current snapshot has a missing or failing test command")
+        # Keep failed runs in the trail; a successful rerun supersedes only the
+        # result for the same command, not its original captured evidence.
+        for test in self.state.get("tests", []):
+            path = self.path(test.get("evidence", ""))
+            if not path.is_file() or digest(path) != test.get("evidence_sha256"):
+                raise InvalidHandoff("Test evidence is missing or has changed")
+        return tests
+
+    def check_implementation_ready(self):
+        """Gate implementation completion before independent review exists."""
+        result = self.check("implement")
+        tests = self.check_test_evidence(result["code_snapshot"])
+        return {**result, "implementation_ready": True, "current_test_commands": len(tests)}
 
     def check(self, stage=None):
         state = self.state
@@ -204,6 +300,7 @@ class Project:
                 raise InvalidHandoff('Keep the original user request, separate from team assumptions')
             if not isinstance(state.get('assumptions'), list):
                 raise InvalidHandoff('Keep team assumptions as a separate list')
+            freshness = self.check_freshness(require_contract=level >= 2)
         if level >= 1:
             self.artifact("plan")
             self.artifact("tasks")
@@ -307,20 +404,7 @@ class Project:
                 if finding.get("status") not in ("verified", "waived") or not finding.get("resolution"):
                     raise InvalidHandoff("An unresolved review finding remains")
         if level >= 4:
-            self.artifact("verification")
-            verification = state.get("verification", {})
-            if verification.get("status") != "passed" or verification.get("snapshot") != current:
-                raise InvalidHandoff("Current code has not passed verification")
-            tests = self.latest_tests(current)
-            if not tests or any(type(t.get("exit_code")) is not int or t["exit_code"] != 0
-                                or t.get("source_changed_during_test") for t in tests):
-                raise InvalidHandoff("Current snapshot has a missing or failing test command")
-            # Failed runs stay in the audit trail, including their original
-            # evidence. A later successful rerun supersedes their result only.
-            for test in state.get("tests", []):
-                path = self.path(test.get("evidence", ""))
-                if not path.is_file() or digest(path) != test.get("evidence_sha256"):
-                    raise InvalidHandoff("Test evidence is missing or has changed")
+            self.check_test_evidence(current)
         if plan_code and level >= 5:
             record = json.loads(self.artifact('experience').read_text())
             validate_experience(self.root, record, current, ids, state.get("product_surface", "web"))
@@ -334,8 +418,11 @@ class Project:
                 raise InvalidHandoff("Explicit user acceptance has not been recorded")
             if acceptance.get("snapshot") != current:
                 raise InvalidHandoff("User acceptance must refer to the current code snapshot")
-        return {"ok": True, "stage_checked": stage, "task_id": state["task_id"],
-                "code_snapshot": current, "meaning": "Evidence consistency only; not proof of human authorization or complete test coverage"}
+        result = {"ok": True, "stage_checked": stage, "task_id": state["task_id"],
+                  "code_snapshot": current, "meaning": "Evidence consistency only; not proof of human authorization or complete test coverage"}
+        if plan_code:
+            result["freshness"] = freshness
+        return result
 
     def run_test(self, argv, detached=False, files=None):
         if argv and argv[0] == "--":

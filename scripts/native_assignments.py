@@ -9,6 +9,7 @@ from pathlib import Path
 import sqlite3
 import re
 import hashlib
+from contextlib import closing
 
 DB = Path.home() / '.openmausbot/runtime.db'
 TERMINAL = {'completed', 'failed', 'cancelled'}
@@ -24,7 +25,7 @@ def read_assignments(thread_id, db=DB):
     if not thread_id:
         raise ValueError('No coordinator thread bound; use bind-origin before recovery')
     uri = Path(db).resolve(strict=True).as_uri() + '?mode=ro'
-    with sqlite3.connect(uri, uri=True, timeout=5) as connection:
+    with closing(sqlite3.connect(uri, uri=True, timeout=5)) as connection:
         connection.execute('PRAGMA query_only=ON')
         rows = connection.execute('SELECT json FROM assignments WHERE requester_thread_id=?', (thread_id,)).fetchall()
     result = []
@@ -121,7 +122,7 @@ def require_completed(state, item, rows):
 
 
 def sender_idle(thread_id, db=DB):
-    with sqlite3.connect(Path(db).resolve(strict=True).as_uri() + '?mode=ro', uri=True, timeout=5) as connection:
+    with closing(sqlite3.connect(Path(db).resolve(strict=True).as_uri() + '?mode=ro', uri=True, timeout=5)) as connection:
         connection.execute('PRAGMA query_only=ON')
         count = connection.execute("SELECT count(*) FROM assignments WHERE assignee_thread_id=? AND status NOT IN ('completed','failed','cancelled')", (thread_id,)).fetchone()[0]
     return count == 0
@@ -133,7 +134,7 @@ def workflow_threads(state):
 
 
 def thread_owner(thread_id, db=DB):
-    with sqlite3.connect(Path(db).resolve(strict=True).as_uri() + '?mode=ro', uri=True, timeout=5) as connection:
+    with closing(sqlite3.connect(Path(db).resolve(strict=True).as_uri() + '?mode=ro', uri=True, timeout=5)) as connection:
         connection.execute('PRAGMA query_only=ON')
         owners = connection.execute('SELECT DISTINCT assignee_bot_id FROM assignments WHERE assignee_thread_id=?', (thread_id,)).fetchall()
     if len(owners) != 1:
