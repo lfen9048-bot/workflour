@@ -57,6 +57,8 @@ init会生成本项目独立的 `state.dispatch_tokens.collect/draft` 两个UUID
 
 以上子命令只维护项目材料，不派消息、不发布。脚本检查材料/哈希/顺序不能代替内容事实、实际生图或用户验收。工作只到草稿待用户确认，所有发布/上传/排期/互动都不在本套当前范围。
 
+X/YouTube限额在派单前通过 `collection-limits --project ABS --source all --candidates 3 --details 2 --comments 2` 设置；可另设source=x/youtube更小额度。新init默认10/5/10，start默认3/2/2；候选与精读为两平台合计，comments为每次精读。采集器按输出目录定位项目，在网络请求前锁定并记录 `.xhs/social-usage.json`，失败也占用额度，新文件名不能重置；派单/请求开始后拒绝改限额。旧项目无此字段时保留原接口，不补造历史次数。该约束作用于本项目的X/YouTube适配器，不是文件沙箱，也不限制上游接口内部预取，更不代表其他采集器已具有同样的累计检查。
+
 局部改稿顺序固定：先record首稿，再 `revise --project ABS --reason TEXT --evidence review.md` 归档/登记范围/换draft token，最后原生 `mode=work,rework:true` 携新token派给writer，最多一次。不先发无token补充再补账；`amend-receipt`仅用于维护登记已发生的异常，不能当日常派单入口。维护人工编辑另存`draft.reviewed.md`，标明`base_draft_sha256`与`author`，保留已锁定模型原稿。
 
 `receipt`/`record` 会核对该阶段token的全部原生派单；除主回执及明确登记的补充外，任何额外派单均会阻止继续，即使额外派单已失败或取消，也需先核对，不能据此静默忽略重复执行。登记补充时也检查是否存在第三单，校验失败不修改账本；合法补充仍须与主单都完成后才能record成稿。
@@ -74,6 +76,8 @@ Gemini 推理模型、读图能力与专用生图模型分开。Mac 已通过 AG
 调用使用会话级 `useG1Credits:false` 禁止自动使用额外 Google AI credits，不改全局配置。精确扣额与图片后台型号未独立认证，不承诺免费，不依据模型自述认定 Imagen/Nano Banana。原写作 Bot 已实际执行第二张生图；用户只批准本次命令，长期权限保留。原生 SUCCESS 答复漏报图片路径，首次封装未取回，维护者从该精确会话找回图片；原 blocked 回执保留，修复另有 image-recovery.json。收图缺口已修复并通过52项针对性测试及真实旧产物复验，未多跑第三次生图；完整无人干预与实际节省额度尚未证明。官方参数见 [headless 文档](https://antigravity.google/docs/cli/headless/)和 [CLI credits 文档](https://antigravity.google/docs/cli/credits/)。
 
 `scripts/render-xhs-cards.py --project ABS --input cards.json` 渲染实际 output PNG、preview.html 和 render-manifest；可用 `--output-dir image-versions/gemini-v1/output` 单独输出新版本，以 `card.layout: image-cover` 排版实际插图，保留旧产物。模板信息卡与 AI 插图分别记录，不能互相冒充；writing-report.images 列出最终图片。每次生成仍须按集成说明保存回执并实际读图，只有完整交付后才更新报告状态，不能由单张图成功推定整篇完成。
+
+收尾时`image_generation.status=passed`或AI图`reused`需提供`evidence`/`source_evidence`：项目内image-evidence.json路径（字符串或数组）。工具验证原生SUCCESS、退出0、完成时间、实际原图及SHA256，并把回执/原图纳入不可变快照；失败不部分修改账本。非AI素材复用显式`ai_generated:false`，提供`reused_image_path`与`reused_image_sha256`，不附伪造生图回执。此检查不证明模型实际看图、不保证它会主动等待后台命令，也不替代用户验收；现有旧回执原样保留，不回填“成功”。
 
 ## Ubuntu 迁移边界
 

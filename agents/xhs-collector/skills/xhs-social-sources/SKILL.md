@@ -19,6 +19,8 @@ description: 为图文选题搜索和读取 X 公开帖子、YouTube 视频信�
 
 搜索是发现，不是正文核实。链接字段为 `samples[].source_url`，不是 `url`；直接用该链接精读有用来源。字幕带时间戳；`body` 仅描述时不能声称已看完视频。可重复 `--language` 指定语言优先级，不默认翻译或调用语音转写 API。评论默认关闭，显式请求最多10条；搜索最多5条，单次操作120秒封顶。无字幕/无回复/失败须保留 coverage 和 limitations。
 
+表中数字仅示例，任务更小上限优先。项目的 `social_limits` 会在平台调用前检查：候选/精读累计，comments为每次精读；两平台共享all额度，并叠加各自更小额度。工具写 `.xhs/social-usage.json` 保留尝试次数，失败也计数；新文件名不重置。只输出到当前项目，不删除记录、修改共享状态或改用原始库绕过拒绝。旧项目未配置限额时仍须遵循文字要求；这是请求数量约束，不声称控制平台内部预取页大小。
+
 输出统一为 `xhs-collection-v1`，来源 `live_x`、`live_youtube` 或 `mixed_public_sources`，不能冒充小红书赞藏数据。`status` 的 session_present 仅说明本机会话存在，不是网络验证通过。未登录时报告 login_required，不能自行复制个人浏览器 Cookie、改账号、购买代理或无界重试。
 
 X 登录由用户在专用窗口完成，维护入口为 `<工具仓库>/integrations/xhs-sources/login.py --platform x`；YouTube需要验证时使用同入口的 `--platform youtube`。Bot 日常仅运行采集脚本；不要索取密码/验证码/Cookie，不读取私有会话数据库或浏览器目录。用户明确要求登录时再由维护者打开窗口。

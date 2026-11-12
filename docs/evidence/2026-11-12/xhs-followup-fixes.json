@@ -1,0 +1,144 @@
+{
+  "date": "2026-11-12",
+  "status": "passed_local_regression",
+  "fixes": [
+    "Project X/YouTube cumulative request limits checked before adapter calls; failed attempts count; new filenames do not reset limits.",
+    "Generated/reused AI image claims require completed native evidence, original raster and matching SHA256; finish only commits a fully valid snapshot.",
+    "Two existing drafts received separate date corrections; original evidence and ledgers preserved."
+  ],
+  "tests": {
+    "xhs": 102,
+    "collector_service": 13,
+    "total": 115,
+    "result": "passed",
+    "new_tests": 16
+  },
+  "review": {
+    "agent": "reused readonly_main_review",
+    "image_fix_and_regression": true,
+    "collection_readonly_review": "no actionable findings"
+  },
+  "instruction_sync": {
+    "status": "passed",
+    "roles": {
+      "xhs-collector": {
+        "instructions_match": true,
+        "model_permissions_paths_unchanged": true
+      },
+      "xhs-planner": {
+        "instructions_match": true,
+        "model_permissions_paths_unchanged": true
+      },
+      "xhs-writer": {
+        "instructions_match": true,
+        "model_permissions_paths_unchanged": true
+      }
+    },
+    "other_bots_unchanged": true,
+    "model_prompts_sent": false
+  },
+  "revised_drafts": [
+    {
+      "project": "examples/xhs-three-bot-live-20261112/round1-news-corrected",
+      "reviewed_draft": "maintenance/date-correction/draft.reviewed.md",
+      "preview": "maintenance/date-correction/output-verified/preview.html",
+      "originals_hash_verified": true,
+      "images": [
+        {
+          "path": "maintenance/date-correction/output-verified/card-01.png",
+          "sha256": "b847bb27bc661bea0c60841a42b2f33b8e532779800152d862174c3d90f41d5b",
+          "width": 1080,
+          "height": 1440
+        },
+        {
+          "path": "maintenance/date-correction/output-verified/card-02.png",
+          "sha256": "d9c4c0f69d82214615e367d52faeceae155a732e01ffb246abfceff59d2ab061",
+          "width": 1080,
+          "height": 1440
+        }
+      ],
+      "layout_checks": [
+        {
+          "id": "card-1",
+          "overflow": false,
+          "bottom": 1364
+        },
+        {
+          "id": "card-2",
+          "overflow": false,
+          "bottom": 1364
+        }
+      ],
+      "maintainer_viewed": [
+        "maintenance/date-correction/output-verified/card-01.png",
+        "maintenance/date-correction/output-verified/card-02.png"
+      ],
+      "changes": [
+        "仅将卡片的发布日期未公开改为本次资料未核实发布日期；原正文内容不变。"
+      ]
+    },
+    {
+      "project": "examples/xhs-three-bot-live-20261112/round2-youtube",
+      "reviewed_draft": "maintenance/date-correction/draft.reviewed.md",
+      "preview": "maintenance/date-correction/output-verified/preview.html",
+      "originals_hash_verified": true,
+      "images": [
+        {
+          "path": "maintenance/date-correction/output-verified/card-01.png",
+          "sha256": "19fb4c321b38a8fd62edb9fdef0817a33d42ec7dfee0876ea8a6c22a82f62b96",
+          "width": 1080,
+          "height": 1440
+        },
+        {
+          "path": "maintenance/date-correction/output-verified/card-02.png",
+          "sha256": "96af4056b612766d713bfce6ddbecbf5e4616c83dc1877326d1c96a7310d1728",
+          "width": 1080,
+          "height": 1440
+        }
+      ],
+      "layout_checks": [
+        {
+          "id": "card-1",
+          "overflow": false,
+          "bottom": 1364
+        },
+        {
+          "id": "card-2",
+          "overflow": false,
+          "bottom": 1364
+        }
+      ],
+      "maintainer_viewed": [
+        "maintenance/date-correction/output-verified/card-01.png",
+        "maintenance/date-correction/output-verified/card-02.png"
+      ],
+      "changes": [
+        "正文及卡片将录制时间改为已知的视频发布日期，并明确录制时间未核实。",
+        "复用已有AI原图；不新增生图。"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "scripts/xhs_collection_limits.py": "d4a0efee13340738851c7cb9534d1755fcdef40e415f2a8358ae305fe5c11495",
+    "scripts/xhs-source-collect.py": "c123186225ca7c9cd052310ae7af4a8c6070953709ed1176161090c8ff75433d",
+    "scripts/xhs-workflow.py": "adb9053e43bf0deb80c1ef876ca0a51aa831435077534a026985db3a4fe3b49a",
+    "scripts/start-xhs.py": "60617c981d7252111f99c8f96c102e720f301622007c63e9dcdd93d21783f141",
+    "tests/test_xhs_collection_limits.py": "8fae49b1d7b96516ee4df9b0003e83d546d70ee30feeb5180bbe70f086a933e5",
+    "tests/test_xhs_workflow.py": "cdb4d36e9e9c8f2562b6d293c2d47f18a794f5d1466890265d2877b599c5cb62",
+    "tests/test_xhs_ubuntu.py": "f212586b0b677e22ab7c9e37e0cd033b0c6825da9f4ff9bed976a2ac61c6b4da"
+  },
+  "limits": [
+    "No new model turn, platform collection, image generation, publishing or scheduling.",
+    "Image evidence validation cannot guarantee the writer waits for async work, performs visual inspection, or writes factually correct prose.",
+    "Social limits apply to X/YouTube adapters in a configured project, not a file sandbox or upstream page-prefetch size.",
+    "Legacy ledgers without limits are not retroactively changed; per-platform smaller limits must be recorded before dispatch.",
+    "Target Ubuntu VM not accessed; current changes initially verified on macOS.",
+    "Card rendering first failed under process sandbox; explicit escalated local headless Chrome render passed."
+  ],
+  "publication_subset_verification": {
+    "base_commit": "b26ce81c29d80d99bf7650ea93d6ae683b30ae2b",
+    "xhs_tests": 102,
+    "result": "passed",
+    "note": "git archive of published HEAD plus only this fix set; unrelated working changes excluded"
+  }
+}

@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from native_assignments import read_assignments
 from xhs_paths import deployment_path
+from xhs_collection_limits import set_limits
 
 STAGES = ('collect', 'brief', 'draft')
 
@@ -181,6 +182,7 @@ def initialize(project, topic, thread=None):
              'created_at': now(), 'planner_thread': thread,
              'stage': 'collect', 'status': 'active', 'published': False,
              'dispatch_tokens': {key: str(uuid.uuid4()) for key in ('collect', 'draft')},
+             'social_limits': {'all': {'candidates': 10, 'details': 5, 'comments': 10}},
              'revision_count': 0, 'revisions': [],
              'artifacts': {}, 'receipts': {},
              'next_action': '思考负责人向采集派一单，保存真实回执；等待返回，不重复派单。'}
@@ -360,6 +362,84 @@ def record(project, state, stage, file, receipt=None, thread=None, rows=None):
                             'draft': '思考负责人核对成稿、图片、来源和受阻项；调用 finish 后交用户确认。'}[stage]
 
 
+def generation_artifacts(project, generation):
+    """Validate native generation, or explicitly non-AI reused source material."""
+    status = generation.get('status')
+    if status not in ('passed', 'reused'):
+        return {}
+
+    # Reuse the generator's raster decoder without invoking its CLI or a model.
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('xhs_image_validation', ROOT / 'scripts/xhs-image.py')
+    image_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(image_module)
+
+    saved = {}
+    sources = {}
+
+    def source_image(path, expected_hash):
+        if not isinstance(path, str) or not path or not isinstance(expected_hash, str):
+            raise ValueError('Image provenance needs an original image path and SHA256')
+        item = artifact(project, path)
+        info = image_module.image_info(project / item['path'])
+        if not info or item['sha256'] != expected_hash or info['sha256'] != expected_hash:
+            raise ValueError('Original image is invalid or differs from its evidence hash')
+        sources[item['path']] = item
+        return item
+
+    evidence_paths = []
+    for key in ('evidence', 'source_evidence'):
+        if key not in generation:
+            continue
+        value = generation[key]
+        values = [value] if isinstance(value, str) else value
+        if not isinstance(values, list) or not values or any(not isinstance(p, str) or not p for p in values):
+            raise ValueError('Generation evidence must name project files')
+        evidence_paths.extend(values)
+
+    if generation.get('ai_generated') is False:
+        if status != 'reused' or evidence_paths:
+            raise ValueError('Non-AI reuse must not claim native generation evidence')
+        source_image(generation.get('reused_image_path'), generation.get('reused_image_sha256'))
+    else:
+        if not evidence_paths:
+            raise ValueError('Generated/reused AI images require completed native image evidence')
+        seen_evidence = set()
+        for name in evidence_paths:
+            item = artifact(project, name)
+            if item['path'] in seen_evidence:
+                continue
+            seen_evidence.add(item['path'])
+            evidence_path = project / item['path']
+            evidence = json.loads(evidence_path.read_text())
+            if (not isinstance(evidence, dict)
+                    or evidence.get('status') != 'generated_pending_visual_review'
+                    or evidence.get('native_status') != 'SUCCESS'
+                    or type(evidence.get('exit_code')) is not int or evidence['exit_code'] != 0
+                    or evidence.get('prompt_sent') is not True
+                    or not isinstance(evidence.get('finished_at'), str) or not evidence['finished_at']):
+                raise ValueError('Native image generation is not successfully completed')
+            rows = evidence.get('images')
+            if not isinstance(rows, list) or not rows:
+                raise ValueError('Native image evidence must contain actual original images')
+            for row in rows:
+                if not isinstance(row, dict) or not isinstance(row.get('file'), str) or not row['file']:
+                    raise ValueError('Native image evidence has an invalid image path')
+                relative = Path(row['file'])
+                if relative.is_absolute() or '..' in relative.parts:
+                    raise ValueError('Native image paths must stay inside their evidence directory')
+                original = (evidence_path.parent / relative).resolve(strict=True)
+                original.relative_to(evidence_path.parent.resolve(strict=True))
+                source_image(str(original), row.get('sha256'))
+            saved[f'image_evidence_{len(saved) + 1}'] = item
+        if 'reused_image_path' in generation or 'reused_image_sha256' in generation:
+            reused = artifact(project, generation.get('reused_image_path', ''))
+            if reused['path'] not in sources or reused['sha256'] != generation.get('reused_image_sha256'):
+                raise ValueError('Reused image must match an original in its native evidence')
+    saved.update({f'image_original_{i}': item for i, item in enumerate(sources.values(), 1)})
+    return saved
+
+
 def finish(project, state):
     verify_artifacts(project, state)
     if any(k not in state['artifacts'] for k in STAGES):
@@ -367,14 +447,20 @@ def finish(project, state):
     report_saved = artifact(project, 'writing-report.json')
     report_path = project / report_saved['path']
     report = json.loads(report_path.read_text())
+    if not isinstance(report, dict):
+        raise ValueError('Writing report must be an object')
     if report.get('status') not in ('ready', 'partial'):
         raise ValueError('Writing report must state ready/partial honestly')
     images = report.get('images', [])
     generation = report.get('image_generation', {})
-    if generation.get('status') not in ('passed', 'reused', 'blocked', 'not_requested', 'template_only'):
+    if not isinstance(generation, dict) or generation.get('status') not in ('passed', 'reused', 'blocked', 'not_requested', 'template_only'):
         raise ValueError('Report must identify generated/template image provenance')
     if generation['status'] == 'blocked' and report['status'] != 'partial':
         raise ValueError('Blocked image generation must remain a partial delivery')
+    # Build the whole validated snapshot first: a late missing image/evidence
+    # must not leave a partially accepted report or edited draft in live state.
+    saved_artifacts = dict(state['artifacts'])
+    saved_artifacts.update(generation_artifacts(project, generation))
     # Keep the model's immutable draft when an explicitly attributed human or
     # maintenance edit is supplied as a separate deliverable version.
     selected_draft = report.get('draft_file', state['artifacts']['draft']['path'])
@@ -382,24 +468,22 @@ def finish(project, state):
         review = report.get('maintenance_review', {})
         if not review.get('author') or review.get('base_draft_sha256') != state['artifacts']['draft']['sha256']:
             raise ValueError('A separately edited draft needs an author and original draft hash')
-        state['artifacts']['reviewed_draft'] = artifact(project, selected_draft)
+        saved_artifacts['reviewed_draft'] = artifact(project, selected_draft)
     if not isinstance(images, list) or not images:
         raise ValueError('Actual image files are required for an illustrated draft')
     for i, name in enumerate(images, 1):
         saved = artifact(project, name)
         data = (project / saved['path']).read_bytes()
         png_dimensions(data)
-        state['artifacts'][f'image_{i}'] = saved
-    state['artifacts']['writing_report'] = report_saved
+        saved_artifacts[f'image_{i}'] = saved
+    saved_artifacts['writing_report'] = report_saved
     for key, name in [('card_input', 'cards.json'), ('render_manifest', 'output/render-manifest.json'), ('preview', 'output/preview.html')]:
         if (project / name).exists():
-            state['artifacts'][key] = artifact(project, name)
-    state['status'] = 'pending_user_review'
-    state['stage'] = 'acceptance'
-    state['delivery_status'] = report['status']
-    state['limitations'] = report.get('limitations', [])
-    state['published'] = False
-    state['next_action'] = '用户查看实际图文并提出修改意见；尚未发布。'
+            saved_artifacts[key] = artifact(project, name)
+    verify_artifacts(project, {**state, 'artifacts': saved_artifacts})
+    state.update(artifacts=saved_artifacts, status='pending_user_review', stage='acceptance',
+                 delivery_status=report['status'], limitations=report.get('limitations', []),
+                 published=False, next_action='用户查看实际图文并提出修改意见；尚未发布。')
 
 
 def revise(project, state, reason, evidence, rows=None):
@@ -493,12 +577,17 @@ def revise(project, state, reason, evidence, rows=None):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
-    for name in ('init', 'status', 'receipt', 'record', 'finish', 'revise', 'amend-receipt'):
+    for name in ('init', 'status', 'receipt', 'record', 'finish', 'revise', 'amend-receipt', 'collection-limits'):
         p = commands.add_parser(name)
         p.add_argument('--project', required=True)
         if name == 'init':
             p.add_argument('--topic', required=True)
             p.add_argument('--planner-thread')
+        if name == 'collection-limits':
+            p.add_argument('--source', choices=('all', 'x', 'youtube'), default='all')
+            p.add_argument('--candidates', type=int, required=True)
+            p.add_argument('--details', type=int, required=True)
+            p.add_argument('--comments', type=int, required=True)
         if name in ('receipt', 'record'):
             p.add_argument('--stage', required=True, choices=('collect', 'draft') if name == 'receipt' else STAGES)
         if name == 'receipt':
@@ -527,7 +616,9 @@ def main():
             state = initialize(project, args.topic, args.planner_thread)
         else:
             state = json.loads(path.read_text())
-            if args.command == 'receipt':
+            if args.command == 'collection-limits':
+                set_limits(project, state, args.source, args.candidates, args.details, args.comments)
+            elif args.command == 'receipt':
                 bind_receipt(state, args.stage, args.id)
             elif args.command == 'record':
                 record(project, state, args.stage, args.file, args.receipt, args.thread)

@@ -8,6 +8,8 @@
 
 初始化后读取 `.xhs/state.json` 的 `dispatch_tokens.collect` 和 `dispatch_tokens.draft`。这是该项目两个阶段独立的 UUID，不重新生成、不跨项目复用。每次原生 `coordinate_bots` 必须使用 `mode=work`，对应阶段的任务正文带完整 `WF-DISPATCH:<该阶段UUID>`；不是咨询模式。receipt 会核对真实 requester 为本套 planner、target 为准确 worker、原生 work 类型和项目 token，不能绑定别的项目或 consult 回执。
 
+采集派单前把明确的X/YouTube上限落到账本：`python3 {{ROOT}}/scripts/xhs-workflow.py collection-limits --project ABS --source all --candidates 3 --details 2 --comments 2`（数字以任务为准，comments是每次精读上限）。两平台共用总额；某平台更小则再设 `--source x` 或 `youtube`。例如X最多1条需设x的candidates=1，不能只写进派单文本。start入口已有3/2/2总额；手动init默认10/5/10，必须按更小任务要求收紧。派单或首次请求后不能重设。脚本自动记录 `.xhs/social-usage.json`，不手改、删除或换目录绕过；失败请求也占用次数，超限先报告。
+
 最小流程：
 1. 用本机路由中的精确 collector Bot ID 调用原生 coordinate_bots，`mode=work`，任务正文带 `WF-DISPATCH:<state.dispatch_tokens.collect>` 的真实UUID。brief包括主题、时间窗、采样上限、项目路径、sources.json/collection-report.md、允许的来源模式；新任务读取本次项目，不依赖旧聊天。保存真实原生requestId：`receipt --project ABS --stage collect --id ID`。派单成功就结束本回合，等原生回传；不轮询催促、不再次派单。
 2. 回传后读取真实 sources.json，`record --project ABS --stage collect --file sources.json --receipt ID --thread WORKER_THREAD`。写短 BRIEF.md：读者、一个角度、核心观点、可用事实/来源编号、正文结构、各图信息和未知项；约300–500字，不另开长篇讨论。`record --project ABS --stage brief --file BRIEF.md`。

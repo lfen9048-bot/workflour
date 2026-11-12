@@ -53,6 +53,7 @@ class IntakeTests(unittest.TestCase):
         project = self.base / 'new draft'
         result = entry.start(client, self.team, project, 'Claude消息')
         state = json.loads((project / '.xhs/state.json').read_text())
+        self.assertEqual(state['social_limits']['all'], {'candidates': 3, 'details': 2, 'comments': 2})
         self.assertEqual(state['planner_thread'], 'actual-workbench-thread')
         self.assertEqual(result['status'], 'sent')
         self.assertEqual(len(client.writes), 2)

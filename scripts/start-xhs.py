@@ -47,6 +47,7 @@ def start(client, team, project, topic, image=False):
         team_tool.control.write_journal(journal, receipt)
         with workflow.locked(project) as state_path:
             state = workflow.initialize(project, topic, thread)
+            workflow.set_limits(project, state, 'all', 3, 2, 2)
             state['updated_at'] = workflow.now()
             workflow.write(state_path, state)
             workflow.handoff(project, state)
@@ -56,6 +57,7 @@ def start(client, team, project, topic, image=False):
                   f'本次真实OpenMausBot工作台threadId：{thread}；账本已绑定，不重新init，不用DSH_SESSION_ID。\n'
                   '先读项目AGENTS.md/HANDOFF.md及本角色技能，按已安装三角色流程原生派单和回传。'
                   '采集至多3条候选、精读2条、每条至多2评论，任务更小上限优先。'
+                  'X/YouTube共用的请求限额已写入账本；若指定某平台更小上限，派单前用collection-limits补充对应source。'
                   '正文200–350字、一个标题、3标签、两张1080×1440卡片；保留原始来源URL，日期未知不猜。'
                   + images + '\n只交草稿，实际读图后到pending_user_review；不发布、不创建定时任务。')
         receipt['status'] = 'sending'

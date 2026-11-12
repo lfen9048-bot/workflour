@@ -1,5 +1,6 @@
 import importlib.util
 import copy
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -396,6 +397,170 @@ class XhsWorkflowTests(unittest.TestCase):
         (self.root / 'draft.reviewed.md').write_text('changed after review')
         with self.assertRaisesRegex(ValueError, 'artifact changed'):
             xhs.verify_artifacts(self.root, self.state)
+
+    def native_image_evidence(self):
+        directory = self.root / 'image-generation'
+        directory.mkdir()
+        source = directory / 'original.png'
+        source.write_bytes((self.root / 'output/card-01.png').read_bytes())
+        evidence = {'version': 2, 'status': 'generated_pending_visual_review',
+                    'native_status': 'SUCCESS', 'exit_code': 0, 'prompt_sent': True,
+                    'finished_at': '2026-11-12T05:00:00Z',
+                    'images': [{'file': 'original.png',
+                                'sha256': hashlib.sha256(source.read_bytes()).hexdigest()}]}
+        path = directory / 'image-evidence.json'
+        path.write_text(json.dumps(evidence))
+        return path, source, evidence
+
+    def writing_generation(self, generation):
+        path = self.root / 'writing-report.json'
+        report = json.loads(path.read_text())
+        report.update(status='ready', image_generation=generation)
+        path.write_text(json.dumps(report))
+        return report
+
+    def test_generated_images_require_completed_native_evidence_without_mutating_state(self):
+        self.first_draft(acceptance=False)
+        evidence_path, source, valid = self.native_image_evidence()
+        before = copy.deepcopy(self.state)
+        for generation in ({'status': 'passed'}, {'status': 'reused'},
+                           {'status': 'passed', 'evidence': 'image-generation/missing.json'}):
+            with self.subTest(generation=generation):
+                self.writing_generation(generation)
+                with self.assertRaises((ValueError, FileNotFoundError)):
+                    xhs.finish(self.root, self.state)
+                self.assertEqual(self.state, before)
+        for field, value in [('status', 'checking'), ('status', 'blocked'),
+                             ('native_status', 'RUNNING'), ('exit_code', 1),
+                             ('exit_code', False), ('prompt_sent', False),
+                             ('finished_at', None), ('images', [])]:
+            with self.subTest(field=field, value=value):
+                evidence_path.write_text(json.dumps({**valid, field: value}))
+                self.writing_generation({'status': 'passed', 'evidence': str(evidence_path)})
+                with self.assertRaises(ValueError):
+                    xhs.finish(self.root, self.state)
+                self.assertEqual(self.state, before)
+
+    def test_native_evidence_aliases_and_project_paths_freeze_receipts_and_originals(self):
+        self.first_draft(acceptance=False)
+        evidence_path, source, evidence = self.native_image_evidence()
+        for status, key, absolute in [('passed', 'evidence', False), ('reused', 'source_evidence', True)]:
+            with self.subTest(status=status):
+                state = copy.deepcopy(self.state)
+                generation = {'status': status, key: str(evidence_path if absolute else evidence_path.relative_to(self.root))}
+                if status == 'reused':
+                    generation.update(reused_image_path=str(source), reused_image_sha256=evidence['images'][0]['sha256'])
+                self.writing_generation(generation)
+                xhs.finish(self.root, state)
+                self.assertEqual(state['status'], 'pending_user_review')
+                self.assertEqual(state['artifacts']['image_evidence_1'], xhs.artifact(self.root, str(evidence_path)))
+                self.assertEqual(state['artifacts']['image_original_1'], xhs.artifact(self.root, str(source)))
+                for path in (evidence_path, source):
+                    original = path.read_bytes()
+                    path.write_bytes(original + b'changed')
+                    with self.assertRaisesRegex(ValueError, 'artifact changed'):
+                        xhs.verify_artifacts(self.root, state)
+                    path.write_bytes(original)
+
+    def test_generation_evidence_rejects_missing_changed_invalid_or_unrelated_originals(self):
+        self.first_draft(acceptance=False)
+        evidence_path, source, evidence = self.native_image_evidence()
+        before = copy.deepcopy(self.state)
+        cases = [({'file': 'missing.png', 'sha256': evidence['images'][0]['sha256']}, None),
+                 ({'file': 'original.png', 'sha256': '0' * 64}, None),
+                 ({'file': 'original.png', 'sha256': hashlib.sha256(b'not a raster').hexdigest()}, b'not a raster'),
+                 ({'file': '../output/card-01.png', 'sha256': evidence['images'][0]['sha256']}, None)]
+        original = source.read_bytes()
+        for row, data in cases:
+            with self.subTest(row=row):
+                source.write_bytes(original if data is None else data)
+                evidence_path.write_text(json.dumps({**evidence, 'images': [row]}))
+                self.writing_generation({'status': 'passed', 'evidence': str(evidence_path)})
+                with self.assertRaises((ValueError, FileNotFoundError)):
+                    xhs.finish(self.root, self.state)
+                self.assertEqual(self.state, before)
+        source.write_bytes(original)
+        evidence_path.write_text(json.dumps(evidence))
+        self.writing_generation({'status': 'reused', 'source_evidence': str(evidence_path),
+                                 'reused_image_path': 'output/card-01.png',
+                                 'reused_image_sha256': evidence['images'][0]['sha256']})
+        with self.assertRaisesRegex(ValueError, 'must match an original'):
+            xhs.finish(self.root, self.state)
+        self.assertEqual(self.state, before)
+
+    def test_generation_evidence_and_originals_cannot_escape_the_project(self):
+        self.first_draft(acceptance=False)
+        evidence_path, source, evidence = self.native_image_evidence()
+        before = copy.deepcopy(self.state)
+        outside = Path(self.temp.name) / 'outside.json'
+        outside.write_text(json.dumps(evidence))
+        link = self.root / 'evidence-link.json'
+        link.symlink_to(outside)
+        for name in (str(outside), str(link)):
+            self.writing_generation({'status': 'passed', 'evidence': name})
+            with self.assertRaises(ValueError):
+                xhs.finish(self.root, self.state)
+            self.assertEqual(self.state, before)
+        outside_image = Path(self.temp.name) / 'outside.png'
+        outside_image.write_bytes(source.read_bytes())
+        source.unlink()
+        source.symlink_to(outside_image)
+        self.writing_generation({'status': 'passed', 'evidence': str(evidence_path)})
+        with self.assertRaises(ValueError):
+            xhs.finish(self.root, self.state)
+        self.assertEqual(self.state, before)
+
+    def test_explicit_non_ai_reuse_freezes_provided_image_without_claiming_generation(self):
+        self.first_draft(acceptance=False)
+        source = self.root / 'provided.png'
+        source.write_bytes((self.root / 'output/card-01.png').read_bytes())
+        generation = {'status': 'reused', 'ai_generated': False,
+                      'reused_image_path': 'provided.png',
+                      'reused_image_sha256': hashlib.sha256(source.read_bytes()).hexdigest()}
+        before = copy.deepcopy(self.state)
+        for invalid in ({**generation, 'status': 'passed'},
+                        {**generation, 'source_evidence': 'irrelevant.json'},
+                        {**generation, 'reused_image_sha256': '0' * 64}):
+            self.writing_generation(invalid)
+            with self.assertRaises(ValueError):
+                xhs.finish(self.root, self.state)
+            self.assertEqual(self.state, before)
+        self.writing_generation(generation)
+        xhs.finish(self.root, self.state)
+        self.assertIn('image_original_1', self.state['artifacts'])
+        self.assertNotIn('image_evidence_1', self.state['artifacts'])
+        source.write_bytes(b'changed')
+        with self.assertRaisesRegex(ValueError, 'artifact changed'):
+            xhs.verify_artifacts(self.root, self.state)
+
+    def test_finish_late_failure_never_partially_records_images_or_reviewed_draft(self):
+        self.first_draft(acceptance=False)
+        (self.root / 'draft.reviewed.md').write_text('A separate attributed edit')
+        report_path = self.root / 'writing-report.json'
+        report = json.loads(report_path.read_text())
+        report.update(draft_file='draft.reviewed.md',
+                      maintenance_review={'author': 'maintenance', 'base_draft_sha256': self.state['artifacts']['draft']['sha256']})
+        report['images'].append('output/missing.png')
+        report_path.write_text(json.dumps(report))
+        before = copy.deepcopy(self.state)
+        with self.assertRaises(FileNotFoundError):
+            xhs.finish(self.root, self.state)
+        self.assertEqual(self.state, before)
+
+    def test_multiple_native_evidence_files_remain_in_revision_archive(self):
+        self.first_draft(acceptance=False)
+        first, source, evidence = self.native_image_evidence()
+        second = source.parent / 'second-evidence.json'
+        second.write_text(json.dumps(evidence))
+        self.writing_generation({'status': 'passed', 'evidence': [str(first), str(second)],
+                                 'source_evidence': str(first)})
+        xhs.finish(self.root, self.state)
+        self.assertIn('image_evidence_2', self.state['artifacts'])
+        self.assertNotIn('image_evidence_3', self.state['artifacts'])
+        xhs.revise(self.root, self.state, 'One bounded edit', 'review.md', rows=self.rows('draft'))
+        archive = self.root / 'history/revision-0'
+        for path in (first, second, source):
+            self.assertEqual((archive / path.relative_to(self.root)).read_bytes(), path.read_bytes())
 
 
 if __name__ == '__main__':

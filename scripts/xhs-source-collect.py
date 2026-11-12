@@ -13,6 +13,9 @@ import subprocess
 import sys
 import urllib.parse
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from xhs_collection_limits import reserve
+
 spec = importlib.util.spec_from_file_location('xhs_collect', Path(__file__).with_name('xhs-collect.py'))
 base = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(base)
@@ -347,7 +350,13 @@ def run(args):
         result = merge(args)
     else:
         platform = 'youtube' if args.command.startswith('youtube') else 'x'
+        request = reserve(args.output, platform,
+                          candidates=args.limit if args.command.endswith('search') else 0,
+                          details=1 if args.command.endswith('read') else 0,
+                          comments=getattr(args, 'comments', 0) or getattr(args, 'replies', 0))
         result = base.pack(getattr(args, 'query', None) or args.keyword, 'live_' + platform)
+        if request is not None:
+            result['collection_request'] = request
         name = 'yt-dlp' if platform == 'youtube' else 'twscrape'
         result['collector'] = {'name': name, 'version': version(name), 'llm_calls': 0}
         try:
@@ -412,7 +421,7 @@ def main():
                 return 3
         return run(args)
     except (base.CollectionError, ValueError, OSError) as error:
-        print(json.dumps({'status': 'blocked', 'reason': str(error) if isinstance(error, base.CollectionError)
+        print(json.dumps({'status': 'blocked', 'reason': str(error) if isinstance(error, ValueError)
                           else type(error).__name__}, ensure_ascii=False))
         return 3
 
