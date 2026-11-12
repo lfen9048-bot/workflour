@@ -477,6 +477,23 @@ def finish(project, state):
         png_dimensions(data)
         saved_artifacts[f'image_{i}'] = saved
     saved_artifacts['writing_report'] = report_saved
+    delivery = project / 'delivery/receipt.json'
+    if state.get('delivery_contract') == 'synchronous-v1' and not delivery.is_file():
+        raise ValueError('This project requires a completed synchronous delivery receipt')
+    if delivery.exists():
+        receipt = json.loads(delivery.read_text())
+        if receipt.get('draft_token') != state['dispatch_tokens']['draft']:
+            raise ValueError('Delivery receipt belongs to another draft revision')
+        if receipt.get('status') != 'ready' or receipt.get('report') != 'writing-report.json':
+            raise ValueError('Synchronous delivery is not ready; finish preparation and actual visual review')
+        snapshots = receipt.get('snapshot', [])
+        if report_saved not in snapshots:
+            raise ValueError('Delivery receipt does not cover the final writing report')
+        for i, saved in enumerate(snapshots):
+            if artifact(project, saved['path']) != saved:
+                raise ValueError('Delivery artifact changed: ' + saved['path'])
+            saved_artifacts[f'delivery_{i}'] = saved
+        saved_artifacts['delivery_receipt'] = artifact(project, 'delivery/receipt.json')
     for key, name in [('card_input', 'cards.json'), ('render_manifest', 'output/render-manifest.json'), ('preview', 'output/preview.html')]:
         if (project / name).exists():
             saved_artifacts[key] = artifact(project, name)
@@ -487,6 +504,20 @@ def finish(project, state):
 
 
 def revise(project, state, reason, evidence, rows=None):
+    # CLI already holds the ledger lock. The same second lock used by writers
+    # prevents an early native completed receipt from authorizing deletion of
+    # a still-running generation/render. Never acquire these locks in reverse.
+    if (project / 'delivery').exists():
+        from xhs_delivery import delivery_lock
+        with delivery_lock(project):
+            receipt = project / 'delivery/receipt.json'
+            if receipt.exists() and json.loads(receipt.read_text()).get('status') == 'preparing':
+                raise ValueError('Delivery is still preparing/uncertain; do not revise or regenerate')
+            return revise_locked(project, state, reason, evidence, rows)
+    return revise_locked(project, state, reason, evidence, rows)
+
+
+def revise_locked(project, state, reason, evidence, rows=None):
     """Archive one completed first draft, then authorize one bounded rewrite."""
     verify_artifacts(project, state)
     if state.get('revision_count', 0) != 0 or state.get('revisions'):
@@ -527,6 +558,15 @@ def revise(project, state, reason, evidence, rows=None):
                 raise ValueError('Output archive must not contain symlinks')
             if path.is_file():
                 candidates.add(str(path.relative_to(project)))
+    delivery = project / 'delivery'
+    if delivery.exists():
+        if delivery.is_symlink():
+            raise ValueError('Delivery archive must not be a symlink')
+        for file in delivery.rglob('*'):
+            if file.is_symlink():
+                raise ValueError('Delivery archive must not contain symlinks')
+            if file.is_file() and file.relative_to(delivery).as_posix() != 'lock':
+                candidates.add(str(file.relative_to(project)))
     candidates.update(a['path'] for key, a in state['artifacts'].items() if key not in ('collect', 'brief'))
     if candidates & {'manifest.json', '_revision-review.md'}:
         raise ValueError('Draft filenames conflict with reserved revision metadata')
@@ -563,6 +603,15 @@ def revise(project, state, reason, evidence, rows=None):
     revision = {'index': 0, 'reason': reason.strip(), 'review': review,
                 'manifest': artifact(project, 'history/revision-0/manifest.json'),
                 'draft_receipt': completed, 'draft_token': state['dispatch_tokens']['draft']}
+    if delivery.exists():
+        # The verified immutable archive now contains every delivery file.
+        # Clear only generated delivery outputs so the next authorized revision
+        # cannot accidentally reuse the prior run's ready receipt/report.
+        shutil.rmtree(delivery)
+        if output.exists():
+            shutil.rmtree(output)
+        (project / 'writing-report.json').unlink(missing_ok=True)
+        state['image_policy'] = {'max_requests': 0, 'useG1Credits': False}
     state['revisions'] = [revision]
     state['revision_count'] = 1
     state['artifacts'] = {key: state['artifacts'][key] for key in ('collect', 'brief')}
@@ -577,9 +626,11 @@ def revise(project, state, reason, evidence, rows=None):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
-    for name in ('init', 'status', 'receipt', 'record', 'finish', 'revise', 'amend-receipt', 'collection-limits'):
+    for name in ('init', 'status', 'receipt', 'record', 'finish', 'revise', 'amend-receipt', 'collection-limits', 'reconcile'):
         p = commands.add_parser(name)
         p.add_argument('--project', required=True)
+        if name == 'reconcile':
+            p.add_argument('--dry-run', action='store_true', help='Inspect native receipts and files without writing or sending')
         if name == 'init':
             p.add_argument('--topic', required=True)
             p.add_argument('--planner-thread')
@@ -611,6 +662,11 @@ def main():
         project.mkdir(parents=True, exist_ok=True)
     elif not project.is_dir():
         raise ValueError('Content project does not exist')
+    if args.command == 'reconcile' and args.dry_run:
+        from xhs_recovery import inspect, local_json
+        state = inspect(project, local_json(project, '.xhs/state.json'))
+        print(json.dumps(state, ensure_ascii=False, indent=2))
+        return
     with locked(project) as path:
         if args.command == 'init':
             state = initialize(project, args.topic, args.planner_thread)
@@ -630,6 +686,9 @@ def main():
                 amend_receipt(project, state, args.id, args.reason, args.evidence, args.allow_missing_token)
             elif args.command == 'status':
                 verify_artifacts(project, state)
+            elif args.command == 'reconcile':
+                from xhs_recovery import reconcile
+                reconcile(project, state)
         if args.command != 'status':
             state['updated_at'] = now()
             write(path, state)

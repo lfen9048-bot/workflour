@@ -12,6 +12,8 @@
 
 2026-11-12后续实测以流程为主、内容只做基本合规检查：限额、采集回传及写作派单通过，完整交付未通过。MiMo遇到额度/限流混合错误；写作回合比生图回执提前约54秒结束，图像通道随后报告额度耗尽，未自动交出模板卡片和报告。当前不能宣称三Bot已稳定无人值守；原始账本保留在draft，未伪报完成。见[本轮实测记录](../../../docs/evidence/2026-11-12/xhs-live-retest.json)。
 
+2026-11-12后续修复：同步交付工具已由真实 Gemini 完成 prepare → 两张PNG读图 → confirm → 报告 → 原生完成回传，保留 blocked 生图证据并交 partial 模板，没有新增生图/采集。179项本地测试通过。原稿 MiMo 续接再次失败，工作台自动跨实例重发暴露额外限制；已恢复原任务模型，恢复入口现禁止不受控发送。完整无人值守仍未通过，Ubuntu账号待目标机验证。见[修复实测摘要](../../../docs/evidence/2026-11-12/xhs-synchronous-delivery-fix.json)。
+
 2026-11-11 初次多模型接入遵循用户“先接入，不测试”，后续已获准进行小样本通道检查。2026-11-12 用户明确选择 DeepSeek 采集并授权技能实测，采集新默认更新为上表；GLM-5.3-Flash Low、MiniMax-M3.1-Flash Low 仍可选。新默认用于以后新任务，既有任务固定原模型；用户后续手动选择优先，不自动轮流比较。单项采集验证不能代替完整图文工作流验收。
 
 ## 本机安装与部署
@@ -96,3 +98,17 @@ Gemini 推理模型、读图能力与专用生图模型分开。Mac 已通过 AG
 ## 2026-11-12：DeepSeek采集实测
 
 用户明确选择DeepSeek V4.1 Flash Low，原生采集Bot已自行调用X/YouTube/Scrapling并合并3条来源。X搜索2条/精读1帖（回复0），YouTube搜索1条/158段英文字幕/2评论，网页4019字符。命令初始有4次执行/路径错误并自行修正；报告中未采集的X收藏数由维护者纠正。17测试及技能校验通过，详见[脱敏证据](../../../docs/evidence/2026-11-12/xhs-deepseek-collector-smoke.json)。技能增加用法提示后未另跑模型回合；这是Mac单项采集验证，未证明GLM对照优势、完整图文流程或Ubuntu通过。
+
+## 2026-11-12：同步交付与原任务恢复
+
+上一次真实复测暴露了 Antigravity ACP 在后台命令完成前返回 end_turn 的问题。原始失败记录保留，不能改写成通过。实现采用官方工作区 MCP 前台工具，复用已有 xhs-image 与 render-xhs-cards，不更换运行时、不新增 Bot。参考 [官方 MCP 配置](https://antigravity.google/docs/mcp) 与 [同类上游问题](https://github.com/pingdotgg/t3code/issues/28415)。另检索过 MIT 的 [refined-antigravity-acp](https://github.com/simonepri/refined-antigravity-acp)，其后台计划显示与多种兼容补丁覆盖面较大，本次不引入整套代理或替换全局 ACP。
+
+在工具仓库运行 `python3 scripts/configure-xhs-delivery.py`，只向本工作区 `.agents/mcp_config.json` 合并专属工具，保留其他服务器；不改全局配置。实测 ACP 不自动读取这个工作区文件，因此 run-agy-agent.sh 经过项目薄桥，仅在 cwd 与本仓库一致且 OMB_BOT_ID 匹配本机小红书写作 Bot 时注册这两个工具；其他会话原样透传。Ubuntu `configure` 自动执行这步。已有配置不一致会拒绝覆盖，迁移后按当前路径重新核对。工作台角色指令用 `python3 scripts/provision-xhs-team.py instructions` 在三 Bot 空闲时同步；模型手选保留。
+
+写作先保存 draft.md 和纯文字 cards.json，再用 `prepare_delivery`：新图需 start --image 登记的一次授权，已有成功或失败回执传 existing_image_evidence，不能再发图片请求。工具同步等待生图与排版，失败则实际生成模板卡片并保留 blocked/partial。`delivery/receipt.json` 区分 preparing、awaiting_visual_review、ready、failed；生成开始前持久预留，取消、崩溃或未知状态均不自动重发。只在实际读取全部 review_required 图片并调用 confirm_delivery 后生成 writing-report.json。独立 CLI 工作区配置设 background=off、600秒超时，内部560秒截止。ACP 标准不携带这两个扩展，薄桥不伪称它们生效：ACP 模式将生图限为120秒、排版30秒，MCP总限170秒（另留取消清理时间），处于原生180秒默认上限内；超时如实受阻、不重试。无需后台 shell 唤醒。此方式规避该交付路径的早结束问题，不声称已修复 Antigravity 通用后台协议。
+
+同参数的成功 prepare/confirm 可只读回已有结果；输入或成品哈希变动拒绝继续。finish 校验最终报告和整套交付快照，包含失败图片证据；机器校验不代替读图或用户验收。一次正式 revise 会先归档完整交付，清理已归档的生成输出，并禁止自动重新生图；改文案优先复用归档内已有图片。
+
+额度错误后先 `python3 scripts/resume-xhs.py status --project ABS` 或 `preview --project ABS`，均不调用模型。`xhs-workflow.py reconcile --project ABS` 可按原阶段标记补回丢失的真实回执，`--dry-run` 不写账本。已确认原 planner 为 provider_error、原采集/简报已锁定且写作有旧稿时，维护者/用户明确继续时，恢复入口原设计只向原 planner thread 发送一次机械收尾。然而 0.1.143 实测还会在工作台内自动换到其他实例并重发，Bot fallback 空列表也不能关闭它；当前恢复工具在不能验证任务级禁用时拒绝 send。只读核对和本地同步交付仍可使用，不把提示词当成后台不重试的保证。sending/delivery_unknown 都拒绝重发；再次失败保留阻断。运行时原有额度策略保持，不能将此理解为任意备用线路均免费。
+
+恢复工具自动在报告标明 mechanical delivery / maintenance recovery，保留原稿哈希及原 writer 回执。不能把维护续接说成原 writer 首次完整交付，也不能覆盖先前失败实测证据。

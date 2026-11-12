@@ -10,7 +10,15 @@
 
 2026-11-12 技能复验：16项方法文件保留，新增研究综合仅限多源冲突/版本或费用适用性不明时启用；新增UX、覆盖审核和属性测试3项退回候选。既有12项按需沿用，不宣称全部充分验证。用户要求免费后17个隔离会话只用实时零倍率HY3，无付费备用；七Bot默认/Full/项目状态未改。少量对照有改善也有负效果，网页组未胜，代码组仍过度宣称通过。见[复验结论](SKILLS-REVALIDATION.zh-CN.md)和[脱敏摘要](evidence/2026-11-12/skills-revalidation-summary.json)。下方11月11日“4项已接入”是历史状态。
 
+后续极简通道检查：2026-11-11按用户新授权，GLM Flash、MiMo Pro、MiniMax Flash各一条Low短请求，均返回OK；接口报告总计254 tokens（输入233、输出21），0重试、0工具、无新稿或图片，默认分工未改。只证明通道可用，完整工作流与文风未测试。见[检查摘要](evidence/2026-11-11/xhs-model-tiny-smoke.json)。
+
 2026-11-11 技能与账号补强：七个开发角色的共享方法12→16，新增研究综合、UX评审、覆盖/错误路径审核及属性边界检查；14次真实ACP保留成功/超时/blocked。国际账号池已按用户选择开启，国内2＋国际2参与免费→临期→其它WorkBuddy→既有API顺序，13:00不变。Node现为73项通过，原Python工具包165项（1跳过）。国际DS `-sg`缺图片输入，AGY两次完整UX样例在180秒内未收尾；Kimi在维护者准备的环境中实读4张图并识别缺陷，不把辅助样例当成无人值守或产品通过。详见[补强记录](SKILLS-SPECIALIZATION.zh-CN.md)与[脱敏摘要](evidence/2026-11-11/skills-summary.json)；下文旧验证数字保留为此前快照。
+
+2026-11-11 晚更新：用户授权先接入、不测试。小红书新任务默认GLM Flash Low采集、MiMo Pro High思考、Gemini Low写作；MiniMax Flash/DeepSeek已登记可选，写作Bot增加同职责DSH入口可选GLM。三个DSH菜单已读回四模型和档位，未发送prompt、未运行试稿或测试；新组合效果尚未验证。旧任务保留原模型，下面的DS/DS/Gemini试稿为此前实际证据。
+
+2026-11-11 后续新增第二套「小红书」三角色：采集 DeepSeek Flash Low、思考 DeepSeek Flash High、写作 Antigravity/Gemini Flash Low。Mac已真实部署、官方新闻试稿及网页登录后站内限定搜索通过。后续已用原生print及既有登录生成两张AI原图、四张1080×1440图文卡，逐张读图，独立版本待用户查看。原稿、旧卡和partial账本保留；原写作Bot真实调用，图片曾需维护找回，修复后52项针对性测试与真实产物复验通过，不称为无人干预。额外credits禁用，精确扣额及图片后台型号未知。原七角色未由本套改动；Ubuntu未测。见[三角色入口](../integrations/openmausbot/team-xhs/README.md)与[Ubuntu交接](xhs-ubuntu-handoff.zh-CN.md)。
+
+新增后当前Python回归为196项（195通过、1跳过），采集/服务另13项通过；下表165项是此前编程团队发布时的快照。脱敏摘要见[小红书Mac验证](evidence/2026-11-11/xhs-mac-summary.json)。
 
 | 范围 | 已核实状态 | 依据 |
 | --- | --- | --- |

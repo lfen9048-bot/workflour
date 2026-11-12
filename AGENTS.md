@@ -103,6 +103,36 @@ Antigravity 不自动跨运行时备用；工作台和桌面原默认配置不�
 当前上线验收、旧 Bot 清理进度与未完成项目交接以 Obsidian 首页和
 `integrations/openmausbot/team-v2/LEGACY-HANDOFF.md` 为准。
 
+## 第二套：小红书图文（三角色）
+
+用户已确认精简为采集、思考、写作三 Agent，先在 Mac 部署试用，之后计划迁往 Ubuntu。
+入口为工作台「小红书 · 思考」；不要把内容任务派入上述 Plan/Code 编程流程。
+采集默认 DSH / DeepSeek V4.1 Flash Low，思考默认 DSH / MiMo-V2.6-Pro High，
+写作默认 Antigravity / Gemini 3.8 Flash Low。MiniMax M3.1 Flash 与 GLM-5.3-Flash
+为可选；GLM正文使用同职责的 `omb-xhs-writer-dsh` 实例，仍只有三个Bot。
+2026-11-12 用户选择 DeepSeek 采集并授权技能实测；验证结果以对应证据为准，旧试稿保留原模型。
+角色与模型仍分开，手动选择优先。
+
+声明位于 `integrations/openmausbot/team-xhs/roles.json`，职责为 `agents/xhs-*`；
+机器 ID 默认在 `~/.workflour/xhs/deployment.json`，新电脑自己生成，不复用 Mac ID。
+`setup.sh --only xhs-collector|xhs-planner|xhs-writer|xhs-writer-dsh` 只准备所选实例；
+`team-xhs/models.json` 声明四个WorkBuddy选项，只作用于小红书profile。
+`scripts/provision-xhs-team.py prepare|create|verify|instructions` 管理本套配置。
+内容项目使用 `scripts/xhs-workflow.py`，由思考唯一维护共享状态；
+每篇默认一次采集、一次写作，原生回执绑定本项目阶段标记，完成只到待用户确认。
+当前范围只交付图文草稿，不授权发布、排期、点赞、评论、关注或私信。
+
+采集接口为 `scripts/xhs-collect.py`，只读 MCP 能力；未登录或站外官方模式必须
+明确数据来源，不能冒充小红书样本。服务和登录状态留在机器私有目录。
+采集角色按需使用 `xhs-web-crawl` 抓公开网页、`xhs-social-sources` 查询X和YouTube；
+后者入口 `scripts/xhs-source-collect.py`，依赖和专用登录说明见
+`integrations/xhs-sources/README.md`。多来源先存新的 `sources.*.json`，再用merge
+汇总到 `sources.json`，保留各平台时间、URL与partial/blocked缺口，不新增Bot。
+专用生图以 `integrations/xiaohongshu-images/capability.json` 的当前证据为准；
+普通图文卡片使用 `scripts/render-xhs-cards.py`，不能冒充 AI 插图。
+Ubuntu 后台/浏览器/账号需另行核验，Mac 成功不代表 Ubuntu 已实测。
+说明见 `integrations/openmausbot/team-xhs/README.md` 与 `docs/xhs-ubuntu-handoff.zh-CN.md`。
+
 ## 保留的兼容入口与基础机制（2026-11-06 起）
 
 以下旧角色名称、模型分工及手动接力默认值是历史兼容说明，不能用于重建旧

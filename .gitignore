@@ -28,6 +28,7 @@ deliveries/
 .workflour/
 .xhs/
 .codex/
+/.agents/mcp_config.json
 
 # Keep template scaffolding (including its intentional hidden files)
 !templates/**/.workflour/

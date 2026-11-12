@@ -44,7 +44,7 @@ bash /tmp/workflour-agy-install.sh
 ./scripts/xhs-ubuntu.sh connect
 ```
 
-`configure` 生成本机角色配置和新的 Bot ID 清单；`up` 创建并启动两个用户级 systemd 服务；`connect` 从当前实际模型目录核对并创建三个 Bot，不发送试稿请求。采集服务首次启动还会下载并解压自己的内置浏览器，可能需要几分钟；用 `doctor` 确认采集服务就绪后再派稿。若工作台尚未启动完成，稍等后重跑 `connect`，不会重复创建已存在的 Bot。已有模型的手动选择保留。
+`configure` 生成本机角色配置、新的 Bot ID 清单和当前工作区同步交付 MCP（独立CLI 600秒；工作台ACP经专用桥限170秒）；`up` 创建并启动两个用户级 systemd 服务；`connect` 从当前实际模型目录核对并创建三个 Bot，不发送试稿请求。采集服务首次启动还会下载并解压自己的内置浏览器，可能需要几分钟；用 `doctor` 确认采集服务就绪后再派稿。若工作台尚未启动完成，稍等后重跑 `connect`，不会重复创建已存在的 Bot。已有模型的手动选择保留。
 
 在 Ubuntu 浏览器打开 **http://127.0.0.1:8799**。这里的 127.0.0.1 是虚拟机自身，不是 Windows 主机。若已有工作台在运行，`configure` 会先要求空闲停机，不会强行重启。
 
@@ -91,6 +91,10 @@ journalctl --user -u workflour-xhs-collector.service -n 80 --no-pager
 ```bash
 python3 scripts/provision-xhs-team.py instructions
 ```
+
+写作使用同步 prepare_delivery/confirm_delivery 工具：先保存纯文字卡片输入，等待真实图片结果或失败模板，再实际读图确认。最终报告落盘前不能以原生 completed 代替完整交付。工作区工具配置不进入 Git，不从 Mac 复制绝对路径配置。
+
+失败任务先用 `python3 scripts/resume-xhs.py status --project ABS` 或 `preview --project ABS` 只读核对；0.1.143 的工作台自动额度接管可能跨实例重发，缺乏已验证的任务级关闭能力时，恢复入口拒绝 send。先保留故障并用已有材料本地机械交付，不以 prompt 承诺代替实际运行时约束。
 
 不要为同一篇重复执行 `start`。发送响应丢失时，`.xhs/launch.json` 会记为 `delivery_unknown`；先在对应工作台任务核对，不自动新建或重派。需要新模型时在工作台手动选择；真实可用目录和档位以目标机为准。
 

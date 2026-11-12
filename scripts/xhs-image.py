@@ -325,6 +325,11 @@ def execute_print(command: list[str], output: Path, timeout: int):
         # and are discarded, including the partial response after a timeout.
         stop_process_group(process)
         return process.returncode, '', True
+    except BaseException:
+        # A foreground delivery/MCP cancellation must not leave a detached
+        # image worker consuming the subscription after its caller has exited.
+        stop_process_group(process)
+        raise
 
 
 def parse_print_result(stdout: str):

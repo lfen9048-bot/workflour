@@ -39,4 +39,6 @@ fi
 
 # --stdio: 使用 stdio JSON-RPC 传输（ACP 默认）
 # --disable-telemetry: 减少非必要外部请求；不影响模型调用
-exec "${AGY_BIN}" acp --stdio --disable-telemetry
+WORKFLOUR_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec python3 "${WORKFLOUR_ROOT}/scripts/xhs-agy-mcp-bridge.py" \
+    "${AGY_BIN}" acp --stdio --disable-telemetry

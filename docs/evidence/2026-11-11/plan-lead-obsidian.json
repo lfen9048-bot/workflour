@@ -1,0 +1,71 @@
+{
+  "checked_at": "2026-11-11T23:12:46.712944+08:00",
+  "scope": "Plan lead Obsidian recording instructions and notes; no prompts or business reruns",
+  "checks": {
+    "name": true,
+    "modelSelection": true,
+    "approvalMode": true,
+    "cwd": true,
+    "memoryEnabled": true,
+    "browser": true,
+    "computer": true,
+    "peers": true,
+    "approvePeerComms": true,
+    "tasks": true,
+    "soul_matches_source": true,
+    "soul_changed": true,
+    "recording_sections_match": true,
+    "skill:../wf-shared/skills/wf-search-first/SKILL.md": true,
+    "skill:../wf-shared/skills/wf-research-synthesis/SKILL.md": true,
+    "skill:../wf-shared/skills/wf-requirements-interview/SKILL.md": true,
+    "skill:../wf-shared/skills/wf-writing-plans/SKILL.md": true,
+    "skill:../wf-shared/skills/wf-verification-before-completion/SKILL.md": true,
+    "skill:../wf-shared/skills/wf-obsidian-markdown/SKILL.md": true,
+    "acceptance_still_pending": true,
+    "links_resolve": true,
+    "table_aliases_escaped": true,
+    "record_statuses_final": true
+  },
+  "wikilinks_checked": 178,
+  "local_links_checked": 22,
+  "missing_links": [],
+  "obsidian_visual_check": {
+    "status": "passed",
+    "app": "Obsidian 1.14.5",
+    "vault": "多Agent协作开发工作流",
+    "observed": [
+      "项目经理 reading view with role/recording rules/progress table",
+      "escaped table aliases render correctly",
+      "current progress internal link opens WFWEB-001 acceptance/pending"
+    ],
+    "screenshot": "observed in CUA tool output; not saved as a local file",
+    "external_file_links": "file protocol and target existence checked; opening each in its default app not verified"
+  },
+  "runtime_behavior_test": "not_run",
+  "pending_user_acceptance": "WFWEB-001",
+  "files": [
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/项目经理.md",
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/首页.md",
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/01-需求/目标与待定事项.md",
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/02-调研/2026-11-11-项目经理Obsidian接入.md",
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/04-搭建/2026-11-11-项目经理接入Obsidian.md",
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/05-验证/2026-11-11-项目经理Obsidian接入核验.md",
+    "/Users/a1/Documents/a/workflour/agents/wf-plan-lead/SOUL.md",
+    "/Users/a1/Documents/a/workflour/agents/wf-plan-lead/SKILLS.md",
+    "/Users/a1/Documents/a/workflour/agents/wf-plan-lead/skills/wf-plan-lead-role/SKILL.md",
+    "/Users/a1/Documents/a/workflour/integrations/openmausbot/team-v2/README.md"
+  ],
+  "independent_readonly_review": "passed; no blocking findings",
+  "file_sha256": {
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/项目经理.md": "c82f7b34785335a2a7db865cdcb24a837fec115d166c1415ccdc2760c63b4601",
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/首页.md": "c77426cd4d635d354be26c8024185898f82a07768a8f333102ee2fbc6b32576b",
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/01-需求/目标与待定事项.md": "dc7de4a9fba5b8404b3101fbab781f7bad64e319b5e1cb65f569b27cf073e178",
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/02-调研/2026-11-11-项目经理Obsidian接入.md": "b966b79977468073e4bbd96a1255bcfbd2d1159baca774f0e5c27269829fa4de",
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/04-搭建/2026-11-11-项目经理接入Obsidian.md": "93c069b4ba80151329658d3866aa0d095f4d3248a558545be0ac1499e4e7b258",
+    "/Users/a1/Documents/Obsidian/多Agent协作开发工作流/05-验证/2026-11-11-项目经理Obsidian接入核验.md": "79206dd19eaa90fd7ccc5597104ed206f79e7f5cd947d30e4c212ad44e0a068b",
+    "/Users/a1/Documents/a/workflour/agents/wf-plan-lead/SOUL.md": "d97597afb4741099aa3dc62910252289782fe79d3365867edc11f6ea6cdba327",
+    "/Users/a1/Documents/a/workflour/agents/wf-plan-lead/SKILLS.md": "87e81f12b3d43f941d0f823aa3fcd6b81149b01f1807b85b4105591310e0482a",
+    "/Users/a1/Documents/a/workflour/agents/wf-plan-lead/skills/wf-plan-lead-role/SKILL.md": "8cea370dfdb4da75aa936d8965d8c05c8135a5b699b9855cc2c6ba70125c7804",
+    "/Users/a1/Documents/a/workflour/integrations/openmausbot/team-v2/README.md": "492439b5329c504d5e5b30feed8871d00dc0610acdd9bc96e39d45986fe31bba"
+  }
+}

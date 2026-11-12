@@ -183,6 +183,7 @@ def configure():
     run(['ruby', ROOT / 'scripts/workbuddy-pool-sync.rb', '--profile', 'omb-xhs-collector', '--check'], env=env)
     for role in ('xhs-collector', 'xhs-planner', 'xhs-writer'):
         run(['bash', ROOT / 'integrations/openmausbot/setup.sh', '--only', role], env=env)
+    run([sys.executable, ROOT / 'scripts/configure-xhs-delivery.py', '--root', ROOT], env=env)
     run([sys.executable, ROOT / 'scripts/provision-xhs-team.py', 'prepare'], env=env)
     print('配置完成。执行 up 启动服务，再执行 connect 创建三个 Bot。')
 

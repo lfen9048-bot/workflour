@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-12T07:24:00.283968+00:00",
+  "scope": "Mac corrective implementation and native writer MCP delivery; not a fresh full three-Bot workflow",
+  "local_tests": {
+    "xhs_tests": 166,
+    "collector_service_tests": 13,
+    "total": 179,
+    "passed": true,
+    "python_environment": "existing xhs-crawler venv",
+    "syntax_and_whitespace_checks": "passed",
+    "reverified_at": "2026-11-12T21:50:00+08:00",
+    "reverified_content": "current working tree (after the two post-evidence edits)",
+    "related_deployment_tests": {
+      "count": 43,
+      "passed": true,
+      "detail": "test_workflour_ubuntu(18) + test_xhs_ubuntu(8) + test_workflow_check(17)"
+    },
+    "full_local_suite": {
+      "ran": 445,
+      "errors": 2,
+      "skipped": 1,
+      "note": "the 2 errors are environmental only: test_xhs_web_collect needs scrapling (present in the xhs-crawler venv, absent in system python). The 1 skip is the pre-existing native-DSH hook skip."
+    }
+  },
+  "native_runtime": {
+    "provider": "antigravity",
+    "version": "1.5.6",
+    "model_selection": "gemini-3.8-flash / low"
+  },
+  "first_mcp_smoke": {
+    "status": "blocked",
+    "reason": "ACP did not discover workspace MCP config",
+    "files_changed": false,
+    "new_image_requests": 0
+  },
+  "corrected_mcp_smoke": {
+    "status": "passed",
+    "registration": "XHS-writer-only standard ACP stdio injection",
+    "prepare_calls": 1,
+    "confirm_calls": 1,
+    "native_image_read_calls": 2,
+    "actual_cards": 2,
+    "dimensions": [
+      [
+        1080,
+        1440
+      ],
+      [
+        1080,
+        1440
+      ]
+    ],
+    "render_checks": [
+      {
+        "id": "card-1",
+        "overflow": false,
+        "bottom": 1364
+      },
+      {
+        "id": "card-2",
+        "overflow": false,
+        "bottom": 1364
+      }
+    ],
+    "delivery_receipt_status": "ready",
+    "report_status": "partial",
+    "image_generation_status": "blocked",
+    "reused_finished_blocked_evidence_unchanged": true,
+    "report_confirmed_before_native_terminal": true,
+    "native_terminal_success": true,
+    "new_image_requests": 0,
+    "new_collection_requests": 0,
+    "maintainer_also_viewed_cards": true
+  },
+  "recovery_attempt": {
+    "explicit_send_count": 1,
+    "original_planner_result": "provider_error_again",
+    "native_workbench_takeover_observed": "omb-coder / agent-default",
+    "additional_native_resend_by_workbench": true,
+    "business_tool_calls_after_resume": 0,
+    "target_thread_interrupted": true,
+    "original_task_model_restored_and_read_back": true,
+    "bot_default_unchanged": true,
+    "protected_draft_sources_limits_usage_and_failed_image_evidence_unchanged": true,
+    "original_project_status": "active",
+    "original_project_stage": "draft",
+    "new_image_requests": 0,
+    "new_collection_requests": 0
+  },
+  "current_guard": {
+    "automatic_send_enabled": false,
+    "reason": "OpenMausBot 0.1.143 has no verifiable task-scoped quota-takeover opt-out",
+    "guard_precedes_requests_locks_and_journal": true,
+    "status_and_reconcile_available": true,
+    "shared_global_recovery_settings_changed": false
+  },
+  "boundaries": {
+    "new_bots": 0,
+    "new_paid_api_configured": false,
+    "extra_image_credits_enabled": false,
+    "published": false,
+    "exact_token_cost": "unverified",
+    "fresh_AI_generation_on_corrected_MCP": "not_tested; finished blocked evidence reused",
+    "full_unattended_workflow": "not_proven; original planner quota error and workbench takeover remain external constraints",
+    "Ubuntu_VM_accounts_and_native_tools": "not_tested"
+  },
+  "ci": {
+    "status": "pending"
+  },
+  "source_sha256": {
+    "scripts/xhs_delivery.py": "721e90453b88e8d1a696bee15d3e1d3032b1fe24402b008906889b322b47c267",
+    "scripts/xhs-deliver.py": "c152258b7688238c936a056e5135dd8010c99f620141183dcdce46fda2599b48",
+    "scripts/xhs-delivery-mcp.py": "713034c1824bc241209e0bcecb9dc9125f4a04d511069329865375b39f529426",
+    "scripts/xhs-agy-mcp-bridge.py": "2377e61cd2a0c1e5e85aa80419d2e2c5675fc8b46ebfee124ddf38f2cb318d44",
+    "scripts/configure-xhs-delivery.py": "d87a2e037e17322cbd0381f77fa6c3cf32d9027924c705639efa442e3adf70fa",
+    "scripts/xhs_recovery.py": "95ad050a8a058324168aa17c931e72daffcb278fdd1e5ddff9cba4341994a9ec",
+    "scripts/resume-xhs.py": "65c4a6fedbec30c5c0f8899252ef4b94f7e9e70a2fc376b7be0e6b7d2ba1c290",
+    "scripts/xhs-workflow.py": "e2879d23a445df0dbcd080c9def4ab73f3a66402959a82a716a4bbafc01aabe0",
+    "scripts/xhs-image.py": "4acca0f743d080536eea68fa38bceacfd39a92599330f7239d839010574cf2ad",
+    "scripts/start-xhs.py": "8247b523e57deb7587c993513a0b938c6c59d78340927b35a96469b0d1fc2523",
+    "scripts/xhs-ubuntu.py": "018ff67b3e51e8853605bbdf67d0e05419e4bbcd9b5931f7150adbef5ba2c532",
+    "run-agy-agent.sh": "9fd796e69613512c4267025ee6c543ab8c1dbb5f46fd983f4bb4c7902429a745"
+  },
+  "source_hash_note": "Hashes recomputed 2026-11-12 21:5x Asia/Shanghai after two post-evidence edits (xhs-agy-mcp-bridge.py, xhs-workflow.py). The 179 local tests were re-run on this exact content and passed; the earlier recorded values are superseded, not deleted silently.",
+  "source_hash_refreshed": [
+    "scripts/xhs-agy-mcp-bridge.py",
+    "scripts/xhs-workflow.py"
+  ]
+}

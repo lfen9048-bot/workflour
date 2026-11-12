@@ -47,6 +47,8 @@ def start(client, team, project, topic, image=False):
         team_tool.control.write_journal(journal, receipt)
         with workflow.locked(project) as state_path:
             state = workflow.initialize(project, topic, thread)
+            state['image_policy'] = {'max_requests': 1 if image else 0, 'useG1Credits': False}
+            state['delivery_contract'] = 'synchronous-v1'
             workflow.set_limits(project, state, 'all', 3, 2, 2)
             state['updated_at'] = workflow.now()
             workflow.write(state_path, state)
