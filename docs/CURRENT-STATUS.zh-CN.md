@@ -8,6 +8,8 @@
 
 ## 当前有效配置
 
+2026-11-12 小红书同步交付：写作侧改为前台 `prepare_delivery` / `confirm_delivery`，等真实图片结果或失败模板，实际读图后才写最终报告；不再依赖后台命令先返回。恢复入口 `resume-xhs.py` 的 status/preview 只读，send 在无法验证任务级关闭自动接管时拒绝发送。代码提交 `f993b33`、CI 结果提交 `7b17d70`，两个 Ubuntu workflow 均已实际成功（XHS 真跑 166+13 项测试与两卡渲染；七角色原生 DSH hook 3 项全过、0 跳过）。仍未覆盖：账号登录、模型请求、目标 Ubuntu 虚拟机用户服务、一次真实付费生图。详见[三 Agent 说明](../integrations/openmausbot/team-xhs/README.md)与[脱敏摘要](evidence/2026-11-12/xhs-synchronous-delivery-fix.json)。
+
 2026-11-12 技能复验：16项方法文件保留，新增研究综合仅限多源冲突/版本或费用适用性不明时启用；新增UX、覆盖审核和属性测试3项退回候选。既有12项按需沿用，不宣称全部充分验证。用户要求免费后17个隔离会话只用实时零倍率HY3，无付费备用；七Bot默认/Full/项目状态未改。少量对照有改善也有负效果，网页组未胜，代码组仍过度宣称通过。见[复验结论](SKILLS-REVALIDATION.zh-CN.md)和[脱敏摘要](evidence/2026-11-12/skills-revalidation-summary.json)。下方11月11日“4项已接入”是历史状态。
 
 后续极简通道检查：2026-11-11按用户新授权，GLM Flash、MiMo Pro、MiniMax Flash各一条Low短请求，均返回OK；接口报告总计254 tokens（输入233、输出21），0重试、0工具、无新稿或图片，默认分工未改。只证明通道可用，完整工作流与文风未测试。见[检查摘要](evidence/2026-11-11/xhs-model-tiny-smoke.json)。
