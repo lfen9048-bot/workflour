@@ -14,6 +14,7 @@
 # `--version` 是 OpenMausBot 的安装探测（它会对配置里的 cli 跑 --version），
 # 不是 ACP 请求；该路径同样只写 stdout 一行版本号。
 set -euo pipefail
+umask 077
 
 DSH_BIN_OVERRIDE="${DSH_BIN:-}"
 DSH_BIN="/Applications/DeepSeek Harness.app/Contents/Resources/runtime/cli/bin/dsh"
@@ -69,6 +70,46 @@ fi
 # its tool results) instead of falling back to a new Agent rebuilt from chat.
 # This alias is specific to OpenMausBot, which owns the visible transcript.
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+# Render project plugins into private, content-addressed patches. The repository
+# templates may still contain the historical Mac root, but neither a moved
+# checkout nor a second host should import plugins from that machine's path.
+# Keep the original plugin files in place (their relative imports need them).
+PLUGIN_PATCH_DIR="$(/usr/bin/ruby -r yaml -r digest -r fileutils -r tempfile - "${SCRIPT_DIR}" "${DSH_HOME}" <<'RUBY'
+root, home = ARGV
+begin
+  rendered = %w[session-title model-fallback].to_h do |component|
+    source = File.join(root, 'integrations/openmausbot', component, 'cordis.patch.yml')
+    plugin = File.join(root, 'integrations/openmausbot', component, 'plugin.mjs')
+    raise 'Required project plugin or patch is missing' unless File.file?(source) && File.file?(plugin)
+    tree = YAML.safe_load(File.read(source), permitted_classes: [], permitted_symbols: [], aliases: false)
+    entries = tree.is_a?(Array) && tree.flat_map { |row| row.is_a?(Hash) ? Array(row['insert']) : [] }
+    expected_id = 'workflour-' + component
+    raise 'Unexpected project plugin patch' unless entries && entries.length == 1 && entries[0].is_a?(Hash) && entries[0]['id'] == expected_id
+    # This patch mounts a project-owned plugin, never a plugin from another host.
+    entries[0]['name'] = plugin
+    [component, YAML.dump(tree)]
+  end
+  digest = Digest::SHA256.hexdigest(root + rendered.values.join)[0, 24]
+  base = File.join(home, 'workflour-plugin-patches', digest)
+  rendered.each do |component, content|
+    directory = File.join(base, component)
+    FileUtils.mkdir_p(directory, mode: 0700)
+    path = File.join(directory, 'cordis.patch.yml')
+    next if File.file?(path) && !File.symlink?(path) && File.read(path) == content
+    Tempfile.create(['.patch-', '.tmp'], directory) do |file|
+      file.chmod(0600)
+      file.write(content)
+      file.flush
+      File.rename(file.path, path)
+    end
+  end
+  puts base
+rescue StandardError => error
+  warn "run-acp-agent.sh: project plugin setup failed (#{error.class}); refusing to start"
+  exit 1
+end
+RUBY
+)"
 DSH_ARGS=("${DSH_BIN}" --profile "${PROFILE}")
 unset WORKFLOUR_QUOTA_POLICY
 case "${PROFILE}" in
@@ -85,5 +126,5 @@ case "${PROFILE}" in
 esac
 exec /usr/bin/python3 "${SCRIPT_DIR}/integrations/openmausbot/acp-resume-bridge.py" \
     "${DSH_ARGS[@]}" \
-    --patch "${SCRIPT_DIR}/integrations/openmausbot/session-title/cordis.patch.yml" \
-    --patch "${SCRIPT_DIR}/integrations/openmausbot/model-fallback/cordis.patch.yml"
+    --patch "${PLUGIN_PATCH_DIR}/session-title/cordis.patch.yml" \
+    --patch "${PLUGIN_PATCH_DIR}/model-fallback/cordis.patch.yml"

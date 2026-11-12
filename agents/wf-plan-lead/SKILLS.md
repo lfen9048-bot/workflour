@@ -13,3 +13,4 @@
 | 只有会改变范围/验收的关键歧义，且已有上下文无法解决时 | ../wf-shared/skills/wf-requirements-interview/SKILL.md |
 | 把已明确的目标和依据定稿为一份短计划、工作项与可观察验收 | ../wf-shared/skills/wf-writing-plans/SKILL.md |
 | 汇总当前阶段产物、回执与快照，准备推进阶段时 | ../wf-shared/skills/wf-verification-before-completion/SKILL.md |
+| 接续知识库上下文，或有实质进展需更新本项目笔记与首页交接时 | ../wf-shared/skills/wf-obsidian-markdown/SKILL.md |

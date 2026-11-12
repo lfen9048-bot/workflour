@@ -14,8 +14,11 @@ import { promisify } from 'node:util';
 
 const execFileAsync = promisify(execFile);
 export const SUPPORTED_PLUGIN_VERSION = '5.13.1';
-export const DEFAULT_PACKAGE_DIR = join(homedir(), '.dsh/profiles/desktop/node_modules/dsh-connect-workbuddy');
-export const DEFAULT_PATCH_PATH = join(homedir(), '.dsh/profiles/desktop/cordis.patch.yml');
+const sourceProfile = process.env.WORKFLOUR_DSH_SOURCE_PROFILE || 'desktop';
+if (!/^[A-Za-z0-9_-]+$/.test(sourceProfile)) throw new Error('Invalid WorkBuddy source profile');
+const sourceRoot = join(process.env.DSH_HOME || join(homedir(), '.dsh'), 'profiles', sourceProfile);
+export const DEFAULT_PACKAGE_DIR = join(sourceRoot, 'node_modules/dsh-connect-workbuddy');
+export const DEFAULT_PATCH_PATH = join(sourceRoot, 'cordis.patch.yml');
 const ACCOUNT_ID = /^[0-9a-f]{24}$/;
 const REGIONS = ['cn', 'global'];
 

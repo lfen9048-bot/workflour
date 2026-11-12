@@ -174,6 +174,11 @@ class XhsSelectiveSetupTests(unittest.TestCase):
         fixture = self.base / 'launcher'
         (fixture / 'scripts').mkdir(parents=True)
         (fixture / 'integrations/openmausbot').mkdir(parents=True)
+        for component in ('session-title', 'model-fallback'):
+            folder = fixture / 'integrations/openmausbot' / component
+            folder.mkdir()
+            shutil.copyfile(ROOT / 'integrations/openmausbot' / component / 'cordis.patch.yml', folder / 'cordis.patch.yml')
+            (folder / 'plugin.mjs').write_text('// fixture; fake bridge never imports this plugin\n')
         shutil.copyfile(ROOT / 'run-acp-agent.sh', fixture / 'run-acp-agent.sh')
         shutil.copyfile(ROOT / 'scripts/workbuddy-pool-sync.rb', fixture / 'scripts/workbuddy-pool-sync.rb')
         (fixture / 'integrations/openmausbot/acp-resume-bridge.py').write_text(

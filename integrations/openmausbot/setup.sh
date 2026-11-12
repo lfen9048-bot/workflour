@@ -60,7 +60,7 @@ case "${SETUP_ROLE}" in
     wf-manager|wf-plan-lead|wf-plan-review|wf-code-review|wf-code-helper|wf-assistant|xhs-collector|xhs-planner|xhs-writer-dsh)
         /usr/bin/ruby "${WORKSPACE_DIR}/scripts/workbuddy-pool-sync.rb" \
             --profile "omb-${SETUP_ROLE}" --check >/dev/null
-        log "[+] 账号池来源已核对：ACP 启动时读取 desktop 成员、开关与排序"
+        log "[+] 账号池来源已核对：ACP 启动时读取 ${WORKFLOUR_DSH_SOURCE_PROFILE} 成员、开关与排序"
         ;;
 esac
 
@@ -136,10 +136,10 @@ EOF
     if [ -f "${target}" ]; then
         workbuddy_block="$(extract_entry "${target}" "dsh-connect-workbuddy")"
     fi
-    # XHS can start on a new Ubuntu host with only a logged-in Web profile.
+    # New teams can start on Ubuntu with only a logged-in Web profile.
     # Read its own saved entry; never require a historical Mac Doc profile.
     case "${role}" in
-        xhs-*)
+        wf-*|xhs-*)
             if [ -z "${workbuddy_block}" ] && [ -f "${DSH_HOME}/profiles/${WORKFLOUR_DSH_SOURCE_PROFILE}/cordis.patch.yml" ]; then
                 workbuddy_block="$(extract_entry "${DSH_HOME}/profiles/${WORKFLOUR_DSH_SOURCE_PROFILE}/cordis.patch.yml" "dsh-connect-workbuddy")"
             fi
@@ -172,14 +172,33 @@ EOF
     fi
 
     {
-        # Only the private generated profile receives local paths. Portable XHS
-        # declarations remain relative in Git and can move to another host.
-        python3 - "${template}" "${WORKSPACE_DIR}" <<'PY'
-from pathlib import Path
-import json
-import sys
-print(Path(sys.argv[1]).read_text().replace('@WORKSPACE_ROOT@', json.dumps(sys.argv[2], ensure_ascii=False)[1:-1]), end='')
-PY
+        # Parse before replacing paths, so spaces, quotes and YAML punctuation
+        # in the checkout path cannot change the generated configuration.
+        # Legacy templates remain supported; only this private copy is rendered.
+        /usr/bin/ruby -r yaml - "${template}" "${WORKSPACE_DIR}" <<'RUBY'
+template, root = ARGV
+tree = YAML.safe_load(File.read(template), permitted_classes: [], permitted_symbols: [], aliases: false)
+raise 'Expected a profile patch list' unless tree.is_a?(Array)
+render = lambda do |value|
+  case value
+  when String
+    ['/Users/a1/Documents/a/workflour', '@WORKSPACE_ROOT@', '{{ROOT}}'].reduce(value) do |text, token|
+      text.gsub(token) { root }
+    end
+  when Array then value.map { |item| render.call(item) }
+  when Hash then value.transform_values { |item| render.call(item) }
+  else value
+  end
+end
+tree = render.call(tree)
+tree.each do |entry|
+  next unless entry.is_a?(Hash) && entry['id'] == 'skill-filesystem'
+  Array(entry.fetch('config', {})['customSkillDirs']).each do |path|
+    raise 'Configured role skill directory is missing' unless path.is_a?(String) && File.directory?(path)
+  end
+end
+puts YAML.dump(tree)
+RUBY
         printf '\n'
         printf '%s\n' "${workbuddy_block}"
     } > "${target}.new"

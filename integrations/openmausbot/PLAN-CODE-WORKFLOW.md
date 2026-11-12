@@ -19,10 +19,10 @@
 
 ## 负责人操作
 
-以下是 Agent 的执行接口，不是用户操作清单。工具包位于 `/Users/a1/Documents/a/workflour`。
+以下是 Agent 的执行接口，不是用户操作清单。工具包根目录以当前Bot部署说明为准。下文 `scripts/` 相对于该根目录，不是业务项目cwd；执行前解析成真实绝对路径。
 
 ```bash
-python3 /Users/a1/Documents/a/workflour/scripts/coordinator-workflow.py --project /实际项目目录 --actor plan-lead init TASK-ID '用户原始任务' --thread-id 当前Plan负责人会话ID
+python3 scripts/coordinator-workflow.py --project /实际项目目录 --actor plan-lead init TASK-ID '用户原始任务' --thread-id 当前Plan负责人会话ID
 ```
 
 默认按 project.json 启用 plan-code。负责人自身的研究和定稿用 `record research --evidence records/plan-lead/research.md`、`record plan --evidence records/plan-lead/plan.md`；不向自己派单，不编造原生回执。
@@ -59,7 +59,7 @@ python3 /Users/a1/Documents/a/workflour/scripts/coordinator-workflow.py --projec
 
 ## Agent 执行速查（首次完整任务）
 
-命令中 `L` 表示 `python3 /Users/a1/Documents/a/workflour/scripts/coordinator-workflow.py --project 项目绝对路径 --actor plan-lead` 的完整前缀；`C` 表示项目内 `python3 .workflour/check.py`。这是说明中的简写，不是预装命令。执行时使用真实参数和明确 cwd，不将字符串拼接成不受控 shell。
+命令中 `L` 表示 `python3 scripts/coordinator-workflow.py --project 项目绝对路径 --actor plan-lead` 的完整前缀；`C` 表示项目内 `python3 .workflour/check.py`。这是说明中的简写，不是预装命令。执行时使用真实参数和明确 cwd，不将字符串拼接成不受控 shell。
 
 1. **初始化**：新建空目录模板，阅读项目 AGENTS；将 handoff 的 `task_id/original_request/requirements/artifacts.spec/next_action` 填实，保留 `owner:plan-lead`、`acceptance.status:pending`。当前原生会话 ID 必须是 Plan 负责人接单的会话，不是大管家或之前探针的会话。`L init TASK 原话 --thread-id 当前会话` 只建账本，不派单。`in_my_folder:true` 只继承父会话目录；父目录不是项目时，工具命令必须另指定实际项目 cwd 或用 `project-exec.py`，不能声称继承后自动换了目录。
 2. **调研初案**：保留真实来源、假设与可验收需求，`C check --stage requirements`；完成材料后 `L record research --evidence records/plan-lead/research.md`，再 `L advance plan-review`。已记录的 research 文件保留原样，定稿另写文件。

@@ -3,11 +3,14 @@ name: model-settings
 description: Show native model/thinking settings and apply explicitly submitted task or Bot defaults safely.
 ---
 
-Use `/Users/a1/Documents/a/workflour/scripts/bot-model.py`, not hand edits to
+文中 `agents/`、`scripts/`、`integrations/` 路径相对于本机 Workflour 工具仓库根（由 Bot 部署说明给出），不是业务项目 cwd；调用前解析成绝对路径。
+
+
+Use `scripts/bot-model.py`, not hand edits to
 profiles, native databases or global defaults. Discover actual Bot/thread IDs
 and current settings first. Do not change anything on opening or cancellation.
 
-For settings, run `python3 /Users/a1/Documents/a/workflour/scripts/bot-model.py widget --bot ID --thread ID
+For settings, run `python3 scripts/bot-model.py widget --bot ID --thread ID
 [--project PATH]` and pass its widget/fallback_text to the actual show_widget
 tool. After model_settings_model is submitted, call widget with payload.bot,
 payload.thread and --choice values.model_choice to render the model's actual

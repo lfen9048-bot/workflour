@@ -2,7 +2,9 @@
 
 在 OpenMausBot 工作台把任务交给大管家，由 Plan Team 制定和评审方案、Code Team 实现和独立审查，最后由 Plan 检查实际体验，交给用户验收。DSH 是 Agent 运行时，WorkBuddy 是模型和额度插件；Gemini 通过独立 Antigravity 运行。
 
-**当前基线：2026-11-11，Mac 已完成技术验证，Windows 尚待在目标电脑移植和验收。** 这份仓库包含源码、职责和技能、模板、重要工作记录与 Windows 交接。它不包含账号登录状态，也不是已验证的 Windows 一键安装器。
+**Mac 工作流已有技术验证；完整七 Bot 现提供 Ubuntu 24.04 桌面虚拟机部署入口。** 账号登录和完整业务仍需目标机验收；Windows 原生部署继续按移植手册执行。仓库不包含账号登录状态。
+
+**七 Bot Ubuntu 部署：[从这里开始](docs/ubuntu-deployment/00-从这里开始.md) · [给 Ubuntu Agent 的接手提示词](docs/ubuntu-deployment/01-给Ubuntu上的Agent.md) · [验证与已知限制](docs/ubuntu-deployment/02-验证与已知限制.md)。** 下载后在 Ubuntu 内执行 `./scripts/workflour-ubuntu.sh install --system-deps`，再按教程登录、配置和连接团队。
 
 小红书三 Bot 另提供 [Ubuntu 桌面虚拟机快速接入](docs/xhs-ubuntu-handoff.zh-CN.md)，包含安装、自检、后台服务和派稿入口。
 

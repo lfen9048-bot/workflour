@@ -214,3 +214,17 @@ DSH 账号池默认从本机 web profile 读取，可显式指定
 用 start 子命令新建图文时，入口自动绑定真实工作台 threadId，不能用内部会话ID替代。
 新机生成自己的 Bot ID、账号登录和内容目录；不复制Mac凭据或虚拟环境。
 Linux CI 的安装、服务和渲染检查不代替目标虚拟机的账号/模型/配图验收。
+
+## Ubuntu 完整开发团队入口
+
+Ubuntu 24.04 x86_64 桌面虚拟机部署七个开发Bot，先读
+`docs/ubuntu-deployment/00-从这里开始.md` 与 `01-给Ubuntu上的Agent.md`。
+使用 `scripts/workflour-ubuntu.sh`：install → 本机登录 → configure → up → connect → doctor。
+新机清单为 `~/.workflour/team-v2/deployment.json`，可用 `WORKFLOUR_TEAM_MANIFEST`
+或 `provision-team.py --manifest` 指定；不复制Mac真实Bot ID。原Mac本机清单保留兼容。
+账号源为本机DSH web profile，运行时、账号、聊天和计时器均留在新机。
+知识库由 `WORKFLOUR_OBSIDIAN_VAULT` 指定，默认 `~/Documents/Obsidian/Workflour`。
+角色文档中相对工具路径以部署说明中的仓库根解析，不能误用业务项目cwd。
+后台使用systemd用户服务，自动记录20秒、国内已勾选账号签到/恢复检查北京时间13点；
+Mac继续原launchd/Codex日程。安装与无账号Linux检查不证明订阅、读图或完整业务通过；
+目标机按部署验收表实际核验。不要把Mac能力记录当成本机事实。

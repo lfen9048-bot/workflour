@@ -2,6 +2,8 @@
 
 此目录复用本机已安装的 `dsh-connect-workbuddy` **5.13.1**，为额度路由提供模型目录及积分数据，并为国内个人账号执行每日签到。不会升级插件、修改账号选择、请求模型或领取其他活动奖励。
 
+Ubuntu入口使用 `DSH_HOME` 与 `WORKFLOUR_DSH_SOURCE_PROFILE=web` 定位本机插件及账号池；未指定时保持原Mac的 `~/.dsh/profiles/desktop` 默认。七Bot Ubuntu部署通过systemd用户timer在北京时间13:00调用同一签到/恢复脚本，不需要把Mac的Codex自动化迁过去；只读回并处理本机已勾选国内账号。见[Ubuntu教程](../../../docs/ubuntu-deployment/00-从这里开始.md)。
+
 上游：[dingminhua/dsh-connect-workbuddy](https://github.com/dingminhua/dsh-connect-workbuddy)，MIT，Copyright © 2026 LaoDing。代码直接调用安装包已有接口，没有复制凭据解析或计费请求实现；版本变化时会明确拒绝加载，需重新核对兼容性。
 
 ## 每天怎样运行

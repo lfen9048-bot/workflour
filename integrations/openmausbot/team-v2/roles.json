@@ -8,8 +8,8 @@
     "model": "deepseek-v4.1-flash",
     "modelId": "[\"workbuddy\",\"deepseek-v4.1-flash\"]",
     "thinking": "low",
-    "soulFile": "/Users/a1/Documents/a/workflour/agents/wf-manager/SOUL.md",
-    "skillsFile": "/Users/a1/Documents/a/workflour/agents/wf-manager/SKILLS.md",
+    "soulFile": "agents/wf-manager/SOUL.md",
+    "skillsFile": "agents/wf-manager/SKILLS.md",
     "roleSkill": "wf-manager-role",
     "optional": false
   },
@@ -22,8 +22,8 @@
     "model": "kimi-k3.1-pro",
     "modelId": "[\"workbuddy\",\"kimi-k3.1-pro\"]",
     "thinking": "high",
-    "soulFile": "/Users/a1/Documents/a/workflour/agents/wf-plan-lead/SOUL.md",
-    "skillsFile": "/Users/a1/Documents/a/workflour/agents/wf-plan-lead/SKILLS.md",
+    "soulFile": "agents/wf-plan-lead/SOUL.md",
+    "skillsFile": "agents/wf-plan-lead/SKILLS.md",
     "roleSkill": "wf-plan-lead-role",
     "optional": false
   },
@@ -36,8 +36,8 @@
     "model": "deepseek-v4.1-flash",
     "modelId": "[\"workbuddy\",\"deepseek-v4.1-flash\"]",
     "thinking": "high",
-    "soulFile": "/Users/a1/Documents/a/workflour/agents/wf-plan-review/SOUL.md",
-    "skillsFile": "/Users/a1/Documents/a/workflour/agents/wf-plan-review/SKILLS.md",
+    "soulFile": "agents/wf-plan-review/SOUL.md",
+    "skillsFile": "agents/wf-plan-review/SKILLS.md",
     "roleSkill": "wf-plan-review-role",
     "optional": false
   },
@@ -50,8 +50,8 @@
     "model": "gemini-3.8-flash",
     "modelId": "gemini-3.8-flash",
     "thinking": "high",
-    "soulFile": "/Users/a1/Documents/a/workflour/agents/wf-code-main/SOUL.md",
-    "skillsFile": "/Users/a1/Documents/a/workflour/agents/wf-code-main/SKILLS.md",
+    "soulFile": "agents/wf-code-main/SOUL.md",
+    "skillsFile": "agents/wf-code-main/SKILLS.md",
     "roleSkill": "wf-code-main-role",
     "optional": false
   },
@@ -64,8 +64,8 @@
     "model": "glm-5.3-flash",
     "modelId": "[\"workbuddy\",\"glm-5.3-flash\"]",
     "thinking": "high",
-    "soulFile": "/Users/a1/Documents/a/workflour/agents/wf-code-review/SOUL.md",
-    "skillsFile": "/Users/a1/Documents/a/workflour/agents/wf-code-review/SKILLS.md",
+    "soulFile": "agents/wf-code-review/SOUL.md",
+    "skillsFile": "agents/wf-code-review/SKILLS.md",
     "roleSkill": "wf-code-review-role",
     "optional": false
   },
@@ -78,8 +78,8 @@
     "model": "deepseek-v4.1-flash",
     "modelId": "[\"workbuddy\",\"deepseek-v4.1-flash\"]",
     "thinking": "high",
-    "soulFile": "/Users/a1/Documents/a/workflour/agents/wf-code-helper/SOUL.md",
-    "skillsFile": "/Users/a1/Documents/a/workflour/agents/wf-code-helper/SKILLS.md",
+    "soulFile": "agents/wf-code-helper/SOUL.md",
+    "skillsFile": "agents/wf-code-helper/SKILLS.md",
     "roleSkill": "wf-code-helper-role",
     "optional": true
   },
@@ -92,8 +92,8 @@
     "model": "deepseek-v4.1-flash",
     "modelId": "[\"workbuddy\",\"deepseek-v4.1-flash\"]",
     "thinking": "low",
-    "soulFile": "/Users/a1/Documents/a/workflour/agents/wf-assistant/SOUL.md",
-    "skillsFile": "/Users/a1/Documents/a/workflour/agents/wf-assistant/SKILLS.md",
+    "soulFile": "agents/wf-assistant/SOUL.md",
+    "skillsFile": "agents/wf-assistant/SKILLS.md",
     "roleSkill": "wf-assistant-role",
     "optional": true
   }

@@ -166,6 +166,11 @@ class PoolSyncTests(unittest.TestCase):
         (launcher_root / 'scripts').mkdir(parents=True)
         integration = launcher_root / 'integrations/openmausbot'
         integration.mkdir(parents=True)
+        for component in ('session-title', 'model-fallback'):
+            folder = integration / component
+            folder.mkdir()
+            shutil.copyfile(ROOT / 'integrations/openmausbot' / component / 'cordis.patch.yml', folder / 'cordis.patch.yml')
+            (folder / 'plugin.mjs').write_text('// fixture; fake bridge never imports this plugin\n')
         shutil.copyfile(HELPER, launcher_root / 'scripts/workbuddy-pool-sync.rb')
         (integration / 'acp-resume-bridge.py').write_text(
             'import os,sys,json\nprint(json.dumps({"argv":sys.argv[1:],"policy":os.environ.get("WORKFLOUR_QUOTA_POLICY")}))\n')

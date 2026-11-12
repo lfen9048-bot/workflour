@@ -1,0 +1,59 @@
+name: Workflour seven-role Ubuntu
+on:
+  push:
+    paths:
+      - '.github/workflows/workflour-ubuntu.yml'
+      - 'agents/wf-*/**'
+      - 'integrations/ubuntu/**'
+      - 'integrations/openmausbot/**'
+      - 'scripts/*ubuntu*'
+      - 'scripts/prepare-workbench.py'
+      - 'scripts/provision-team.py'
+      - 'scripts/workflour_paths.py'
+      - 'scripts/init-workflour-vault.py'
+      - 'scripts/workflow-observer.py'
+      - 'scripts/workbuddy-pool-sync.rb'
+      - 'run-acp-agent.sh'
+      - 'run-agy-agent.sh'
+      - 'tests/test_workflour*.py'
+      - 'tests/workflour-linux-smoke.py'
+      - 'tests/test_provision_team.py'
+      - 'tests/test_team_portability.py'
+      - 'tests/test_workflow_observer.py'
+      - 'tests/test_workbuddy*'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ubuntu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.3'
+      - name: Install pinned tools without account login
+        run: ./scripts/workflour-ubuntu.sh install --system-deps
+      - name: Offline deployment and portability checks
+        run: |
+          python3 -m unittest discover -s tests -p 'test_workflour*.py'
+          python3 -m unittest discover -s tests -p 'test_provision_team.py'
+          python3 -m unittest discover -s tests -p 'test_team_portability.py'
+          python3 -m unittest discover -s tests -p 'test_workbuddy_pool_sync.py'
+          python3 -m unittest discover -s tests -p 'test_workflow_observer.py'
+          node --test tests/test_workbuddy_checkin.mjs tests/test_workbuddy_portable.mjs
+          bash -n integrations/openmausbot/setup.sh run-acp-agent.sh run-agy-agent.sh scripts/workflour-ubuntu.sh
+          ruby -c scripts/workbuddy-pool-sync.rb
+      - name: Real private workbench, browser and isolated seven profiles
+        run: python3 tests/workflour-linux-smoke.py --output "$RUNNER_TEMP/workflour-ubuntu-smoke"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: workflour-ubuntu-smoke
+          path: |
+            ${{ runner.temp }}/workflour-ubuntu-smoke/verification.json
+            ${{ runner.temp }}/workflour-ubuntu-smoke/*.png
+            ${{ runner.temp }}/workflour-ubuntu-smoke/*.service
+            ${{ runner.temp }}/workflour-ubuntu-smoke/*.timer
+          if-no-files-found: warn

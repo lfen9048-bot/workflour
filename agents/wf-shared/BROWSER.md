@@ -1,7 +1,9 @@
 # 本机浏览器检查入口
 
+路径相对于本机 Workflour 工具仓库根，调用前解析绝对路径。Ubuntu安装器创建本机 `.tools/browser`；首次在目标机先验证启动、截图和模型读图。以下Mac历史实测不等于新电脑已通过。
+
 本项目维护者已提供并实测 Python Playwright 环境，证据见 [CAPABILITIES.md](CAPABILITIES.md)：
-`/Users/a1/Documents/a/workflour/.tools/browser/bin/python`。
+`.tools/browser/bin/python`。
 业务任务直接复用此入口；仅在实际调用失败、环境发生变化或具体任务需要尚未验证的能力时定向诊断。无需每次重新扫描浏览器安装、全局依赖或做随机图片能力探针。
 
 Python 中使用 `from playwright.sync_api import sync_playwright`，

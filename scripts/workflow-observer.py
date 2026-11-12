@@ -21,10 +21,11 @@ import urllib.error
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from native_assignments import read_assignments, matching, workflow_threads, effective_status
+from workflour_paths import vault_path
 SPEC = importlib.util.spec_from_file_location('record_export', Path(__file__).with_name('export-agent-record.py'))
 EXPORT = importlib.util.module_from_spec(SPEC); SPEC.loader.exec_module(EXPORT)
 BASE = Path.home() / '.workflour/observer'
-VAULT = Path('/Users/a1/Documents/Obsidian/多Agent协作开发工作流')
+VAULT = vault_path()
 LABEL = 'com.workflour.workflow-observer'
 
 
@@ -358,7 +359,7 @@ def main():
             age=(datetime.now(timezone.utc)-datetime.fromisoformat(result['checked_at'])).total_seconds()
             result['age_seconds']=round(age)
             if age > 120:
-                result.update(ok=False, warning='自动记录心跳超过120秒；检查launchd和observer-error.log，旧记录可能过时')
+                result.update(ok=False, warning='自动记录心跳超过120秒；检查本机launchd/systemd观察器服务和错误日志，旧记录可能过时')
         print(json.dumps(result,ensure_ascii=False,indent=2))
         return 0 if result.get('ok',True) else 1
     except Exception as exc:
