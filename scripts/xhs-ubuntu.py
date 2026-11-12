@@ -145,7 +145,8 @@ def ensure_workbuddy(env):
     if wanted and wanted != LOCK['workbuddy']:
         raise ValueError('Existing WorkBuddy version differs; no automatic downgrade. Use a separate source profile')
     if not wanted:
-        run([env['DSH_BIN'], 'plugin', '--profile', profile, 'add', 'dsh-connect-workbuddy@' + LOCK['workbuddy']], env=env)
+        run([env['DSH_BIN'], 'plugin', '--profile', profile, 'add', '--save-exact',
+             'dsh-connect-workbuddy@' + LOCK['workbuddy']], env=env)
 
 
 def auth_workbuddy():
@@ -196,7 +197,7 @@ def unit_text(component, root=ROOT, python=sys.executable):
     if any(c in str(root) + str(python) for c in '\n\r'):
         raise ValueError('Newlines are not supported in service paths')
     return (MARKER + '\n[Unit]\nDescription=Workflour XHS ' + component + '\nAfter=network-online.target\n'
-            '[Service]\nType=simple\nWorkingDirectory=' + quote(root) + '\nExecStart=' + quote(python, True) + ' '
+            '[Service]\nType=simple\nWorkingDirectory=' + str(root).replace('%', '%%') + '\nExecStart=' + quote(python, True) + ' '
             + quote(root / 'scripts/xhs-ubuntu.py', True) + ' serve --component ' + component + '\n'
             'Restart=on-failure\nRestartSec=10\nUMask=0077\n'
             '[Install]\nWantedBy=default.target\n')

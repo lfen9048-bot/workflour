@@ -90,7 +90,7 @@ class IntakeTests(unittest.TestCase):
 class UbuntuServicesTests(unittest.TestCase):
     def test_service_paths_escape_spaces_quotes_percent_and_dollar(self):
         text = ubuntu.unit_text('omb', Path('/a b/%r/$S/"x'), '/usr/bin/python3')
-        self.assertIn('WorkingDirectory="/a b/%%r/$S/\\"x"', text)
+        self.assertIn('WorkingDirectory=/a b/%%r/$S/"x\n', text)
         self.assertIn('$$S', text.split('ExecStart=')[1])
         self.assertIn('UMask=0077', text)
         with self.assertRaises(ValueError):

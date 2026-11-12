@@ -54,6 +54,9 @@ def main():
     ubuntu = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(ubuntu)
     env = ubuntu.environment()
+    # Installing then reopening auth must not mistake a caret range for the
+    # pinned plugin version or reinstall a different plugin behind the user.
+    ubuntu.ensure_workbuddy(env)
     results = {'platform': sys.platform, 'account_login': False, 'model_prompts_sent': False}
     for label, command, url in (
         ('workbench', [str(ubuntu.BASE / 'runtime/node_modules/.bin/openmausbot'), 'serve'],
